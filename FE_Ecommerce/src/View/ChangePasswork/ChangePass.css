@@ -1,0 +1,95 @@
+.formChange {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+
+.label-changePass {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-changePass {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+}
+
+.imgFogotPass {
+    width: 10%;
+    margin: auto;
+}
+
+.formChangePass {
+    margin: auto;
+}
+
+@media (min-width: 250px) {
+
+    .formChangePass form,
+    h2 {
+        padding-left: 17%;
+        width: 90%;
+    }
+
+    .imgFogotPass {
+        width: 90%;
+        padding-left: 12%;
+    }
+
+    h2 {
+        padding-top: 15px;
+    }
+
+}
+
+.div-pass {
+    position: relative;
+}
+
+.div-pass i {
+    position: absolute;
+    cursor: pointer;
+    top: 38px;
+    right: 11px;
+}
+
+.changepass-btn button {
+    border: 1px solid #F1F1F1;
+    border-radius: 5px;
+    background-color: #F1F1F1;
+    color: white;
+    cursor: none;
+    padding: 8px 12%;
+    
+
+}
+
+.changepass-btn button.active {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12%;
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+
+.changepass-btn button[disabled],
+button:disabled {
+    cursor: not-allowed;
+}
+
+.changepass-btn {
+    margin-top: 12px;
+}
+
+.changepass-btn button {
+    display: flex;
+    justify-content: center;
+}

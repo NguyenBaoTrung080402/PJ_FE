@@ -1,0 +1,142 @@
+form.form.userProfile {
+  width: 100%;
+}
+
+.img-user ul li {
+  list-style-type: none;
+  text-align: center;
+}
+
+.form-infor {
+  display: flex;
+  margin-top: 10px;
+}
+
+.form-infor .input-infor {
+  margin-right: 2%;
+}
+
+input#user_name {
+  width: 102%;
+}
+select#gender {
+  width: 100%;
+}
+
+input#avatar {
+  margin-top: 12px;
+}
+
+input#avatar {
+  width: 106px;
+}
+
+h1.title_changeInfor {
+  /* margin-left: 41%; */
+  text-align: center;
+  margin: 23px auto;
+}
+
+/* btn update */
+.btn-update {
+  appearance: button;
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 19px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.btn-update:after {
+  background-clip: padding-box;
+  background-color: #1cb0f6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-update:main,
+.btn-update:focus {
+  user-select: auto;
+}
+
+.btn-update:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btn-update:disabled {
+  cursor: auto;
+}
+
+.btn-update:active:after {
+  border-width: 0 0 0px;
+}
+
+.btn-update:active {
+  padding-bottom: 10px;
+}
+ol,
+ul {
+  padding-right: 2rem;
+}
+
+.avarta-user {
+  padding: 0.25rem;
+  background-color: #f1f8ff;
+  border: 1px solid #dee2e6;
+  border-radius: 2px;
+  width: auto;
+  height: auto;
+}
+
+aside.left-sidebar {
+  margin-top: 9.8%;
+}
+
+.container-fluid.profile-form {
+  margin: 15% 0;
+}
+ul,
+li {
+  list-style: none;
+}
+
+.sidebar-hover {
+  transition: 0.6s ease-out;
+}
+.sidebar-hover:hover {
+  background: #84e2ff;
+  transform: translate(20px, 0px);
+  border-radius: 10px 100px 10px 100px;
+}
+
+.sidebar-hover:active {
+  transform: scale(0.9s);
+}

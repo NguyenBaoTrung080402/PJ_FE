@@ -1,0 +1,65 @@
+import { Route, Routes, useLocation } from "react-router-dom";
+import Home from "./View/Home/Home";
+import Navbar from './Components/NavBar/Navbar';
+import Footer from './Components/Footer/Footer';
+import Login from './Components/Login/Login';
+import Cart from './View/Cart/Cart';
+import ListProduct from "./View/Product/ListProduct";
+import ProductDetails from "./View/Product/Product-Detail/ProductDetails";
+import Contact from "./View/Contact/Contact";
+import About from "./View/About/About";
+import Register from "./Components/Register/Register";
+import { ToastContainer } from "react-toastify";
+import UpdateUser from "./View/UpdateUser/UpdateUser";
+import User from "./Components/Admin/User/User";
+import ChangePass from "./View/ChangePasswork/ChangePass";
+import CheckOut from "./View/CheckOut/CheckOut";
+import Admin from "./Components/Admin/DashBoard/Admin";
+import Category from "./Components/Admin/Category/Category";
+import Brands from "./Components/Admin/Brands/Brands";
+import ProductAdmin from "./Components/Admin/Product/Product";
+
+function App() {
+  const location = useLocation();
+  const showHeaderFooter = location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/admin-page" && location.pathname !== "/list-user" 
+  && location.pathname !== "/category-admin" && location.pathname !== "/brands-admin" && location.pathname !== "/product-admin"
+
+  return (
+    <div className="App">
+      {showHeaderFooter && (<Navbar/>)}
+        <Routes>
+          <Route path="/admin-page" element={(<Admin />)} />
+          <Route path="/list-user" element={<User/>} />
+          <Route path="/product-admin" element={<ProductAdmin/>} />
+          <Route path="/category-admin" element={<Category/>} />
+          <Route path="/brands-admin" element={<Brands/>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/list-product" element={<ListProduct />} />
+          <Route path="/product-detail" element={<ProductDetails />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/account" element={<UpdateUser />} />
+          <Route path="/change-password" element={<ChangePass />} />
+          <Route path="/check-out" element={<CheckOut />} />
+        </Routes>
+      {showHeaderFooter && (<Footer/>)}
+      <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+    </div>
+  );
+}
+
+export default App;

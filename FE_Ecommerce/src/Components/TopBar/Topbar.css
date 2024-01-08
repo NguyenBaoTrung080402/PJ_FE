@@ -1,0 +1,19 @@
+.logout-btn{
+    transition: ease-out 0.5s;
+}
+
+.logout-btn:hover{
+    background-color: #000000;
+    color: white;
+    transform: translate(20px, 0px);
+}
+
+.logout-btn:active{
+    transform: scale(0.9);
+}
+
+@media screen and (max-width: 768px) {
+    .img-avtar{
+        display: none;
+    }
+  }
