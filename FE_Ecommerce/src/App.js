@@ -18,12 +18,22 @@ import Admin from "./Components/Admin/DashBoard/Admin";
 import Category from "./Components/Admin/Category/Category";
 import Brands from "./Components/Admin/Brands/Brands";
 import ProductAdmin from "./Components/Admin/Product/Product";
+import AddProduct from "./Components/Admin/Product/Add/AddProduct";
+import UpdateProduct from "./Components/Admin/Product/Update/UpdateProduct";
 
 function App() {
   const location = useLocation();
-  const showHeaderFooter = location.pathname !== "/login" && location.pathname !== "/register" && location.pathname !== "/admin-page" && location.pathname !== "/list-user" 
-  && location.pathname !== "/category-admin" && location.pathname !== "/brands-admin" && location.pathname !== "/product-admin"
-
+  const showHeaderFooter = !(
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
+    location.pathname === "/admin-page" ||
+    location.pathname === "/list-user" ||
+    location.pathname === "/category-admin" ||
+    location.pathname === "/brands-admin" ||
+    location.pathname === "/product-admin" ||
+    location.pathname === "/add-product" ||
+    location.pathname.includes("/update-product/")
+  );
   return (
     <div className="App">
       {showHeaderFooter && (<Navbar/>)}
@@ -33,12 +43,14 @@ function App() {
           <Route path="/product-admin" element={<ProductAdmin/>} />
           <Route path="/category-admin" element={<Category/>} />
           <Route path="/brands-admin" element={<Brands/>} />
+          <Route path="/add-product" element={<AddProduct/>} />
+          <Route path="/update-product/:id" element={<UpdateProduct/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/list-product" element={<ListProduct />} />
-          <Route path="/product-detail" element={<ProductDetails />} />
+          <Route path="/product-detail/:id" element={<ProductDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<UpdateUser />} />

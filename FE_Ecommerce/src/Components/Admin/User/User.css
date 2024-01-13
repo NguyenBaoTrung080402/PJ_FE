@@ -59,6 +59,28 @@
     }
   }
   
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: none;
+    /* border: 1px solid #ddd; */
+    border-radius: 4px;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
   @media screen and (max-width: 1200px) {
     .Table {
       width: 170%;

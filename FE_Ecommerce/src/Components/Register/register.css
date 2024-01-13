@@ -251,6 +251,21 @@
     animation-name: bounceInRight;
     animation-duration: 1.5s;
   }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+  }
   /* response */
   @media screen and (max-width: 600px){
     .form-container{

@@ -40,6 +40,7 @@ const UpdateUser = () => {
       formData.append('dob', dob);
       formData.append('gender', selectedGender);
       formData.append('address', address);
+      formData.append('_method', 'PUT');
     try {
       const res = await axios.post('/update-information' , formData, {
             headers: {
@@ -51,7 +52,8 @@ const UpdateUser = () => {
         toast.error(res.data.message);
 
       } else if (res.data.status === "success") {
-        toast.success(res.data.message)    
+        toast.success(res.data.message) 
+        window.location.reload(true);   
         // navigate('/account')
         const updatedCurrentUser = {
           ...currentUser,

@@ -11,7 +11,7 @@ const TopBar = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('current-account');
-        toast.success("Đăng xuất thành công")
+        toast.success("Log out successfully")
         navigate("/");
     };
 

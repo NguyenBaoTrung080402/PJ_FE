@@ -1,15 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { f_getAllProduct_api } from '../../config/api';
+import { toast } from 'react-toastify';
+import "./listProduct.css"
+import Pagination from "react-paginate"
 
 const ListProduct = () => {
-    const currentAccount = JSON.parse(localStorage.getItem("current-account"));
+    // const currentAccount = JSON.parse(localStorage.getItem("current-account"));
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [products, setProducts] = useState([])
+    const [page, setPage] = useState(1);
+        // get all product
+        const getAllProducts = async(pageNumber = 1) =>{
+            setIsLoading(true)
+            try {
+              const res = await f_getAllProduct_api(pageNumber);
+              if(res.data.status === "not found"){
+                toast.warning(res.data.message)
+              }else if(res.data.status === "error"){
+                toast.error(res.data.message)
+              }else if(res.data.status === "success"){
+                setProducts(res.data.result.data)
+                setPage(res.data.result)
+              }
+            } catch (error) {
+              toast.error(error.message)
+            }finally{
+              setIsLoading(false)
+            }
+          }
+          useEffect(()=>{
+            getAllProducts()
+          },[])
   return (
     <>
     <div className="container-fluid">
         <div className="row px-xl-5">
             <div className="col-12">
                 <nav className="breadcrumb bg-light mb-30">
-                    <Link className="breadcrumb-item text-dark" href="#">Home</Link>
+                    <Link className="breadcrumb-item text-dark" to="/">Home</Link>
                     <Link className="breadcrumb-item text-dark" href="#">Shop</Link>
                     <span className="breadcrumb-item">Shop List</span>
                 </nav>
@@ -124,50 +154,65 @@ const ListProduct = () => {
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
+                                        <Link class="dropdown-item" href="#">Latest</Link>
+                                        <Link class="dropdown-item" href="#">Popularity</Link>
+                                        <Link class="dropdown-item" href="#">Best Rating</Link>
                                     </div>
                                 </div>
                                 <div class="btn-group ml-2">
                                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
+                                        <Link class="dropdown-item" href="#">10</Link>
+                                        <Link class="dropdown-item" href="#">20</Link>
+                                        <Link class="dropdown-item" href="#">30</Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src={`http://127.0.0.1:8000/${currentAccount.avatar}`} alt=""/>
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <Link class="btn btn-outline-dark btn-square" to="/product-detail"><i class="fa fa-search"></i></Link>
-                                </div>
+                        {isLoading ? (
+                            <div className='loading'>
+                                <div className="custom-loader"></div>
                             </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                        ):(
+                            products && products.map((listProduct) =>(
+                                <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                                    <div class="product-item bg-light mb-4">
+                                        <div class="product-img position-relative overflow-hidden">
+                                            <img class="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
+                                            <div class="product-action">
+                                                <Link class="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i class="fa fa-search"></i></Link>
+                                            </div>
+                                        </div>
+                                        <div class="text-center py-4">
+                                            <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
+                                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                                <h5>{listProduct.discounted_price}</h5><h6 class="text-muted ml-2"><del>{listProduct.price}</del></h6>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small>(99)</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small>(99)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        ) 
+                        ))}
+                        
                 </div>
+                <Pagination
+                    pageCount={page.last_page}
+                    pageRangeDisplayed={5}
+                    marginPagesDisplayed={2}
+                    onPageChange={({ selected }) => getAllProducts(selected + 1)}
+                    containerClassName={'pagination'}
+                    activeClassName={'active'}
+                />
             </div>
         </div>
         </div>    

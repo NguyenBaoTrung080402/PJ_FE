@@ -15,7 +15,6 @@ import {
 
 const Sidebar = () => {
 //   const [selected, setSelected] = useState(0);
-
   const [expanded, setExpaned] = useState(true)
 
   const sidebarVariants = {

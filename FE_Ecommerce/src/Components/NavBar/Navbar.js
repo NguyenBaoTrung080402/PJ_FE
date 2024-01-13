@@ -68,11 +68,13 @@ const Navbar = () => {
             </div> */}
             <div className="col-lg-3 d-none d-lg-block">
                 <Dropdown>
-                    <Dropdown.Toggle id="dropdown-basic" className="btn d-flex align-items-center justify-content-between bg-primary w-100" style={{height: "65px", padding: "0 30px", transition: "ease-out 0.7s"}}>
+                    <Dropdown.Toggle id="dropdown-basic" className="btn d-flex align-items-center justify-content-between bg-primary w-100" 
+                    style={{height: "65px", padding: "0 30px", transition: "ease-out 0.7s"}}>
                         <h6 className="text-dark m-0"><i className="fa fa-bars mr-2"></i>Categories</h6>
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu className='collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light' style={{ width: "calc(100%)", zIndex: "999" }}>
+                    <Dropdown.Menu className='collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light' 
+                    style={{ width: "calc(100%)", zIndex: "999" }}>
                         
                             {listCategories && listCategories.map((category) =>(
                                 <ul className='navbar-nav w-100'>

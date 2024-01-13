@@ -12,23 +12,26 @@ import { f_deleteUser_api, f_getAllUser_api, f_updateRole_api } from "../../../c
 import { toast } from "react-toastify";
 import './User.css'
 import { Button, Modal } from "react-bootstrap";
-import { Form } from "react-router-dom";
+import Pagination from "react-paginate"
+import axios from "../../../config/customAxios";
 
 const User = () => {
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
   const [showUpdateModal, setShowUpdateModal] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = React.useState(null);
+  const [page, setPage] = React.useState(1);
   const [listUser, setListUser] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const getListUser = async () =>{
+  const getListUser = async (pageNumber = 1) =>{
     setIsLoading(true)
     try {
-      const res = await f_getAllUser_api();
+      const res = await axios.get(`/manager/get-all-user/${pageNumber}`);
       if(res.data.status === 'not found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'success'){
-        setListUser(res.data.result)
+        setListUser(res.data.result.data)
+        setPage(res.data.result)
       }
     } catch (error) {
       toast.error(error.message)
@@ -147,34 +150,33 @@ const User = () => {
               {isLoading ? (
                 <TableRow className="d-flex justify-content-center">
                   <TableCell colSpan={8} align="center" >
-                    {/* <Spinner animation="border" variant="warning" /> */}
                     <div class="custom-loader"></div>
                   </TableCell>
                 </TableRow>
-              ) : listUser && listUser.length === 0 ? (
+              ) : listUser && Array.isArray(listUser) && listUser.length > 0 ? (
+                listUser.map((user, index)=>(
+                  <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">{index + 1}</TableCell>
+                  <TableCell align="left">{user.name}</TableCell>
+                  <TableCell align="left">{user.phone}</TableCell>
+                  <TableCell align="left">{user.dob}</TableCell>
+                  <TableCell align="left">{genderName(user.gender)}</TableCell>
+                  <TableCell align="left">{user.address}</TableCell>
+                  <TableCell align="left" style={makeStyle(user.role)}>{user.role}</TableCell>
+                  <TableCell align="left" className="Details d-flex">
+                    <div className="mx-2">
+                      <button type="button" className="btn btn-danger" onClick={() => handleDelete(user.id)}>Delete</button>
+                    </div>
+                    <div className="mx-2">
+                      <button type="button" className="btn btn-info" onClick={() => handleUpdate(user.id)}>Update Admin</button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                ))
+              ) : (
                 <TableRow>
                   <TableCell colSpan={8} align="center">No data</TableCell>
                 </TableRow>
-              ) : (
-                listUser && listUser.map((user, index) => (
-                  <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">{index + 1}</TableCell>
-                    <TableCell align="left">{user.name}</TableCell>
-                    <TableCell align="left">{user.phone}</TableCell>
-                    <TableCell align="left">{user.dob}</TableCell>
-                    <TableCell align="left">{genderName(user.gender)}</TableCell>
-                    <TableCell align="left">{user.address}</TableCell>
-                    <TableCell align="left" style={makeStyle(user.role)}>{user.role}</TableCell>
-                    <TableCell align="left" className="Details d-flex">
-                      <div className="mx-2">
-                        <button type="button" className="btn btn-danger" onClick={() => handleDelete(user.id)}>Delete</button>
-                      </div>
-                      <div className="mx-2">
-                        <button type="button" className="btn btn-info" onClick={() => handleUpdate(user.id)}>Update Admin</button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
               )}
             </TableBody>
             {showDeleteModal && (
@@ -214,9 +216,18 @@ const User = () => {
               </Modal>
             )}
             </Table>
+            <Pagination
+                pageCount={page.last_page}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={2}
+                onPageChange={({ selected }) => getListUser(selected + 1)}
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+            />
           </TableContainer>
         </div>
       </div>
+      
     </div>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,7 +7,7 @@ import vendor2 from "../../assets/IMG/defaultIMG/vendor-2.jpg"
 import vendor3 from "../../assets/IMG/defaultIMG/vendor-3.jpg"
 import vendor4 from "../../assets/IMG/defaultIMG/vendor-4.jpg"
 import vendor5 from "../../assets/IMG/defaultIMG/vendor-5.jpg"
-import { f_getAllCategory_api } from "../../config/api";
+import { f_getAllCategory_api, f_getAllProduct_api } from "../../config/api";
 import { toast } from "react-toastify";
 
 const Home = () => {
@@ -14,7 +15,8 @@ const Home = () => {
 
     const [listCategories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
-
+    const [products, setProducts] = useState([])
+    
     // get all categories
     const getListCategories = async() =>{
         setIsLoading(true);
@@ -35,6 +37,29 @@ const Home = () => {
     useEffect(()=>{
         getListCategories()
     },[])
+
+    // get all product
+    const getAllProducts = async(pageNumber = 1) =>{
+        setIsLoading(true)
+        try {
+          const res = await f_getAllProduct_api(pageNumber);
+          if(res.data.status === "not found"){
+            toast.warning(res.data.message)
+          }else if(res.data.status === "error"){
+            toast.error(res.data.message)
+          }else if(res.data.status === "success"){
+            setProducts(res.data.result.data)
+          }
+        } catch (error) {
+          toast.error(error.message)
+        }finally{
+          setIsLoading(false)
+        }
+      }
+    
+      useEffect(()=>{
+        getAllProducts()
+      },[])
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -178,21 +203,19 @@ const Home = () => {
     <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
         <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            {products && products.map((listProduct) =>(
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" style={{height: "300px"}} src="https://www.bobswatches.com/rolex-blog/wp-content/uploads/2018/11/Screen-Shot-2021-01-11-at-4.28.35-PM.jpg" alt=""/>
+                        <img class="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <Link class="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i class="fa fa-search"></i></Link>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
+                        <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            <h5>{listProduct.discounted_price}</h5><h6 class="text-muted ml-2"><del>{listProduct.price}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -205,6 +228,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            ))}
         </div>
     </div>
 

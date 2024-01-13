@@ -46,6 +46,23 @@ const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
   return axios.post(`/manager/update-brand/${id}`, {name: nameBrand, slug: slugBrand, status: status})
 }
 
+const f_getAllProduct_api = (page=1) => {
+  return axios.get(`/product/get-all-product/${page}`)
+}
+const f_getAllProductId_api = (id) => {
+  return axios.get(`/product/get-product-id/${id}`)
+}
+
+const f_deleteProduct_api = (id) =>{
+  return axios.delete(`/manager/delete-product/${id}`)
+}
+
+const f_getCartItem_api = () =>{
+  return axios.get("/order/view-cart")
+}
+const f_deleteCartItem_api = (id) =>{
+  return axios.delete(`/order/delete-cart/${id}`)
+}
 export {
   f_regiter_api,
   f_login_api,
@@ -57,5 +74,10 @@ export {
   f_getAllBrands_api,
   f_addBrand_api,
   f_deleteBrand_api,
-  f_updateBrand_api
+  f_updateBrand_api,
+  f_getAllProduct_api,
+  f_getAllProductId_api,
+  f_deleteProduct_api,
+  f_getCartItem_api,
+  f_deleteCartItem_api
 };
