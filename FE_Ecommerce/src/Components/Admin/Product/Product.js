@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../SideBar/SideBar";
 import {
+  Paper,
   TableBody,
   TableCell,
   TableContainer,
@@ -12,6 +13,7 @@ import { f_deleteProduct_api, f_getAllProduct_api } from "../../../config/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Pagination from "react-paginate"
+import { formatCurrency } from "../../../Validate/Validate";
 
 const ProductAdmin = () => {
   const navigate = useNavigate()
@@ -101,7 +103,7 @@ const ProductAdmin = () => {
 
   return (
     <div className="admin">
-      <div className="adminGlass" style={{ minHeight: "100vh", overflowX: "scroll" }}>
+      <div className="adminGlass" style={{ minHeight: "100vh" }}>
         <Sidebar />
         <div className="py-5">
           <div className="d-flex flex-row justify-content-between">
@@ -113,7 +115,7 @@ const ProductAdmin = () => {
               </div>
           </div>
           <TableContainer
-            // component={Paper}
+            component={Paper}
             style={{
               boxShadow: "0px 13px 20px 0px #80808029",
               borderRadius: "20px",
@@ -130,7 +132,7 @@ const ProductAdmin = () => {
                   <TableCell align="left">Information</TableCell>
                   <TableCell align="left">Stock</TableCell>
                   <TableCell align="left">Price</TableCell>
-                  <TableCell align="left">Discounted Price</TableCell>
+                  <TableCell align="left">Discounted</TableCell>
                   <TableCell align="left">Brand</TableCell>
                   <TableCell align="left">Category</TableCell>
                   <TableCell align="left">Status</TableCell>
@@ -159,15 +161,29 @@ const ProductAdmin = () => {
                         </TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.name}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.slug}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.description}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.summary}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.information}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>
+                            {listProduct.description && listProduct.description.length > 50
+                              ? `${listProduct.description.slice(0, 19)}...`
+                              : listProduct.description}
+                          </TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>
+                            {listProduct.summary && listProduct.summary.length > 50
+                              ? `${listProduct.summary.slice(0, 19)}...`
+                              : listProduct.summary}
+                          </TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>
+                            {listProduct.information && listProduct.information.length > 50
+                              ? `${listProduct.information.slice(0, 19)}...`
+                              : listProduct.information}
+                          </TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.stock}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.price}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.discounted_price}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.price)}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.discounted_price)}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.brands_id}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.categories_id}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}><span style={makeStyle(listProduct.status)}>{listProduct.status}</span></TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>
+                            <span className="status" style={makeStyle(listProduct.status)}>{listProduct.status}</span>
+                          </TableCell>
                         <TableCell align="left" className="Details d-flex">
                           <div>
                               <button className="btn btn-secondary" onClick={() => handleUpdate(listProduct.id)}>Update</button>

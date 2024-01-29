@@ -124,21 +124,21 @@ const AddProduct = () => {
           <div className="d-flex justify-content-around">
             <div className="col-md-5">
                 <div className="inputGroup1 py-3">
-                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Description</label>
+                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Description<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                     <textarea id="productDescription" cols="25"
                       value={descriptionProduct}
                       onChange={(e) => setDescriptionProduct(e.target.value)}
                       rows="5" className="col-md-12 form-control">
 
                     </textarea>
-                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Information</label>
+                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Information<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                     <textarea id="productDescription" cols="25"
                     value={informationProduct}
                     onChange={(e) => setInformationProduct(e.target.value)}
                       rows="5" className="col-md-12 form-control">
 
                     </textarea>
-                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Summary</label>
+                    <label htmlFor="productDescription" style={{userSelect: "none"}}>Product Summary<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                     <textarea id="productDescription" cols="25"
                     value={summaryProduct}
                     onChange={(e) => setSummaryProduct(e.target.value)}
@@ -164,7 +164,7 @@ const AddProduct = () => {
             </div>
             <div className="col-md-5">
             <div className="inputGroup1 py-3">
-                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Name</label>
+                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Name<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                 <input
                   class="input-category col-md-12"
                     value={nameProduct}
@@ -174,7 +174,7 @@ const AddProduct = () => {
                   placeholder="how you like that...."
                   type="text"
                 />
-                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Slug</label>
+                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Slug<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                 <input
                   class="input-category col-md-12"
                   value={slugProduct}
@@ -184,7 +184,7 @@ const AddProduct = () => {
                   placeholder="how you like that...."
                   type="text"
                 />
-                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Stock</label>
+                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Stock<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                 <input
                   class="input-category col-md-12"
                   value={stockProduct}
@@ -194,7 +194,7 @@ const AddProduct = () => {
                   placeholder="how you like that...."
                   type="text"
                 />
-                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Price</label>
+                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product Price<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                 <input
                   class="input-category col-md-12"
                   value={priceProduct}
@@ -204,7 +204,7 @@ const AddProduct = () => {
                   placeholder="how you like that...."
                   type="text"
                 />
-                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product discount</label>
+                <label htmlFor="nameCate" style={{userSelect: "none"}}>Product discount<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                 <input
                   class="input-category col-md-12"
                   value={discountedPriceProduct}
@@ -216,7 +216,7 @@ const AddProduct = () => {
                 />
                 <div className="d-flex justify-content-around">
                   <div className="flex-column col-md-4">
-                    <label>Brand</label>
+                    <label>Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <select
                         id="gender"
                         value={brandId}
@@ -229,7 +229,7 @@ const AddProduct = () => {
                       </select>
                   </div>
                   <div className="flex-column col-md-4">
-                    <label>Category</label>
+                    <label>Category<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <select
                         id="gender"
                         value={categoryId}
@@ -242,7 +242,7 @@ const AddProduct = () => {
                       </select>
                   </div>
                   <div className="flex-column col-md-4">
-                    <label>Status</label>
+                    <label>Status<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <select
                         id="gender"
                         value={statusProduct}

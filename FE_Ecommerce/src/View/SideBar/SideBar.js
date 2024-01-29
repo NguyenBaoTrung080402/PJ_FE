@@ -41,7 +41,7 @@ const SideBar = () => {
             <li className="sidebar-item">
               <NavLink
                 className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
-                to="./ui-card.html"
+                to="/purchased"
                 aria-expanded="false"
               >
                 <span className="mx-3">
@@ -53,7 +53,7 @@ const SideBar = () => {
             <li className="sidebar-item">
               <NavLink
                 className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
-                to="./ui-forms.html"
+                to="/cancelled"
                 aria-expanded="false"
               >
                 <span className="mx-3">

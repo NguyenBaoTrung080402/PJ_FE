@@ -256,7 +256,7 @@ const Category = () => {
                   </Modal.Header>
                   <div className="d-flex">
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="nameCate">Name Category</label>
+                      <label htmlFor="nameCate">Name Category<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class= "input-category" 
                       value={nameCategory} 
@@ -267,7 +267,7 @@ const Category = () => {
                       type="text"/>
                     </div>
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="slugCate">Slug Category</label>
+                      <label htmlFor="slugCate">Slug Category<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class="input-category text-uppercase" 
                       name="text" 
@@ -275,7 +275,7 @@ const Category = () => {
                       placeholder="JEANS..." 
                       value={slugCategory}
                       onChange={(e) => setSlugCategory(e.target.value)}
-                      type="search"
+                      type="text"
                       />
                     </div>
                   </div>
@@ -303,12 +303,12 @@ const Category = () => {
                 {showUpdateModal && (
                   <Modal show={showUpdateModal} onHide={handCancelUpdate}>
                   <Modal.Header closeButton >
-                    <Modal.Title>Confirm Deletion</Modal.Title>
+                    <Modal.Title>Confirm Update Category</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                   <div className="d-flex">
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="nameCate">Name Category</label>
+                      <label htmlFor="nameCate">Name Category<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class= "input-category" 
                       value={dataCategoryUpdate.name} 
@@ -319,15 +319,15 @@ const Category = () => {
                       type="text"/>
                     </div>
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="slugCate">Slug Category</label>
+                      <label htmlFor="slugCate">Slug Category<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
-                      class="input text-uppercase" 
+                      class="input-category text-uppercase" 
                       name="text" 
                       id="slugCate" 
                       placeholder="JEANS..." 
                       value={dataCategoryUpdate.slug}
                       onChange={(e) => setDataCategoryUpdate((prevData) => ({ ...prevData, slug: e.target.value }))} 
-                      type="search"
+                      type="text"
                       />
                     </div>
                   </div>

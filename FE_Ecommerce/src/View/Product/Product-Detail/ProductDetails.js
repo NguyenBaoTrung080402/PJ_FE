@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { f_getAllProductId_api } from '../../../config/api';
 import axios from '../../../config/customAxios'
 import { toast } from 'react-toastify';
+import { formatCurrency } from '../../../Validate/Validate';
 
 const ProductDetails = () => {
   const [listProdct, setListProduct] = useState([])
@@ -61,7 +62,7 @@ const ProductDetails = () => {
 
     setIsLoading(true)
     try {
-      const res = await axios.post('order/add-to-cart', dataCart);
+      const res = await axios.post('/wishlist/add-to-wishlist', dataCart);
       if(res.data.status === 'not found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'Conflict'){
@@ -126,7 +127,7 @@ const ProductDetails = () => {
                       </div>
                       <small class="pt-1">(99 Reviews)</small>
                   </div>
-                  <h3 class="font-weight-semi-bold mb-4">{productId.discounted_price}</h3>
+                  <h3 class="font-weight-semi-bold mb-4">{formatCurrency(productId.discounted_price)}</h3>
                   <p class="mb-4">
                     {productId.summary}
                     </p>

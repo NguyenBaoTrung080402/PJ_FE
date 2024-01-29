@@ -9,6 +9,7 @@ import vendor4 from "../../assets/IMG/defaultIMG/vendor-4.jpg"
 import vendor5 from "../../assets/IMG/defaultIMG/vendor-5.jpg"
 import { f_getAllCategory_api, f_getAllProduct_api } from "../../config/api";
 import { toast } from "react-toastify";
+import { formatCurrency } from "../../Validate/Validate";
 
 const Home = () => {
     const [index, setIndex] = useState(0);
@@ -215,7 +216,7 @@ const Home = () => {
                     <div class="text-center py-4">
                         <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{listProduct.discounted_price}</h5><h6 class="text-muted ml-2"><del>{listProduct.price}</del></h6>
+                            <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 class="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>

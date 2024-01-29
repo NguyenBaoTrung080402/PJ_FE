@@ -29,13 +29,15 @@ const Brands = () => {
         if(status === 'Active')
         {
           return {
-            color: '#33CC00',
+            background: '#7CFC00',
+            color: 'black',
           }
         }
         else if(status === 'Inactive')
         {
           return{
-            color: '#DD0000',
+            background: '#C0C0C0',
+            color: 'black',
           }
         }
       }
@@ -200,7 +202,7 @@ const Brands = () => {
                 ) : listBrands && listBrands.length === 0 ?(
                     <TableRow>
                         <TableCell colSpan={8} align="center">No data</TableCell>
-                  </TableRow>
+                    </TableRow>
                 ) :(
                     listBrands && listBrands.map((brands, index) =>(
                         <TableRow
@@ -212,7 +214,9 @@ const Brands = () => {
                         </TableCell>
                         <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.name}</TableCell>
                         <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.slug}</TableCell>
-                        <TableCell align="left" style={makeStyle(brands.status)}>{brands.status}</TableCell>
+                        <TableCell align="left" style={{verticalAlign: "middle"}}>
+                          <span className="status" style={makeStyle(brands.status)}>{brands.status}</span>
+                        </TableCell>
                         <TableCell align="left" className="Details d-flex">
                           <div>
                               <button className="btn btn-secondary" onClick={() => handleUpdate(brands.id)}>Update</button>
@@ -232,7 +236,7 @@ const Brands = () => {
                   </Modal.Header>
                   <div className="d-flex">
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="nameCate">Name Brand</label>
+                      <label htmlFor="nameCate">Name Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class= "input-category" 
                       value={nameBrand} 
@@ -243,7 +247,7 @@ const Brands = () => {
                       type="text"/>
                     </div>
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="slugCate">Slug Brand</label>
+                      <label htmlFor="slugCate">Slug Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class="input-category" 
                       name="text" 
@@ -256,7 +260,7 @@ const Brands = () => {
                     </div>
                   </div>
                   <div className="inputGroup1 py-3 col-md-12 d-flex flex-column">
-                    <label>Status</label>
+                    <label>Status<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                         <select
                             id="gender"
                             value={statusBrand}
@@ -302,7 +306,7 @@ const Brands = () => {
                   </Modal.Header>
                   <div className="d-flex">
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="nameCate">Name Brand</label>
+                      <label htmlFor="nameCate">Name Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class= "input-category" 
                       value={brandUpdate.nameBrand}
@@ -313,7 +317,7 @@ const Brands = () => {
                       type="text"/>
                     </div>
                     <div className="inputGroup1 py-3 col-md-6">
-                      <label htmlFor="slugCate">Slug Brand</label>
+                      <label htmlFor="slugCate">Slug Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                       <input 
                       class="input-category" 
                       name="text" 
@@ -321,12 +325,12 @@ const Brands = () => {
                       placeholder="JEANS..." 
                       value={brandUpdate.slugBrand}
                       onChange={(e) => setBrandUpdate((prevData)=> ({...prevData, slugBrand: e.target.value}))}
-                      type="search"
+                      type="text"
                       />
                     </div>
                   </div>
                   <div className="inputGroup1 py-3 col-md-12 d-flex flex-column">
-                    <label>Status</label>
+                    <label>Status<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
                         <select
                             id="gender"
                             value={brandUpdate.statusBrand}

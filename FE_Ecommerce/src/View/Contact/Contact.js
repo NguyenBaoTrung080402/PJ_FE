@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { hasSpecialCharacters } from '../../Validate/Validate';
 
 const Contact = () => {
     const formRef = useRef();
@@ -17,16 +18,30 @@ const Contact = () => {
     const sendEmail = (e) => {
     setIsLoading(true)
     e.preventDefault();
-
+        // if(!formData.name || !formData.email || !formData.subject || !formData.message){
+        //     toast.warning("Please enter complete information!")
+        //     setIsLoading(false)
+        //     return;
+        // }
+        // if(
+        //     hasSpecialCharacters(formData.name) ||
+        //     hasSpecialCharacters(formData.email) ||
+        //     hasSpecialCharacters(formData.subject) ||
+        //     hasSpecialCharacters(formData.message)
+        // ){
+        //     toast.warning("Please do not enter special characters!")
+        //     setIsLoading(false)
+        //     return;
+        // }
     emailjs.sendForm('service_426ajhc', 'template_s6gdqlm', formRef.current, 'siogmmRkFzDBh2jmb')
       .then((response) => {
         if(response.status === 200){
             toast.success("Gửi Mail Thành Công!")
             setFormData({
-            name: '',
-            email: '',
-            subject: '',
-            message: '',
+                name: '',
+                email: '',
+                subject: '',
+                message: '',
           });
         }
       }, (error) => {

@@ -20,6 +20,9 @@ import Brands from "./Components/Admin/Brands/Brands";
 import ProductAdmin from "./Components/Admin/Product/Product";
 import AddProduct from "./Components/Admin/Product/Add/AddProduct";
 import UpdateProduct from "./Components/Admin/Product/Update/UpdateProduct";
+import AcceptOrder from "./Components/Admin/AcceptOrder/AcceptOrder";
+import Cancelled from "./View/Cancelled/Cancelled";
+import Purchased from "./View/Purchased/Purchased";
 
 function App() {
   const location = useLocation();
@@ -32,6 +35,7 @@ function App() {
     location.pathname === "/brands-admin" ||
     location.pathname === "/product-admin" ||
     location.pathname === "/add-product" ||
+    location.pathname === "/accept-order" ||
     location.pathname.includes("/update-product/")
   );
   return (
@@ -56,6 +60,9 @@ function App() {
           <Route path="/account" element={<UpdateUser />} />
           <Route path="/change-password" element={<ChangePass />} />
           <Route path="/check-out" element={<CheckOut />} />
+          <Route path="/accept-order" element={<AcceptOrder />} />
+          <Route path="/cancelled" element={<Cancelled />} />
+          <Route path="/purchased" element={<Purchased />} />
         </Routes>
       {showHeaderFooter && (<Footer/>)}
       <ToastContainer

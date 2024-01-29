@@ -4,15 +4,25 @@ import { f_getAllProduct_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import "./listProduct.css"
 import Pagination from "react-paginate"
+import { formatCurrency } from '../../Validate/Validate';
 
 const ListProduct = () => {
     // const currentAccount = JSON.parse(localStorage.getItem("current-account"));
 
     const [isLoading, setIsLoading] = useState(false);
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState()
     const [page, setPage] = useState(1);
+    const [priceFilter, setPriceFilter] = useState(null);
+
+    const filterProductsByPrice = (price) => {
+        // Đặt trạng thái lọc theo giá
+        setPriceFilter(price);
+
+        // Gọi hàm lấy sản phẩm với trang 1
+        getAllProducts(1, price);
+    }
         // get all product
-        const getAllProducts = async(pageNumber = 1) =>{
+        const getAllProducts = async(pageNumber = 1, priceFilter = null) =>{
             setIsLoading(true)
             try {
               const res = await f_getAllProduct_api(pageNumber);
@@ -40,8 +50,8 @@ const ListProduct = () => {
             <div className="col-12">
                 <nav className="breadcrumb bg-light mb-30">
                     <Link className="breadcrumb-item text-dark" to="/">Home</Link>
-                    <Link className="breadcrumb-item text-dark" href="#">Shop</Link>
-                    <span className="breadcrumb-item">Shop List</span>
+                    <Link className="breadcrumb-item text-dark" to="/list-product">Product</Link>
+                    <span className="breadcrumb-item">Product List</span>
                 </nav>
             </div>
         </div>
@@ -176,7 +186,7 @@ const ListProduct = () => {
                                 <div className="custom-loader"></div>
                             </div>
                         ):(
-                            products && products.map((listProduct) =>(
+                            products?.map((listProduct) =>(
                                 <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                                     <div class="product-item bg-light mb-4">
                                         <div class="product-img position-relative overflow-hidden">
@@ -188,7 +198,7 @@ const ListProduct = () => {
                                         <div class="text-center py-4">
                                             <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
                                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                                <h5>{listProduct.discounted_price}</h5><h6 class="text-muted ml-2"><del>{listProduct.price}</del></h6>
+                                                <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 class="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-center mb-1">
                                                 <small class="fa fa-star text-primary mr-1"></small>

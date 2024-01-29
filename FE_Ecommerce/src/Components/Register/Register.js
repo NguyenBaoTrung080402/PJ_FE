@@ -23,7 +23,7 @@ const Register = () => {
       toast.warning("Please enter name and passwords > 5 characters");
       return;
     }
-    if(!validateMail){
+    if(!validateMail(email)){
       toast.warning("Please enter valid email");
       return;
     }

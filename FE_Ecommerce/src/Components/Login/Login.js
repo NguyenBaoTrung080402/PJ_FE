@@ -7,7 +7,6 @@ import logo from '../../assets/IMG/logo-multi.png';
 import { toast } from 'react-toastify';
 import { f_login_api } from '../../config/api';
 import axios from "../../config/customAxios"
-import Home from './../../View/Home/Home';
 
 function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -55,14 +54,14 @@ function Login() {
         toast.error(res.data.message)
       }else if (res.data.status === "success"){
         const token = res.data.authorisation.token;
-        localStorage.setItem('token', token);
-        localStorage.setItem(
-          'current-account',
-          JSON.stringify({
-            email: res.data.result.email,
-            name: res.data.result.name,
-          })
-        );
+        // localStorage.setItem('token', token);
+        // localStorage.setItem(
+        //   'current-account',
+        //   JSON.stringify({
+        //     email: res.data.result.email,
+        //     name: res.data.result.name,
+        //   })
+        // );
         axios.defaults.headers['Authorization'] = `Bearer ${token}`;
         loginContext(res.data.result.email, token, res.data.result.name, res.data.result.role, res.data.result.phone, res.data.result.dob, res.data.result.avatar, res.data.result.gender, res.data.result.address);
         toast.success(res.data.message)
@@ -70,13 +69,13 @@ function Login() {
       }else if(res.data.status === "not found"){
         toast.warning(res.data.message)
       }
-    } catch (error) {
-      setUsername('');
-      setPassword('');
+    } catch (error) {  
       toast.error(error.message)
     }
     finally{
       setLoadingApi(false);
+      setUsername('');
+      setPassword('');
     }
   }
 

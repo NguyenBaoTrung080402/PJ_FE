@@ -49,6 +49,7 @@ const Sidebar = () => {
             <Link className=" text-dark text-decoration-none py-4" to="/category-admin"><span className="mx-3 fs-4"><UilPackage/> Categories</span></Link>
             <Link className=" text-dark text-decoration-none py-4" to="/brands-admin"><span className="mx-3 fs-4"><UilChart/>Brands</span></Link>
             <Link className=" text-dark text-decoration-none py-4" to="/product-admin"><span className="mx-3 fs-4"><UilChart/>Product</span></Link>
+            <Link className=" text-dark text-decoration-none py-4" to="/accept-order"><span className="mx-3 fs-4"><UilChart/>Accept Order</span></Link>
         </div>
       </div>
     </motion.div>

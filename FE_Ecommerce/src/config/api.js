@@ -58,11 +58,36 @@ const f_deleteProduct_api = (id) =>{
 }
 
 const f_getCartItem_api = () =>{
-  return axios.get("/order/view-cart")
+  return axios.get("/wishlist/view-wishlist")
 }
 const f_deleteCartItem_api = (id) =>{
-  return axios.delete(`/order/delete-cart/${id}`)
+  return axios.delete(`/wishlist/delete-wishlist/${id}`)
 }
+
+const f_getCartItemByUser_api = () =>{
+  return axios.get("/wishlist/get-wishlist-user-id")
+}
+const f_updateStatus_api = (id, status) =>{
+  return axios.post(`/manager/update-status-order/${id}`, {status: status})
+}
+
+const f_getCartItemPurchased_api = () =>{
+  return axios.get("/order/order-delivered")
+}
+const f_getCartItemCancel_api = () =>{
+  return axios.get("/order/order-canceled")
+}
+const f_getCartItemShipping_api = () =>{
+  return axios.get("/order/order-shipping")
+}
+const f_getAllOrder_api = (page=1) =>{
+  return axios.get(`/manager/get-all-order/${page}`)
+}
+
+const f_order_api = (user_id, product_id, wishListID, quantity) =>{
+  return axios.post("/order/store", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
+}
+
 export {
   f_regiter_api,
   f_login_api,
@@ -79,5 +104,12 @@ export {
   f_getAllProductId_api,
   f_deleteProduct_api,
   f_getCartItem_api,
-  f_deleteCartItem_api
+  f_deleteCartItem_api,
+  f_getCartItemByUser_api,
+  f_getAllOrder_api,
+  f_updateStatus_api,
+  f_order_api,
+  f_getCartItemPurchased_api,
+  f_getCartItemCancel_api,
+  f_getCartItemShipping_api
 };

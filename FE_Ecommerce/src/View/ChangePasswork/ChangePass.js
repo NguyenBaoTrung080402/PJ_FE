@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import SideBar from '../SideBar/SideBar'
 import { toast } from 'react-toastify';
 import "./ChangePass.css"
+import logoChangePass from '../../assets/IMG/defaultIMG/login_img.jpg'
 
 const ChangePass = () => {
     const [oldPass, setOldPass] = useState('');
@@ -47,7 +48,7 @@ const ChangePass = () => {
 
                                     <div className="row">                                 
                                         <div className="col-sm-4 mt-4 fadeInLeft">
-                                            <img className='imgFogotPass' src='http://www.imperialpublicschool.org/static/images/login_img.jpg' alt='' style={{height:"300px", width:"350px"}} />
+                                            <img className='imgFogotPass' src={logoChangePass} alt='' style={{height:"300px", width:"350px"}} />
                                         </div>
                                         <div className="col-sm-6 m-auto">                                          
                                             <form className="m-auto w-100" onSubmit={(e) => onSubmit(e)}>
