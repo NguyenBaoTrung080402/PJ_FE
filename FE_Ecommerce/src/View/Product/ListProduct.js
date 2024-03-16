@@ -7,20 +7,12 @@ import Pagination from "react-paginate"
 import { formatCurrency } from '../../Validate/Validate';
 
 const ListProduct = () => {
-    // const currentAccount = JSON.parse(localStorage.getItem("current-account"));
 
     const [isLoading, setIsLoading] = useState(false);
     const [products, setProducts] = useState()
     const [page, setPage] = useState(1);
-    const [priceFilter, setPriceFilter] = useState(null);
+    // const [priceFilter, setPriceFilter] = useState(null);
 
-    const filterProductsByPrice = (price) => {
-        // Đặt trạng thái lọc theo giá
-        setPriceFilter(price);
-
-        // Gọi hàm lấy sản phẩm với trang 1
-        getAllProducts(1, price);
-    }
         // get all product
         const getAllProducts = async(pageNumber = 1, priceFilter = null) =>{
             setIsLoading(true)
@@ -31,7 +23,7 @@ const ListProduct = () => {
               }else if(res.data.status === "error"){
                 toast.error(res.data.message)
               }else if(res.data.status === "success"){
-                setProducts(res.data.result.data)
+                setProducts(res.data.result.content)
                 setPage(res.data.result)
               }
             } catch (error) {
@@ -211,7 +203,7 @@ const ListProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                        ) 
+                            )
                         ))}
                         
                 </div>

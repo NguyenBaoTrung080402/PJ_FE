@@ -49,7 +49,7 @@ const Home = () => {
           }else if(res.data.status === "error"){
             toast.error(res.data.message)
           }else if(res.data.status === "success"){
-            setProducts(res.data.result.data)
+            setProducts(res.data.result.content)
           }
         } catch (error) {
           toast.error(error.message)
