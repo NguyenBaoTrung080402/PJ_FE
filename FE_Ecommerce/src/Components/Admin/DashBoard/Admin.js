@@ -14,6 +14,8 @@ const Admin = () => {
       navigate('/login');
     } else if (currentAccount && currentAccount.authority.includes("ROLE_ADMIN")) {
       navigate('/admin-page');
+    }else{
+        navigate('/');
     }
   }, [navigate]);
 
