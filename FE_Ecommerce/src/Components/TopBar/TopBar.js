@@ -16,7 +16,7 @@ const TopBar = () => {
     };
 
     const checkRole = (role) => {
-        if (currentAccount && currentAccount.role === "ADMIN") {
+        if (currentAccount && currentAccount.authority.includes("ROLE_ADMIN")) {
             return true;
         }
         return false;

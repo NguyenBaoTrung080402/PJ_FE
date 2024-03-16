@@ -1,31 +1,29 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import "./admin.css"
+import "./admin.css";
 import Sidebar from '../SideBar/SideBar';
 
 const Admin = () => {
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    const currentAccount = localStorage.getItem('current-account');
-    
+    const currentAccount = JSON.parse(localStorage.getItem('current-account'));
+
     if (!token) {
       navigate('/login');
-    } 
-    if(currentAccount.role === "ADMIN" ){
-      navigate('/admin-page')
+    } else if (currentAccount && currentAccount.authority.includes("ROLE_ADMIN")) {
+      navigate('/admin-page');
     }
-  },[navigate])
+  }, [navigate]);
 
   return (
-    <div className='admin'>
-        <div className='adminGlass'style={{minHeight: "100vh"}}>
-            <Sidebar/>
-
+      <div className='admin'>
+        <div className='adminGlass' style={{minHeight: "100vh"}}>
+          <Sidebar/>
         </div>
-    </div>
-  )
+      </div>
+  );
 }
 
-export default Admin
+export default Admin;
