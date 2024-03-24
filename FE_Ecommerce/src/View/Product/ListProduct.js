@@ -10,21 +10,20 @@ const ListProduct = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [products, setProducts] = useState()
-    const [page, setPage] = useState(1);
-    // const [priceFilter, setPriceFilter] = useState(null);
+    const [page, setPage] = useState(0);
 
         // get all product
-        const getAllProducts = async(pageNumber = 1, priceFilter = null) =>{
+        const getAllProducts = async() =>{
             setIsLoading(true)
             try {
-              const res = await f_getAllProduct_api(pageNumber);
+              const res = await f_getAllProduct_api();
               if(res.data.status === "not found"){
                 toast.warning(res.data.message)
               }else if(res.data.status === "error"){
                 toast.error(res.data.message)
               }else if(res.data.status === "success"){
                 setProducts(res.data.result.content)
-                setPage(res.data.result)
+                setPage(res.data.result.totalPages)
               }
             } catch (error) {
               toast.error(error.message)
@@ -144,29 +143,29 @@ const ListProduct = () => {
             </div>
 
             
-            <div class="col-lg-9 col-md-8">
-                <div class="row pb-3">
-                    <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div className="col-lg-9 col-md-8">
+                <div className="row pb-3">
+                    <div className="col-12 pb-1">
+                        <div className="d-flex align-items-center justify-content-between mb-4">
                             <div>
-                                <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                                <button className="btn btn-sm btn-light"><i className="fa fa-th-large"></i></button>
+                                <button className="btn btn-sm btn-light ml-2"><i className="fa fa-bars"></i></button>
                             </div>
-                            <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <Link class="dropdown-item" href="#">Latest</Link>
-                                        <Link class="dropdown-item" href="#">Popularity</Link>
-                                        <Link class="dropdown-item" href="#">Best Rating</Link>
+                            <div className="ml-2">
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                    <div className="dropdown-menu dropdown-menu-right">
+                                        <Link className="dropdown-item" href="#">Latest</Link>
+                                        <Link className="dropdown-item" href="#">Popularity</Link>
+                                        <Link className="dropdown-item" href="#">Best Rating</Link>
                                     </div>
                                 </div>
-                                <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <Link class="dropdown-item" href="#">10</Link>
-                                        <Link class="dropdown-item" href="#">20</Link>
-                                        <Link class="dropdown-item" href="#">30</Link>
+                                <div className="btn-group ml-2">
+                                    <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                    <div className="dropdown-menu dropdown-menu-right">
+                                        <Link className="dropdown-item" href="#">10</Link>
+                                        <Link className="dropdown-item" href="#">20</Link>
+                                        <Link className="dropdown-item" href="#">30</Link>
                                     </div>
                                 </div>
                             </div>
@@ -179,25 +178,25 @@ const ListProduct = () => {
                             </div>
                         ):(
                             products?.map((listProduct) =>(
-                                <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                                    <div class="product-item bg-light mb-4">
-                                        <div class="product-img position-relative overflow-hidden">
-                                            <img class="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
-                                            <div class="product-action">
-                                                <Link class="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i class="fa fa-search"></i></Link>
+                                <div className="col-lg-4 col-md-6 col-sm-6 pb-1">
+                                    <div className="product-item bg-light mb-4">
+                                        <div className="product-img position-relative overflow-hidden">
+                                            <img className="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
+                                            <div className="product-action">
+                                                <Link className="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i className="fa fa-search"></i></Link>
                                             </div>
                                         </div>
-                                        <div class="text-center py-4">
-                                            <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
-                                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                                <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 class="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
+                                        <div className="text-center py-4">
+                                            <Link className="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
+                                            <div className="d-flex align-items-center justify-content-center mt-2">
+                                                <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 className="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
+                                            <div className="d-flex align-items-center justify-content-center mb-1">
+                                                <small className="fa fa-star text-primary mr-1"></small>
+                                                <small className="fa fa-star text-primary mr-1"></small>
+                                                <small className="fa fa-star text-primary mr-1"></small>
+                                                <small className="fa fa-star text-primary mr-1"></small>
+                                                <small className="fa fa-star text-primary mr-1"></small>
                                                 <small>(99)</small>
                                             </div>
                                         </div>
@@ -205,15 +204,15 @@ const ListProduct = () => {
                                 </div>
                             )
                         ))}
-                        
                 </div>
                 <Pagination
-                    pageCount={page.last_page}
+                    pageCount={page}
                     pageRangeDisplayed={5}
                     marginPagesDisplayed={2}
                     onPageChange={({ selected }) => getAllProducts(selected + 1)}
                     containerClassName={'pagination'}
                     activeClassName={'active'}
+                    // forcePage={currentPage - 1}
                 />
             </div>
         </div>

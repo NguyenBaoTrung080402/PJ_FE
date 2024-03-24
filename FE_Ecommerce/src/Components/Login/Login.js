@@ -17,14 +17,14 @@ function Login() {
   // const history = useHistory();
   const navigate = useNavigate();
 
-  const loginContext = (email, token, name, role, phone, dob, avatar, gender, address) => {
+  const loginContext = (email, token, name, authority, phone, dob, avatar, gender, address) => {
     localStorage.setItem('token', token);
     localStorage.setItem(
       'current-account',
       JSON.stringify({
         email: email,
         name: name,
-        role: role,
+        authority: authority,
         phone: phone,
         dob: dob,
         avatar: avatar,
@@ -53,7 +53,7 @@ function Login() {
       if(res.data.status === "error"){
         toast.error(res.data.message)
       }else if (res.data.status === "success"){
-        const token = res.data.authorisation.token;
+        const token = res.data.result.token;
         // localStorage.setItem('token', token);
         // localStorage.setItem(
         //   'current-account',
@@ -63,7 +63,7 @@ function Login() {
         //   })
         // );
         axios.defaults.headers['Authorization'] = `Bearer ${token}`;
-        loginContext(res.data.result.email, token, res.data.result.name, res.data.result.role, res.data.result.phone, res.data.result.dob, res.data.result.avatar, res.data.result.gender, res.data.result.address);
+        loginContext(res.data.result.account.email, token, res.data.result.account.name, res.data.result.account.authority, res.data.result.account.phone, res.data.result.account.dob, res.data.result.account.avatar, res.data.result.account.gender, res.data.result.account.address);
         toast.success(res.data.message)
         navigate('/')
       }else if(res.data.status === "not found"){

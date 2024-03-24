@@ -1,7 +1,7 @@
 import axios from "./customAxios";
 
 const f_regiter_api = (name, email, password) => {
-  return axios.post("/register", {
+  return axios.post("account/register", {
     name: name,
     email: email,
     password: password,
@@ -9,7 +9,7 @@ const f_regiter_api = (name, email, password) => {
 };
 
 const f_login_api = (email, password) => {
-  return axios.post("/login", { email: email, password: password });
+  return axios.post("account/login", { email: email, password: password });
 };
 
 const f_getAllUser_api = () => {
@@ -25,7 +25,7 @@ const f_updateRole_api = (id) => {
 };
 
 const f_getAllCategory_api = () => {
-  return axios.get("/categories/get-all-categories");
+  return axios.get("/categories/get-all-category");
 };
 const f_deleteCategory_api = (id) => {
   return axios.delete(`/manager/delete-categoty/${id}`);
@@ -47,7 +47,7 @@ const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
 }
 
 const f_getAllProduct_api = (page=1) => {
-  return axios.get(`/product/get-all-product/${page}`)
+  return axios.get(`/product/get-all-product?size=8*page=` +(page-1))
 }
 const f_getAllProductId_api = (id) => {
   return axios.get(`/product/get-product-id/${id}`)
