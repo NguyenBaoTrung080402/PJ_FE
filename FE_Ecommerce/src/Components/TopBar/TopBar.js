@@ -1,7 +1,15 @@
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import "./Topbar.css"
 import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
+
+function Search(){
+    const [inputText, setInputText] = useState();
+    let inputHandler = (e) => {
+        var lowerCase = e.target.value.toLowerCase();
+        setInputText(lowerCase);
+    }
+}
 
 const TopBar = () => {
     const token = localStorage.getItem('token');
@@ -21,6 +29,7 @@ const TopBar = () => {
         }
         return false;
     }
+    
     
     // const curAccout = createContext(checkRole);
     
@@ -95,7 +104,7 @@ const TopBar = () => {
             <div className="col-lg-4 col-6 text-left">
                 <form action="">
                     <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Search for products"/>
+                        <input type="text" className="form-control" placeholder="Search for products" />
                         <div className="input-group-append">
                             <span className="input-group-text bg-transparent text-primary">
                                 <i className="fa fa-search"></i>

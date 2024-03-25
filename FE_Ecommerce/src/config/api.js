@@ -13,7 +13,7 @@ const f_login_api = (email, password) => {
 };
 
 const f_getAllUser_api = () => {
-  return axios.get("/manager/get-all-user");
+  return axios.get("/account/get-all-user");
 };
 
 const f_deleteUser_api = (id) => {
@@ -28,7 +28,7 @@ const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };
 const f_deleteCategory_api = (id) => {
-  return axios.delete(`/manager/delete-categoty/${id}`);
+  return axios.delete(`/categories/delete-category/${id}`);
 };
 
 const f_getAllBrands_api = () => {
