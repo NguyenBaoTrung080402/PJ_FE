@@ -23,7 +23,7 @@ import UpdateProduct from "./Components/Admin/Product/Update/UpdateProduct";
 import AcceptOrder from "./Components/Admin/AcceptOrder/AcceptOrder";
 import Cancelled from "./View/Cancelled/Cancelled";
 import Purchased from "./View/Purchased/Purchased";
-
+import { React, useState } from "react";
 function App() {
   const location = useLocation();
   const showHeaderFooter = !(
