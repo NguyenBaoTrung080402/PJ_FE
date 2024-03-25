@@ -47,7 +47,7 @@ const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
 }
 
 const f_getAllProduct_api = (page=1) => {
-  return axios.get(`/product/get-all-product/${page}`)  
+  return axios.get(`/product/get-all-product?size=8*page=` +(page-1))
 }
 const f_getAllProductId_api = (id) => {
   return axios.get(`/product/get-product-id/${id}`)

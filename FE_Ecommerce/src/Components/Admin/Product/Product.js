@@ -87,7 +87,7 @@ const ProductAdmin = () => {
       }else if(res.data.status === "error"){
         toast.error(res.data.message)
       }else if(res.data.status === "success"){
-        setProducts(res.data.result.data)
+        setProducts(res.data.result.content)
         setPage(res.data.result)
       }
     } catch (error) {
@@ -179,8 +179,8 @@ const ProductAdmin = () => {
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.stock}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.price)}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.discounted_price)}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.brands_id}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.categories_id}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.brandsId}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.categoriesId}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>
                             <span className="status" style={makeStyle(listProduct.status)}>{listProduct.status}</span>
                           </TableCell>
@@ -216,7 +216,7 @@ const ProductAdmin = () => {
                 )}
             </Table>
             <Pagination
-              pageCount={page.last_page}
+              pageCount={page.totalPages}
               pageRangeDisplayed={5}
               marginPagesDisplayed={2}
               onPageChange={({ selected }) => getAllProducts(selected + 1)}
