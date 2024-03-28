@@ -31,7 +31,7 @@ const TopBar = () => {
                 <div className="d-inline-flex align-items-center h-100">
                     <NavLink className="text-body" to="/about" style={{color: "#6C757D", marginRight: "1rem"}}>About</NavLink>
                     <NavLink className="text-body" to="/contact" style={{color: "#6C757D", marginRight: "1rem"}}>Contact</NavLink>
-                    {checkRole('ADMIN') ? (
+                    {checkRole('ROLE_ADMIN') ? (
                             <NavLink className="text-body" to="/admin-page" style={{ color: "#6C757D", marginRight: "1rem" }}>Admin</NavLink>
                         ):(
                             <NavLink className="text-body" to="/admin-page" style={{ color: "#6C757D", marginRight: "1rem", display: "none" }}>Admin</NavLink>
