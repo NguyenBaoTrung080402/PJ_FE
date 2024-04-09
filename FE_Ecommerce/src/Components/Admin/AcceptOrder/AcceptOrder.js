@@ -24,7 +24,7 @@ const AcceptOrder = () => {
             if(res.data.status === 'not found'){
                 toast.warning(res.data.message)
             }else if (res.data.status === 'success'){
-                setOrderStatus(res.data.result.data)
+                setOrderStatus(res.data.result.content)
                 setPage(res.data.result)
             }else{
                 toast.error(res.data.message)
@@ -143,8 +143,8 @@ const AcceptOrder = () => {
                     <TableCell component="th" scope="row" style={{verticalAlign: "middle"}}>
                         {index + 1}
                     </TableCell>
-                  <TableCell component="th" scope="row">{row.user_name} </TableCell>
-                  <TableCell align="left">{row.product_name}</TableCell>
+                  <TableCell component="th" scope="row">{row.userName} </TableCell>
+                  <TableCell align="left">{row.productName}</TableCell>
                   <TableCell align="left">{row.quantity}</TableCell>
                   <TableCell align="left">{formatCurrency(row.total)}</TableCell>
                   <TableCell align="left">{formatDateTime(row.created_at)}</TableCell>

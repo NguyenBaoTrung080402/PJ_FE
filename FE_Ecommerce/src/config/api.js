@@ -22,10 +22,12 @@ const f_deleteUser_api = (id) => {
 
 
 const f_updateRole_api = (id) => {
-  return axios.post(`/manager/update-role/${id}`);
+  return axios.post(`/account/update-admin/${id}`);
 };
 
-
+const f_changePassword_api = (oldPass, newPass, rePass) =>{
+  return axios.post("account/change-password", { oldPass: oldPass, newPass: newPass, rePass: rePass})
+}
 
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
@@ -40,14 +42,14 @@ const f_getAllBrands_api = () => {
 }
 
 const f_addBrand_api = (nameBrand, slugBrand, status) =>{
-  return axios.post("/brands/create-brands", {name: nameBrand, slug: slugBrand, status: status})
+  return axios.post("/brands/create-brands", {nameBrand: nameBrand, slugBrand: slugBrand, status: status})
 }
 
 const f_deleteBrand_api = (id) =>{
   return axios.delete(`/brands/delete-brands/${id}`)
 }
 const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
-  return axios.post(`/brands/update-brands/${id}`, {name: nameBrand, slug: slugBrand, status: status})
+  return axios.put(`/brands/update-brands/${id}`, {nameBrand: nameBrand, slugBrand: slugBrand, status: status})
 }
 
 const f_getAllProduct_api = (page=1) => {
@@ -58,34 +60,34 @@ const f_getAllProductId_api = (id) => {
 }
 
 const f_deleteProduct_api = (id) =>{
-  return axios.delete(`/manager/delete-product/${id}`)
+  return axios.delete(`/product/delete-product/${id}`)
 }
 
 const f_getCartItem_api = () =>{
-  return axios.get("/wishlist/view-wishlist")
+  return axios.get("/wish-list/get-wish-list")
 }
 const f_deleteCartItem_api = (id) =>{
-  return axios.delete(`/wishlist/delete-wishlist/${id}`)
+  return axios.delete(`/wish-list/delete-wish-list/${id}`)
 }
 
 const f_getCartItemByUser_api = () =>{
-  return axios.get("/wishlist/get-wishlist-user-id")
+  return axios.get("/wish-list/get-wish-list")
 }
 const f_updateStatus_api = (id, status) =>{
-  return axios.post(`/manager/update-status-order/${id}`, {status: status})
+  return axios.put(`/order/update-status/${id}`, {status: status})
 }
 
 const f_getCartItemPurchased_api = () =>{
-  return axios.get("/order/order-delivered")
+  return axios.get("/order/get-order-delivered")
 }
 const f_getCartItemCancel_api = () =>{
-  return axios.get("/order/order-canceled")
+  return axios.get("/order/get-order-canceled")
 }
 const f_getCartItemShipping_api = () =>{
-  return axios.get("/order/order-shipping")
+  return axios.get("/order/get-order-shipping")
 }
-const f_getAllOrder_api = (page=1) =>{
-  return axios.get(`/manager/get-all-order/${page}`)
+const f_getAllOrder_api = () =>{
+  return axios.get(`/order/get-all-order`)
 }
 
 const f_order_api = (user_id, product_id, wishListID, quantity) =>{
@@ -98,6 +100,7 @@ export {
   f_getAllUser_api,
   f_deleteUser_api,
   f_updateRole_api,
+  f_changePassword_api,
   f_getAllCategory_api,
   f_deleteCategory_api,
   f_getAllBrands_api,

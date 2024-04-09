@@ -25,8 +25,8 @@ const Cart = () => {
     };
 
     // const subtotal = cartItem.reduce((total, item) => total + parseFloat(item.product_price), 0);
-    const subtotal = cartItem?.reduce((total, item) => total + handleMoney(item.quantity, item.product_price), 0);
-    const totalItems = cartItem?.reduce((total, item) => total + parseFloat(item.quantity), 0);
+    const subtotal = cartItem?.reduce((total, item) => total + handleMoney(item.quantityProduct, item.priceProduct), 0);
+    const totalItems = cartItem?.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
     const shippingFee = 20000;
     const total = subtotal + shippingFee;
     
@@ -119,7 +119,7 @@ const Cart = () => {
                                     <img src={`http://127.0.0.1:8000/${cart.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
                                     {cart.product_name}
                                 </td>
-                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantity,cart.product_price))}</td>
+                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.priceProduct))}</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style={{ width: "100px" }}>
                                         <div class="input-group-btn">
@@ -127,7 +127,7 @@ const Cart = () => {
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </div>
-                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value={cart.quantity} readOnly/>
+                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value={cart.quantityProduct} readOnly/>
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-primary btn-plus">
                                                 <i class="fa fa-plus"></i>
@@ -135,7 +135,7 @@ const Cart = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantity,cart.product_price))}</td>
+                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.priceProduct))}</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger" onClick={() => handleOpen(cart.id)}><i class="fa fa-times"></i></button></td> 
                             </tr>
                         ))}
