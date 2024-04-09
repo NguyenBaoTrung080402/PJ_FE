@@ -58,6 +58,7 @@ const Home = () => {
         }
       }
     
+      
       useEffect(()=>{
         getAllProducts()
       },[])
@@ -128,7 +129,7 @@ const Home = () => {
               <div className="offer-text">
                 <h6 className="text-white text-uppercase">Save 20%</h6>
                 <h3 className="text-white mb-3">Special Offer</h3>
-                <Link href="" className="btn btn-primary">
+                <Link href="" to="/contact" className="btn btn-primary">
                   Shop Now
                 </Link>
               </div>
@@ -142,7 +143,7 @@ const Home = () => {
               <div className="offer-text">
                 <h6 className="text-white text-uppercase">Save 20%</h6>
                 <h3 className="text-white mb-3">Special Offer</h3>
-                <Link href="" className="btn btn-primary">
+                <Link href="#" to="/contact" className="btn btn-primary">
                   Shop Now
                 </Link>
               </div>
@@ -180,7 +181,7 @@ const Home = () => {
     </div>
 
     
-    <div className="container-fluid pt-5" id="category">
+    <div className="container-fluid pt-5 text-center" id="category">
         <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Categories</span></h2>
         <div className="row px-xl-5 pb-3">
             {listCategories && listCategories.map((category) =>(
@@ -201,7 +202,7 @@ const Home = () => {
            </div>     
     </div>
 
-    <div class="container-fluid pt-5 pb-3">
+    <div class="container-fluid pt-5 pb-3 text-center">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
         <div class="row px-xl-5">
             {products && products.map((listProduct) =>(
@@ -241,7 +242,7 @@ const Home = () => {
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Save 20%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
-                        <Link href="" class="btn btn-primary">Shop Now</Link>
+                        <Link href="#" to="/contact" class="btn btn-primary">Shop Now</Link>
                     </div>
                 </div>
             </div>
@@ -251,7 +252,7 @@ const Home = () => {
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Save 20%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
-                        <Link href="" class="btn btn-primary">Shop Now</Link>
+                        <Link href="#" to="/contact" class="btn btn-primary">Shop Now</Link>
                     </div>
                 </div>
             </div>

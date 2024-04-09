@@ -136,6 +136,9 @@ const Brands = () => {
             getListBrand()
         }
     }
+ 
+    
+
 
     // delete brands
     const handleDelete = (id) =>{
@@ -212,8 +215,8 @@ const Brands = () => {
                         <TableCell component="th" scope="row" style={{verticalAlign: "middle"}}>
                           {index + 1}
                         </TableCell>
-                        <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.name}</TableCell>
-                        <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.slug}</TableCell>
+                        <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.nameBrand}</TableCell>
+                        <TableCell align="left" style={{verticalAlign: "middle"}}>{brands.slugBrand}</TableCell>
                         <TableCell align="left" style={{verticalAlign: "middle"}}>
                           <span className="status" style={makeStyle(brands.status)}>{brands.status}</span>
                         </TableCell>

@@ -63,11 +63,13 @@ const Category = () => {
     
     setIsLoading(true)
     const formData = new FormData();
-    formData.append('avatar', imgCategory);
-    formData.append('name', nameCategory);
-    formData.append('slug', slugCategory);
+    formData.append('imageCategory', imgCategory);
+    formData.append('categories', JSON.stringify({
+      'name': nameCategory,
+      'slug': slugCategory
+    }))
     try {
-      const res = await axios.post("/manager/add-categories", formData, {
+      const res = await axios.post("/categories/create-categories", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -117,15 +119,18 @@ const Category = () => {
     setShowUpdateModal(true)
   }
 
+
+  
+  
   const handleUpdateCategories = async() =>{
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("avatar", dataCategoryUpdate.avatar);
-    formData.append("name", dataCategoryUpdate.name);
-    formData.append("slug", dataCategoryUpdate.slug);
+    formData.append("imageCategory", dataCategoryUpdate.imgCategory);
+    formData.append("name", dataCategoryUpdate.nameCategory);
+    formData.append("slug", dataCategoryUpdate.slugCategory);
 
     try {
-      const res = await axios.post(`/manager/update-category/${selectedCategoriesId}`, formData, {
+      const res = await axios.put(`/categories/update-category/${selectedCategoriesId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

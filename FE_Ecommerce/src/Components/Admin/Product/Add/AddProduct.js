@@ -81,21 +81,26 @@ const AddProduct = () => {
     }
 
     const formData = new FormData()
-    formData.append('name', nameProduct)
-    formData.append('slug', slugProduct)
-    formData.append('description', descriptionProduct)
-    formData.append('information', informationProduct)
-    formData.append('summary', summaryProduct)
-    formData.append('price', priceProduct)
-    formData.append('discounted_price', discountedPriceProduct)
-    formData.append('stock', stockProduct)
-    formData.append('categories_id', categoryId)
-    formData.append('brands_id', brandId)
     formData.append('image', imgProduct)
-    formData.append('status', statusProduct)
+    formData.append('product', JSON.stringify({
+      'name': nameProduct,
+      'slug': slugProduct,
+      'information': informationProduct,
+      'summary': summaryProduct,
+      'description': descriptionProduct,
+      'stock': stockProduct,
+      'price': priceProduct,
+      'discountedPrice': discountedPriceProduct,
+      'categoriesId': categoryId,
+      'brandsId': brandId,
+      'status': statusProduct
+    }))
+
+    
+
     setIsLoading(true)
     try {
-      const res = await axios.post('/manager/add-product', formData, {
+      const res = await axios.post('/product/create-product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -224,7 +229,7 @@ const AddProduct = () => {
                         className="form-control"
                       >
                         {listBrand && listBrand.map((brands)=>(
-                          <option key={brands.id} value={brands.id}>{brands.name}</option> 
+                          <option key={brands.id} value={brands.id}>{brands.nameBrand}</option> 
                         ))}
                       </select>
                   </div>

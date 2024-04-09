@@ -95,6 +95,7 @@ const UpdateProduct = () => {
   };
 
 
+  
 
   // update
   const handleUpdateProduct = async () => {
