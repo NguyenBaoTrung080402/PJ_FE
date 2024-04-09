@@ -1,21 +1,38 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import "./Topbar.css"
 import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-
-function Search(){
-    const [inputText, setInputText] = useState();
-    let inputHandler = (e) => {
-        var lowerCase = e.target.value.toLowerCase();
-        setInputText(lowerCase);
-    }
-}
+import { f_getAllProduct_api } from '../../config/api';
+import ListProduct from '../../View/Product/ListProduct';
 
 const TopBar = () => {
     const token = localStorage.getItem('token');
     const currentAccount = JSON.parse(localStorage.getItem('current-account'));
     const navigate = useNavigate();
+    const [setProducts] = useState([]);
+    const [query, setQuery] = useState('');
+    const handleSearch = () => {
+        navigate(`/list-product?search=${query}`);
+    };
 
+    useEffect(() => {
+        const getAllProducts = async () => {
+            try {
+                const response = await f_getAllProduct_api();
+                if (response.data.status === 'success') {
+                    setProducts(response.data.result.content);
+                } else {
+                    toast.warning(response.data.message)
+                    console.error("Lỗi khi lấy dữ liệu sản phẩm:", response.data.message);
+                }
+            } catch (error) {
+                console.error("Lỗi khi lấy dữ liệu sản phẩm:", error);
+            }
+        };
+
+        getAllProducts();
+    }, []); 
+    
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('current-account');
@@ -28,12 +45,9 @@ const TopBar = () => {
             return true;
         }
         return false;
-    }
+    };
     
-    
-    // const curAccout = createContext(checkRole);
-    
-  return (
+    return (
     <div className="container-fluid">
         <div className="row bg-secondary py-1 px-xl-5">
             <div className="col-lg-6 d-none d-lg-block">
@@ -104,12 +118,8 @@ const TopBar = () => {
             <div className="col-lg-4 col-6 text-left">
                 <form action="">
                     <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Search for products" />
-                        <div className="input-group-append">
-                            <span className="input-group-text bg-transparent text-primary">
-                                <i className="fa fa-search"></i>
-                            </span>
-                        </div>
+                        <input type="text" className="form-control" placeholder="Search for products" onChange={(e) => setQuery(e.target.value)} />
+                        <button onClick={handleSearch}>Search</button>
                     </div>
                 </form>
             </div>
@@ -117,7 +127,7 @@ const TopBar = () => {
                 <p className="m-0">Customer Service</p>
                 <h6 className="m-0">+84 913 562 870</h6>
             </div>
-        </div>
+        </div>  
     </div>
   )
 }

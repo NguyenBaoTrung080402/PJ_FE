@@ -23,8 +23,10 @@ import UpdateProduct from "./Components/Admin/Product/Update/UpdateProduct";
 import AcceptOrder from "./Components/Admin/AcceptOrder/AcceptOrder";
 import Cancelled from "./View/Cancelled/Cancelled";
 import Purchased from "./View/Purchased/Purchased";
-import { React, useState } from "react";
-function App() {
+import React, { createContext, useState, useContext } from 'react';
+
+function App () {
+  
   const location = useLocation();
   const showHeaderFooter = !(
     location.pathname === "/login" ||
@@ -53,7 +55,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/list-product" element={<ListProduct />} />
+          <Route path="/list-product" element={<ListProduct />} />  
           <Route path="/product-detail/:id" element={<ProductDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
@@ -63,6 +65,7 @@ function App() {
           <Route path="/accept-order" element={<AcceptOrder />} />
           <Route path="/cancelled" element={<Cancelled />} />
           <Route path="/purchased" element={<Purchased />} />
+          
         </Routes>
       {showHeaderFooter && (<Footer/>)}
       <ToastContainer
@@ -82,3 +85,4 @@ function App() {
 }
 
 export default App;
+

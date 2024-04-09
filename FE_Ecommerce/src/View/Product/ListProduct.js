@@ -5,35 +5,62 @@ import { toast } from 'react-toastify';
 import "./listProduct.css"
 import Pagination from "react-paginate"
 import { formatCurrency } from '../../Validate/Validate';
+import { useLocation } from 'react-router-dom';
 
 const ListProduct = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [products, setProducts] = useState()
+    const [products, setProducts] = useState([])
     const [page, setPage] = useState(0);
-
-        // get all product
-        const getAllProducts = async() =>{
-            setIsLoading(true)
-            try {
-              const res = await f_getAllProduct_api();
-              if(res.data.status === "not found"){
-                toast.warning(res.data.message)
-              }else if(res.data.status === "error"){
-                toast.error(res.data.message)
-              }else if(res.data.status === "success"){
-                setProducts(res.data.result.content)
-                setPage(res.data.result.totalPages)
-              }
-            } catch (error) {
-              toast.error(error.message)
-            }finally{
-              setIsLoading(false)
+    const [searchResults, setSearchResults] = useState([]);
+    const location = useLocation();
+        // get all product        
+        useEffect(() => {
+            const fetchProducts = async () => {
+                setIsLoading(true);
+                try {
+                    const response = await f_getAllProduct_api();
+                    if (response.data.status === 'success') {
+                        setProducts(response.data.result.content);
+                        // Initial display of all products
+                        setSearchResults(response.data.result.content);
+                    } else {
+                        console.error('Lỗi khi lấy dữ liệu sản phẩm:', response.data.message);
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi lấy dữ liệu sản phẩm:', error.message);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+            fetchProducts();
+        }, []);
+    
+        useEffect(() => {
+            if (location.search) {
+                const searchQuery = new URLSearchParams(location.search).get('search');
+                if (searchQuery) {
+                    const filteredProducts = products.filter((product) => {
+                        return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+                    });
+                    setSearchResults(filteredProducts);
+                } else {
+                    setSearchResults(products);
+                }
+            } else {
+                setSearchResults(products);
             }
-          }
-          useEffect(()=>{
-            getAllProducts()
-          },[])
+        }, [location.search, products]);    
+
+        const handlePageChange = ({ selected }) => {
+            setPage(selected);
+            const offset = selected * 10;
+            const end = offset + 10;
+            const filteredProducts = searchResults.slice(offset, end);
+            setSearchResults(filteredProducts);
+        };
+        
+
   return (
     <>
     <div className="container-fluid">
@@ -175,9 +202,10 @@ const ListProduct = () => {
                         {isLoading ? (
                             <div className='loading'>
                                 <div className="custom-loader"></div>
-                            </div>
+                            </div> 
                         ):(
-                            products?.map((listProduct) =>(
+                        
+                            searchResults.map((listProduct) => (    
                                 <div className="col-lg-4 col-md-6 col-sm-6 pb-1">
                                     <div className="product-item bg-light mb-4">
                                         <div className="product-img position-relative overflow-hidden">
@@ -189,7 +217,7 @@ const ListProduct = () => {
                                         <div className="text-center py-4">
                                             <Link className="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
                                             <div className="d-flex align-items-center justify-content-center mt-2">
-                                                <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 className="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
+                                                <h5>{formatCurrency(listProduct.discountedPrice)}</h5><h6 className="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
                                             </div>
                                             <div className="d-flex align-items-center justify-content-center mb-1">
                                                 <small className="fa fa-star text-primary mr-1"></small>
@@ -209,7 +237,7 @@ const ListProduct = () => {
                     pageCount={page}
                     pageRangeDisplayed={5}
                     marginPagesDisplayed={2}
-                    onPageChange={({ selected }) => getAllProducts(selected + 1)}
+                    onPageChange={handlePageChange}
                     containerClassName={'pagination'}
                     activeClassName={'active'}
                     // forcePage={currentPage - 1}
