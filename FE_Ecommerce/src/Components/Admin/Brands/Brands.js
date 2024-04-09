@@ -136,7 +136,8 @@ const Brands = () => {
             getListBrand()
         }
     }
-
+ 
+    
     // delete brands
     const handleDelete = (id) =>{
         setSelectedBrandId(id);

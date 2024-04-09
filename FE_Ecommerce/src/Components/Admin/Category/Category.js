@@ -119,6 +119,7 @@ const Category = () => {
     setShowUpdateModal(true)
   }
 
+  
   const handleUpdateCategories = async() =>{
     setIsLoading(true);
     const formData = new FormData();

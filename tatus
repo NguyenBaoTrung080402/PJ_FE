@@ -1,0 +1,79 @@
+[33mcommit fda81404ed4ea1d69597ef9cb5e8ae88e9eecd57[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: quangng13 <juicelime123@gmail.com>
+Date:   Tue Apr 9 19:06:02 2024 +0700
+
+    update
+
+[33mcommit 9e53a255aefdd83a88f453544bcff8117cc6cc84[m
+Merge: 6f48b2f 9fdfaf9
+Author: NguyenBaoTrung080402 <106371674+NguyenBaoTrung080402@users.noreply.github.com>
+Date:   Mon Mar 25 10:07:48 2024 +0700
+
+    Merge pull request #1 from NguyenBaoTrung080402/Hiep
+    
+    productList
+
+[33mcommit 9fdfaf9122a8e34f3ea2bbf5eb3a3f97aa9cd127[m[33m ([m[1;31morigin/Hiep[m[33m)[m
+Merge: c3f4dc9 6f48b2f
+Author: Hiep <hiep3452@gmail.com>
+Date:   Mon Mar 25 10:04:51 2024 +0700
+
+    Merge branch 'main' of https://github.com/NguyenBaoTrung080402/PJ_FE
+    
+    # Conflicts:
+    #       FE_Ecommerce/src/Components/Login/Login.js
+    #       FE_Ecommerce/src/config/api.js
+
+[33mcommit c3f4dc936e5407dfdaba2dd4c6f898cf813da161[m
+Author: Hiep <hiep3452@gmail.com>
+Date:   Mon Mar 25 09:57:59 2024 +0700
+
+    productList
+
+[33mcommit 6f48b2f90f52dba734dd7f68cf0bb2ee58b2095e[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sun Mar 24 22:40:06 2024 +0700
+
+    fix panigate
+
+[33mcommit 19828d2081ce27231b9f5b059a99ec6a1a227aee[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sat Mar 16 12:06:50 2024 +0700
+
+    fix
+
+[33mcommit 4563097da5e9309ad8b72d2583fed441476b700c[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sat Mar 16 11:26:56 2024 +0700
+
+    fix admin
+
+[33mcommit 15c80737bc6187ee8f1fe95829335b81080b7bb9[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sat Mar 16 11:19:45 2024 +0700
+
+    fix page-admin
+
+[33mcommit 0d9f024796cd7116e8d58ca3b0a5f518e819a3a0[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Mon Jan 29 09:04:28 2024 +0700
+
+    push all
+
+[33mcommit f585959f25c7df7d19830a3288f9d4f0f0a2f08c[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sun Jan 14 10:47:56 2024 +0700
+
+    fix axios
+
+[33mcommit de5df960dfcb8be291eda591946360804d029b28[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Sun Jan 14 00:25:24 2024 +0700
+
+    push
+
+[33mcommit d5554a8b948f427f82c8598bdd0342a7ac5d9561[m
+Author: NguyenBaoTrung080402 <taokhongpk9b@gmail.com>
+Date:   Mon Jan 8 21:02:34 2024 +0700
+
+    FE
