@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import './User.css'
 import { Button, Modal } from "react-bootstrap";
 import Pagination from "react-paginate"
-import axios from "../../../config/customAxios";
+import moment from 'moment';
 
 const User = () => {
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
@@ -46,14 +46,14 @@ const User = () => {
   }, [])
 
   const makeStyle=(role)=>{
-    if(role === 'CUSTOMER')
+    if(role === '["ROLE_CUSTOMER"]')
     {
       return {
         color: '#33CC00',
         borderRadius: "50% 10%",
       }
     }
-    else if(role === 'ADMIN')
+    else if(role === '["ROLE_ADMIN"]')
     {
       return{
         color: 'red',
@@ -62,6 +62,13 @@ const User = () => {
     }
   }
 
+  const role = (role) =>{
+    if(role === '["ROLE_ADMIN"]'){
+      return "ADMIN"
+    } else if(role === '["ROLE_CUSTOMER"]'){
+      return "CUSTOMER"
+    }
+  }
   const genderName = (gender) =>{
     if(gender === 'F'){
       return 'Female'
@@ -107,7 +114,7 @@ const User = () => {
     setIsLoading(true)
     try {
       const res = await f_updateRole_api(selectedUserId);
-      if(res.data.status === 'not found'){
+      if(res.data.status === 'not-found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'success'){
         toast.success(res.data.message)
@@ -159,11 +166,11 @@ const User = () => {
                   <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{user.name}</TableCell>
-                  <TableCell align="left">{user.phone}</TableCell>
-                  <TableCell align="left">{user.dob}</TableCell>
+                  <TableCell align="left">{user.tel}</TableCell>
+                  <TableCell align="left">{moment(user.dob).format('YYYY-MM-DD')}</TableCell>
                   <TableCell align="left">{genderName(user.gender)}</TableCell>
                   <TableCell align="left">{user.address}</TableCell>
-                  <TableCell align="left" style={makeStyle(user.role)}>{user.role}</TableCell>
+                  <TableCell align="left" style={makeStyle(user.authority)}>{role(user.authority)}</TableCell>
                   <TableCell align="left" className="Details d-flex">
                     <div className="mx-2">
                       <button type="button" className="btn btn-danger" onClick={() => handleDelete(user.id)}>Delete</button>

@@ -16,8 +16,8 @@ const CheckOut = () => {
         return quantity * price;
     };
 
-  const subtotal = data.reduce((total, item) => total + handleMoney(item.quantity, item.product_price), 0);
-  const totalItems = data.reduce((total, item) => total + parseFloat(item.quantity), 0);
+  const subtotal = data.reduce((total, item) => total + handleMoney(item.quantityProduct, item.priceProduct), 0);
+  const totalItems = data.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
   const shippingFee = 20000;
   const total = subtotal + shippingFee;
 

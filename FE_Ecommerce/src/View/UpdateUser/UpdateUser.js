@@ -35,14 +35,15 @@ const UpdateUser = () => {
     setLoadingApi(true);
       const formData = new FormData();
       formData.append('avatar', avatar);
-      formData.append('name', nameUpdate);
-      formData.append('phone', phone);
-      formData.append('dob', dob);
-      formData.append('gender', selectedGender);
-      formData.append('address', address);
-      formData.append('_method', 'PUT');
+      formData.append('user', JSON.stringify({
+        'name': nameUpdate,
+        'tel': phone,
+        'dob': dob,
+        'gender':  selectedGender,
+        'address': address
+      }))
     try {
-      const res = await axios.post('/update-information' , formData, {
+      const res = await axios.put('/account/update-account' , formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
