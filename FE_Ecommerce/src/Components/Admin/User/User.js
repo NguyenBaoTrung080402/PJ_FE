@@ -26,11 +26,12 @@ const User = () => {
   const getListUser = async (pageNumber = 1) =>{
     setIsLoading(true)
     try {
-      const res = await axios.get(`/manager/get-all-user/${pageNumber}`);
+      // const res = await axios.get(`/account/get-all-user/${pageNumber}`);
+      const res = await f_getAllUser_api(pageNumber);
       if(res.data.status === 'not found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'success'){
-        setListUser(res.data.result.data)
+        setListUser(res.data.result.content)
         setPage(res.data.result)
       }
     } catch (error) {

@@ -17,7 +17,7 @@ const f_getAllUser_api = () => {
 };
 
 const f_deleteUser_api = (id) => {
-  return axios.delete(`/manager/delete-user/${id}`);
+  return axios.delete(`/account/delete-user/${id}`);
 };
 
 const f_updateRole_api = (id) => {
@@ -27,23 +27,24 @@ const f_updateRole_api = (id) => {
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };
+
 const f_deleteCategory_api = (id) => {
   return axios.delete(`/categories/delete-category/${id}`);
 };
 
 const f_getAllBrands_api = () => {
-  return axios.get("/brand/get-all-brand");
+  return axios.get("/brands/get-all-brands");
 }
 
 const f_addBrand_api = (nameBrand, slugBrand, status) =>{
-  return axios.post("/manager/add-brand", {name: nameBrand, slug: slugBrand, status: status})
+  return axios.post("/brands/create-brands", {name: nameBrand, slug: slugBrand, status: status})
 }
 
 const f_deleteBrand_api = (id) =>{
-  return axios.delete(`/manager/delete-brand/${id}`)
+  return axios.delete(`/brands/delete-brands/${id}`)
 }
 const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
-  return axios.post(`/manager/update-brand/${id}`, {name: nameBrand, slug: slugBrand, status: status})
+  return axios.post(`/brands/update-brands/${id}`, {name: nameBrand, slug: slugBrand, status: status})
 }
 
 const f_getAllProduct_api = (page=1) => {
