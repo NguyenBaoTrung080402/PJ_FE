@@ -4,9 +4,6 @@ const About = () => {
   return (
     <>
  
-
-
- 
       <div className="all-title-box">
         <div className="container">
           <div className="row">

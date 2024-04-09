@@ -27,6 +27,7 @@ const f_updateRole_api = (id) => {
 
 
 
+
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };
