@@ -25,6 +25,7 @@ const f_updateRole_api = (id) => {
   return axios.post(`/manager/update-role/${id}`);
 };
 
+
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };

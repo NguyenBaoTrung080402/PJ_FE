@@ -95,6 +95,7 @@ const AddProduct = () => {
       'brandsId': brandId,
       'status': statusProduct
     }))
+
     
     setIsLoading(true)
     try {
