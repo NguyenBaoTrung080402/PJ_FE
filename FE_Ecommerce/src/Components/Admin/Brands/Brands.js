@@ -137,8 +137,9 @@ const Brands = () => {
         }
     }
  
-
     
+
+
     // delete brands
     const handleDelete = (id) =>{
         setSelectedBrandId(id);

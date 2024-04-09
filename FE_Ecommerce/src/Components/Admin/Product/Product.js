@@ -98,6 +98,7 @@ const ProductAdmin = () => {
   }
 
   
+  
   useEffect(()=>{
     getAllProducts()
   },[])

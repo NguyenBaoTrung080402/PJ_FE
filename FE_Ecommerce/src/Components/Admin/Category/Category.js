@@ -121,6 +121,7 @@ const Category = () => {
 
 
   
+  
   const handleUpdateCategories = async() =>{
     setIsLoading(true);
     const formData = new FormData();

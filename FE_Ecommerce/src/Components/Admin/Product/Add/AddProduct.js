@@ -97,6 +97,7 @@ const AddProduct = () => {
     }))
 
     
+
     setIsLoading(true)
     try {
       const res = await axios.post('/product/create-product', formData, {
