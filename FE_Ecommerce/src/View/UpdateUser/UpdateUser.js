@@ -169,7 +169,6 @@ const UpdateUser = () => {
                             className="form-control"
                             name="phone"
                             id="mobile"
-                            placeholder="09xx.xxx.870"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                           />
