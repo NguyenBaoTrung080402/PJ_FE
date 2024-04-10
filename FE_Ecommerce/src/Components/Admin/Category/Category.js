@@ -56,7 +56,7 @@ const Category = () => {
     setShowAddModal(true)
   };
 
-  const handleAddCategory = async ()=>{
+  const handleAddCategory = async () =>{
     if(!imgCategory || !nameCategory || !slugCategory){
       toast.warning("Input is not blank. Please enter again!")
     }
@@ -78,6 +78,9 @@ const Category = () => {
         toast.error(res.data.message)
       }else if(res.data.status === 'success'){
         toast.success(res.data.message)
+        setNameCategory('')
+        setImgCategory(null)
+        setSlugCategory('')
       }
     } catch (error) {
       toast.error(error.message)
@@ -103,7 +106,7 @@ const Category = () => {
 
   const handCancelAdd = () =>{
     setNameCategory('')
-    setImgCategory('')
+    setImgCategory(null)
     setSlugCategory('')
     setShowAddModal(false)
   }
@@ -119,15 +122,14 @@ const Category = () => {
     setShowUpdateModal(true)
   }
 
-
-  
-  
   const handleUpdateCategories = async() =>{
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("imageCategory", dataCategoryUpdate.imgCategory);
-    formData.append("name", dataCategoryUpdate.nameCategory);
-    formData.append("slug", dataCategoryUpdate.slugCategory);
+    formData.append("imageCategories", dataCategoryUpdate.avatar);
+    formData.append('categories', JSON.stringify({
+      "name": dataCategoryUpdate.name,
+      "slug": dataCategoryUpdate.slug
+    }))
 
     try {
       const res = await axios.put(`/categories/update-category/${selectedCategoriesId}`, formData, {

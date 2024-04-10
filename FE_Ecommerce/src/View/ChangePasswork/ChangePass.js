@@ -3,6 +3,8 @@ import SideBar from '../SideBar/SideBar'
 import { toast } from 'react-toastify';
 import "./ChangePass.css"
 import logoChangePass from '../../assets/IMG/defaultIMG/login_img.jpg'
+import { f_changePassword_api } from '../../config/api';
+import { Link, useNavigate } from "react-router-dom";
 
 const ChangePass = () => {
     const [oldPass, setOldPass] = useState('');
@@ -11,30 +13,34 @@ const ChangePass = () => {
     const [showPassword1, setShowPassword1] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const [showPassword3, setShowPassword3] = useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const navigate = useNavigate();
 
-
-    const onSubmit = async (e) => {
-        // e.preventDefault();
-        // if (newPass != reNewPass) {
-        //     toast.error("The new pass is different from renew pass")
-        // } else if (newPass.length < 5 || reNewPass.length < 5) {
-        //     toast.error("The length of the new password must be greater than five")
-        // } else {
-        //     const res = await changePassApi(oldPass, newPass, reNewPass);
-        //     console.log("check dieu kien", res.data.message)
-        //     if (res && res.data && res.data.status === 'success') {
-        //         toast.success("Change password is successful")
-        //         navigate(appRoutes.HOME);
-        //     } else {
-        //         toast.error("Wrong password")
-        //         setNewPass('');
-        //         setOldPass('');
-        //         setReNewPass('');
-        //         navigate(appRoutes.CHANGE_PASS);
-        //     }
-
-        // }
-
+    const onSubmit = async () => {
+        setIsLoading(true)
+        try {
+            if (newPass != reNewPass) {
+                toast.error("The new pass is different from renew pass")
+            } else if (newPass.length < 5 || reNewPass.length < 5) {
+                toast.error("The length of the new password must be greater than five")
+            } else {
+                const res = await f_changePassword_api(oldPass, newPass, reNewPass);
+                if (res.data.status === 'success') {
+                    toast.success("Change password is successful")
+                    navigate("/account");
+                } else {
+                    toast.error("Wrong password")
+                    setNewPass('');
+                    setOldPass('');
+                    setReNewPass('');
+                    navigate("/change-password");
+                }
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }finally{
+            setIsLoading(false)
+        }
     }
   return (
     <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"

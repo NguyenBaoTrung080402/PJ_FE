@@ -23,7 +23,6 @@ const Brands = () => {
     statusBrand: '',
   })
 
-
     // common
     const makeStyle=(status)=>{
         if(status === 'Active')
@@ -104,9 +103,9 @@ const Brands = () => {
         setSelectedBrandId(id)
         const brandUpdate = listBrands.find((brand) => brand.id === id);
             setBrandUpdate({
-                nameBrand: brandUpdate.name,
-                slugBrand: brandUpdate.slug,
-                statusBrand: brandUpdate.status,
+                nameBrand: brandUpdate.nameBrand,
+                slugBrand: brandUpdate.slugBrand,
+                status: brandUpdate.statusBrand,
             });
         setShowUpdateModal(true);
     }

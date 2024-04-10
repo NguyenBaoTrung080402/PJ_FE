@@ -122,7 +122,7 @@ const UpdateProduct = () => {
 
     try {
       console.log(formData)
-      const res = await axios.post(`/manager/update-product/${id}`, formData,{
+      const res = await axios.post(`/product/update-product/${id}`, formData,{
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -266,7 +266,7 @@ const UpdateProduct = () => {
                         className="form-control"
                       >
                         {listBrand && listBrand.map((brands)=>(
-                          <option key={brands.id} value={brands.id}>{brands.name}</option> 
+                          <option key={brands.id} value={brands.id}>{brands.nameBrand}</option> 
                         ))}
                       </select>
                   </div>
