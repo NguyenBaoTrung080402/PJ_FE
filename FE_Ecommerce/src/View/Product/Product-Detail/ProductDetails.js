@@ -62,8 +62,8 @@ const ProductDetails = () => {
 
     setIsLoading(true)
     try {
-      const res = await axios.post('/wishlist/add-to-wishlist', dataCart);
-      if(res.data.status === 'not found'){
+      const res = await axios.post('/wish-list/add-to-wish-list', dataCart);
+      if(res.data.status === 'not-found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'Conflict'){
         toast.error(res.data.message)

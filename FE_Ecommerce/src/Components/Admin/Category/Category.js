@@ -114,10 +114,11 @@ const Category = () => {
   const handleUpdate = (id) => {
     setSelectedCategoriesId(id)
     const categoryToUpdate = listCategories.find((category) => category.id === id);
+    console.log(categoryToUpdate);
     setDataCategoryUpdate({
       name: categoryToUpdate.name,
       slug: categoryToUpdate.slug,
-      avatar: categoryToUpdate.avatar,
+      avatar: categoryToUpdate.imageCategory,
     });
     setShowUpdateModal(true)
   }
