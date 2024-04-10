@@ -5,33 +5,27 @@ import { toast } from 'react-toastify';
 import { f_getAllProduct_api } from '../../config/api';
 import ListProduct from '../../View/Product/ListProduct';
 
+
 const TopBar = () => {
     const token = localStorage.getItem('token');
     const currentAccount = JSON.parse(localStorage.getItem('current-account'));
-    const navigate = useNavigate();
     const [setProducts] = useState([]);
     const [query, setQuery] = useState('');
-    const handleSearch = () => {
-        navigate(`/list-product?search=${query}`);
-    };
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const getAllProducts = async () => {
-            try {
-                const response = await f_getAllProduct_api();
-                if (response.data.status === 'success') {
-                    setProducts(response.data.result.content);
-                } else {
-                    toast.warning(response.data.message)
-                    console.error("Lỗi khi lấy dữ liệu sản phẩm:", response.data.message);
-                }
-            } catch (error) {
-                console.error("Lỗi khi lấy dữ liệu sản phẩm:", error);
+    const handleSearch = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await f_getAllProduct_api(); // Gọi API tìm kiếm sản phẩm với query
+            if (response.data.status === 'success') {
+                navigate(`/list-product?search=${query}`);
+            } else {
+                console.error('Lỗi khi tìm kiếm sản phẩm:', response.data.message);
             }
-        };
-
-        getAllProducts();
-    }, []); 
+        } catch (error) {
+            console.error('Lỗi khi tìm kiếm sản phẩm:', error.message);
+        }
+    };
     
     const handleLogout = () => {
         localStorage.removeItem('token');
