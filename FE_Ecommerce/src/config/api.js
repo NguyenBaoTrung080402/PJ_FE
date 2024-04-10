@@ -89,6 +89,12 @@ const f_getCartItemShipping_api = () =>{
 const f_getAllOrder_api = () =>{
   return axios.get(`/order/get-all-order`)
 }
+const f_getAllSize_api = () =>{
+  return axios.get(`/sizes/get-all-size`)
+}
+const f_getAllColor_api = () =>{
+  return axios.get(`/colors/get-all-colors`)
+}
 
 const f_order_api = (user_id, product_id, wishListID, quantity) =>{
   return axios.post("/order/store", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
@@ -118,5 +124,7 @@ export {
   f_order_api,
   f_getCartItemPurchased_api,
   f_getCartItemCancel_api,
-  f_getCartItemShipping_api
+  f_getCartItemShipping_api,
+  f_getAllSize_api,
+  f_getAllColor_api
 };

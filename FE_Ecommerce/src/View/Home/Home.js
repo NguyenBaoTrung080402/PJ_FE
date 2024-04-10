@@ -184,7 +184,7 @@ const Home = () => {
     <div className="container-fluid pt-5 text-center" id="category">
         <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Categories</span></h2>
         <div className="row px-xl-5 pb-3">
-            {listCategories && listCategories.map((category) =>(
+            {listCategories && listCategories.slice(-12).map((category) =>(
                 <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
                     <Link className="text-decoration-none" href="">
                         <div className="cat-item d-flex align-items-center mb-4">

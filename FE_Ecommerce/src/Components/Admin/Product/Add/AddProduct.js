@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../SideBar/SideBar";
 import { useNavigate } from "react-router-dom";
-import { f_getAllBrands_api, f_getAllCategory_api } from "../../../../config/api";
+import { f_getAllBrands_api, f_getAllCategory_api, f_getAllColor_api, f_getAllSize_api } from "../../../../config/api";
 import { toast } from "react-toastify";
 import axios from '../../../../config/customAxios'
-
+import './AddProduct.css'
 const AddProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate()
@@ -23,6 +23,10 @@ const AddProduct = () => {
   const [listBrand, setListBrand] = useState([])
   const [listCategory, setListCategory] = useState([])
   const [statusProduct, setStatusProduct] = useState('Active')
+  const [size, setSize] = useState();
+  const [color, setColor] = useState();
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -37,6 +41,23 @@ const AddProduct = () => {
     setImgProduct(selectedImage);
   };
 
+  const handleSizeChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedSizes([...selectedSizes, parseInt(value)]); 
+    } else {
+      setSelectedSizes(selectedSizes.filter(size => size !== parseInt(value)));
+    }
+  };
+  const handleColorChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedColors([...selectedColors, parseInt(value)]); 
+    } else {
+      setSelectedColors(selectedColors.filter(color => color !== parseInt(value)));
+    }
+  };
+  
   const getListBrand = async () => {
     setIsLoading(true)
     try {
@@ -93,10 +114,10 @@ const AddProduct = () => {
       'discountedPrice': discountedPriceProduct,
       'categoriesId': categoryId,
       'brandsId': brandId,
-      'status': statusProduct
+      'status': statusProduct,
+      'colorId' : JSON.stringify(selectedColors),
+      'sizeId': JSON.stringify(selectedSizes)
     }))
-
-    
 
     setIsLoading(true)
     try {
@@ -120,6 +141,43 @@ const AddProduct = () => {
   const handleCancel = () =>{
     navigate("/product-admin")
   }
+  // ======================== get size, color ================
+  useEffect(()=>{
+    getSize()
+    getColors()
+  },[])
+
+  const getSize = async () =>{
+    setIsLoading(true)
+    try {
+      const res = await f_getAllSize_api();
+      if(res.data.status === 'not-found'){
+        toast.warning(res.data.message)
+      }else if (res.data.status === 'success'){
+        setSize(res.data.result)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+  const getColors = async () =>{
+    setIsLoading(true)
+    try {
+      const res = await f_getAllColor_api();
+      if(res.data.status === 'not-found'){
+        toast.warning(res.data.message)
+      }else if (res.data.status === 'success'){
+        setColor(res.data.result)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="admin">
       <div className="adminGlass" style={{ minHeight: "100vh" }}>
@@ -219,6 +277,24 @@ const AddProduct = () => {
                   placeholder="how you like that...."
                   type="text"
                 />
+                <div className="d-flex justify-content-around py-2">
+                  {color?.map((color, index)=>{
+                    return(
+                      <div key={index} className="d-flex flex-column align-items-center">
+                        <label htmlFor={color.name}>{color.name}</label>
+                        <input 
+                        id={color.name} 
+                        className="checkbox" 
+                        type="checkbox" 
+                        value={color.id}
+                        onChange={handleColorChange}
+                        checked={selectedColors.includes(color.id)}
+                        />
+                      </div>
+                    )
+                  })}
+                  
+                </div>
                 <div className="d-flex justify-content-around">
                   <div className="flex-column col-md-4">
                     <label>Brand<span className="text-danger" style={{fontSize: "15px", fontWeight:"bolder"}}>*</span></label>
@@ -258,6 +334,23 @@ const AddProduct = () => {
                         <option value="Inactive">Inactive</option>
                       </select>
                   </div>
+                </div>
+                <div className="d-flex justify-content-around py-2">
+                  {size?.map((size, index)=>{
+                    return(
+                    <div key={index} className="d-flex flex-column align-items-center">
+                      <label htmlFor={size.name}>Size {size.name}</label>
+                      <input 
+                      id={size.name} 
+                      className="checkbox" 
+                      type="checkbox" 
+                      value={size.id}
+                      onChange={handleSizeChange}
+                      checked={selectedSizes.includes(size.id)}
+                      />
+                    </div>
+                    )
+                  })}
                 </div>
                 <div className="inputGroup1 py-3 col-md-12 d-flex flex-column">
                     <input 
