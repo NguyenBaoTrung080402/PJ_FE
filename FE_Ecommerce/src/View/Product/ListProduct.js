@@ -14,6 +14,7 @@ const ListProduct = () => {
     const [page, setPage] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
     const location = useLocation();
+    
         // get all product        
         useEffect(() => {
             const fetchProducts = async () => {
@@ -60,7 +61,38 @@ const ListProduct = () => {
             setSearchResults(filteredProducts);
         };
         
+        //checked filter
+        const priceRangeOptions = document.getElementById('price-range-options');
+        let currentChecked = document.getElementById('price-all'); // Khởi tạo giá trị ban đầu
 
+        function handleCheckboxChange(event) {
+        const clickedCheckbox = event.target;
+
+        // Bỏ chọn checkbox đang được chọn
+        if (currentChecked && currentChecked !== clickedCheckbox) {
+            currentChecked.checked = false;
+        }
+        // Cập nhật checkbox hiện tại
+        currentChecked = clickedCheckbox;
+        }
+        // Lặp qua các checkbox và thêm sự kiện 'change'
+        const checkboxes = document.querySelectorAll('.custom-control-input');
+        checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', handleCheckboxChange);
+        });
+
+        //filter giá 
+        const handleCheckboxChangeByMoney = (event) => {
+            const selectedPriceRange = event.target.value;
+            let filteredProducts = [];
+            if (selectedPriceRange === "all") {
+                filteredProducts = products;
+            } else {
+                const [minPrice, maxPrice] = selectedPriceRange.split('-').map(Number);
+                filteredProducts = products.filter(product => product.discountedPrice >= minPrice && product.discountedPrice <= maxPrice);
+            }
+            setSearchResults(filteredProducts);
+        };
   return (
     <>
     <div className="container-fluid">
@@ -82,27 +114,27 @@ const ListProduct = () => {
                 <div className="bg-light p-4 mb-30">
                     <form>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" checked id="price-all"/>
+                            <input type="checkbox" className="custom-control-input" id="price-all" value="all" onChange={handleCheckboxChangeByMoney} checked />
                             <label className="custom-control-label" htmlFor="price-all">All Price</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="price-1"/>
+                            <input type="checkbox" className="custom-control-input" id="price-1" value="0-100" onChange={handleCheckboxChangeByMoney} />
                             <label className="custom-control-label" htmlFor="price-1">$0 - $100</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="price-2"/>
+                            <input type="checkbox" className="custom-control-input" id="price-2" value="100-200" onChange={handleCheckboxChangeByMoney} />
                             <label className="custom-control-label" htmlFor="price-2">$100 - $200</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="price-3"/>
+                            <input type="checkbox" className="custom-control-input" id="price-3" value="200-300" onChange={handleCheckboxChangeByMoney}/>
                             <label className="custom-control-label" htmlFor="price-3">$200 - $300</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="price-4"/>
+                            <input type="checkbox" className="custom-control-input" id="price-4" value="300-400" onChange={handleCheckboxChangeByMoney}/>
                             <label className="custom-control-label" htmlFor="price-4">$300 - $400</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" className="custom-control-input" id="price-5"/>
+                            <input type="checkbox" className="custom-control-input" id="price-5" value="400-500" onChange={handleCheckboxChangeByMoney}/>
                             <label className="custom-control-label" htmlFor="price-5">$400 - $500</label>
                         </div>
                     </form>
@@ -198,7 +230,7 @@ const ListProduct = () => {
                             </div>
                         </div>
                     </div>
-
+    
                         {isLoading ? (
                             <div className='loading'>
                                 <div className="custom-loader"></div>
