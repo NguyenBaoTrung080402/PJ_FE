@@ -1,0 +1,86 @@
+/* Styling for the about page */
+.about-page {
+    background-color: #f5f5f5; /* Background color for the entire page */
+  }
+  
+  /* Styling for the header section */
+  .about-header {
+    background: rgba(0, 0, 0, 0.6);
+    background-image: url("https://www.blarlo.com/img/bg-ecommerce_1200.jpg"); /* Background image */
+    background-size: cover;
+    text-align: center;
+    color: white;
+    padding: 100px 0; /* Padding for the header section */
+  }
+  
+  /* Styling for the title */
+  .about-title {
+    font-size: 36px; /* Font size of the title */
+    margin-bottom: 20px; /* Bottom margin for the title */
+  }
+  
+  /* Styling for the breadcrumb navigation */
+  .breadcrumbx {
+    background-color: #ffd333;
+    margin-top: 20px;
+  font-size: 17px; /* Font size of the breadcrumb navigation */
+  display: inline-block; /* Ensure the element behaves like a block */
+  padding: 10px 20px; /* Add padding to create space around the items */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Increase box shadow intensity for a stronger pop-up effect */
+  transition: transform 0.3s, box-shadow 0.3s; /* Add transition for smooth animation */
+  }
+  
+  /* Styling for breadcrumb items */
+  .breadcrumbx-item {
+    color: white;
+    text-decoration: none; /* Remove default underline */
+    transition: transform 0.3s; /* Add transition effect for smooth animation */
+  }
+
+  
+  /* Styling for the content section */
+  .about-content {
+    padding: 50px 0 0; /* Padding for the content section */
+  }
+  
+  /* Styling for the subtitle */
+  .about-subtitle {
+    font-size: 24px; /* Font size of the subtitle */
+    margin-bottom: 20px; /* Bottom margin for the subtitle */
+  }
+  
+  /* Styling for the text */
+  .about-text {
+    font-size: 16px; /* Font size of the text */
+    line-height: 1.6; /* Line height of the text */
+    margin-bottom: 20px; /* Bottom margin for the text */
+  }
+  
+  /* Styling for the image */
+  .about-image {
+    max-width: 100%; /* Maximum width for the image */
+    height: auto; /* Maintain aspect ratio of the image */
+    margin-bottom: 20px; /* Bottom margin for the image */
+  }
+  
+  /* Styling for the service blocks */
+  .service-block {
+    background-color: #ffffff; /* Background color for the service blocks */
+    border-radius: 10px; /* Border radius for the service blocks */
+    padding: 20px; /* Padding for the service blocks */
+    margin-bottom: 20px; /* Bottom margin for the service blocks */
+  }
+  
+  /* Styling for the service titles */
+  .service-title {
+    font-size: 20px; /* Font size of the service titles */
+    margin-bottom: 10px; /* Bottom margin for the service titles */
+  }
+  
+  /* Styling for the service descriptions */
+  .service-description {
+    font-size: 16px; /* Font size of the service descriptions */
+    line-height: 1.6; /* Line height of the service descriptions */
+    margin-bottom: 0; /* Bottom margin for the service descriptions */
+  }
+  

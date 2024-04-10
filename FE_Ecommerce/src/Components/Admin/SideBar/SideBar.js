@@ -44,12 +44,12 @@ const Sidebar = () => {
 
       <div className="menu">
         <div className="selected d-flex flex-column ">
-            <Link className="actived text-dark text-decoration-none py-4" to="/admin-page"><span className="mx-3 fs-4"><UilEstate/> Dashboard</span></Link>
-            <Link className=" text-dark text-decoration-none py-4" to="/list-user"><span className="mx-3 fs-4"><UilUsersAlt/>Customer</span></Link>
-            <Link className=" text-dark text-decoration-none py-4" to="/category-admin"><span className="mx-3 fs-4"><UilPackage/> Categories</span></Link>
-            <Link className=" text-dark text-decoration-none py-4" to="/brands-admin"><span className="mx-3 fs-4"><UilChart/>Brands</span></Link>
-            <Link className=" text-dark text-decoration-none py-4" to="/product-admin"><span className="mx-3 fs-4"><UilChart/>Product</span></Link>
-            <Link className=" text-dark text-decoration-none py-4" to="/accept-order"><span className="mx-3 fs-4"><UilChart/>Accept Order</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/admin-page"><span className="mx-3 fs-4"><UilEstate/> Dashboard</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/list-user"><span className="mx-3 fs-4"><UilUsersAlt/>Customer</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/category-admin"><span className="mx-3 fs-4"><UilPackage/> Categories</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/brands-admin"><span className="mx-3 fs-4"><UilChart/>Brands</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/product-admin"><span className="mx-3 fs-4"><UilChart/>Product</span></Link>
+            <Link className="active sidebar text-dark text-decoration-none py-4" to="/accept-order"><span className="mx-3 fs-4"><UilChart/>Accept Order</span></Link>
         </div>
       </div>
     </motion.div>
