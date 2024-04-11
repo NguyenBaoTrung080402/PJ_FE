@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../SideBar/SideBar'
 import { useNavigate, useParams } from 'react-router-dom'
-import { f_getAllBrands_api, f_getAllCategory_api, f_getAllProductId_api } from '../../../../config/api';
+import { f_getAllBrands_api, f_getAllCategory_api, f_getAllColor_api, f_getAllProductId_api, f_getAllSize_api } from '../../../../config/api';
 import { toast } from 'react-toastify';
 import axios from '../../../../config/customAxios'
 
@@ -12,7 +12,10 @@ const UpdateProduct = () => {
   const {id} = useParams()
   const [previewImage, setPreviewImage] = useState('');
   const navigate = useNavigate();
-  // const [name, setName] = useState('');
+  const [sizeName, setSizeName] = useState();
+  const [colorName, setColorName] = useState();
+  const [size, setSizes] = useState();
+  const [color, setColors] = useState();
   const [productData, setProductData] = useState({
     name: "",
     information: "",
@@ -22,16 +25,71 @@ const UpdateProduct = () => {
     stock: "",
     price: "",
     discounted_price: "",
-    brands_id: "",
-    categories_id: "",
+    brandsId: "",
+    categoriesId: "",
+    colorId: "",
+    sizeId: "",
     image: "",
     status: "",
   })
-  // console.log(productData.name)
+
+  const getSize = async () =>{
+    setIsLoading(true)
+    try {
+      const res = await f_getAllSize_api();
+      if(res.data.status === 'not-found'){
+        toast.warning(res.data.message)
+      }else if (res.data.status === 'success'){
+        setSizeName(res.data.result)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+  const getColors = async () =>{
+    setIsLoading(true)
+    try {
+      const res = await f_getAllColor_api();
+      if(res.data.status === 'not-found'){
+        toast.warning(res.data.message)
+      }else if (res.data.status === 'success'){
+        setColorName(res.data.result)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }finally{
+      setIsLoading(false)
+    }
+  }
+
+  const handleColorChange = (colorId) => {
+    const updatedColorIds = [...productData.colorId];
+    if (updatedColorIds.includes(colorId)) {
+      updatedColorIds.splice(updatedColorIds.indexOf(colorId), 1);
+    } else {
+      updatedColorIds.push(colorId);
+    }
+    setProductData({ ...productData, colorId: updatedColorIds });
+  };
+  
+  const handleSizeChange = (sizeId) => {
+    const updatedSizeIds = [...productData.sizeId];
+    if (updatedSizeIds.includes(sizeId)) {
+      updatedSizeIds.splice(updatedSizeIds.indexOf(sizeId), 1);
+    } else {
+      updatedSizeIds.push(sizeId);
+    }
+    setProductData({ ...productData, sizeId: updatedSizeIds });
+  };
+
   useEffect(()=>{
     getListBrand()
     getListCategory()
     getProductById()
+    getColors()
+    getSize()
   },[])
 
   const getProductById = async() =>{
@@ -41,7 +99,15 @@ const UpdateProduct = () => {
       if(res.data.status === 'not found'){
         toast.warning(res.data.message);
       }else if(res.data.status === 'success'){
-        setProductData(res.data.result)
+        // setProductData(res.data.result.product)
+        // setSizeName(res.data.result.sizes)
+        // setColorName(res.data.result.colors)
+        const { product, colors, sizes } = res.data.result;
+        const colorIds = colors.map((color) => color.id);
+        const sizeIds = sizes.map((size) => size.id);
+        setProductData({ ...product, colorId: colorIds, sizeId: sizeIds });
+        setColors(colors);
+        setSizes(sizes);
       }
     } catch (error) {
       toast.error(error.message)
@@ -104,25 +170,27 @@ const UpdateProduct = () => {
     //     return toast.warning("Input is required")
     //   }
     setIsLoading(true)
-    console.log('pD', productData);
     const formData = new FormData()
-    formData.append('name', productData.name)
-    formData.append('information', productData.information)
-    formData.append('description', productData.description)
-    formData.append('slug', productData.slug)
-    formData.append('summary', productData.summary)
-    formData.append('stock', productData.stock)
-    formData.append('price', productData.price)
-    formData.append('discounted_price', productData.discounted_price)
-    formData.append('brands_id', productData.brands_id)
-    formData.append('categories_id', productData.categories_id)
     formData.append('image', productData.image)
-    formData.append('status', productData.status)
-    formData.append('_method', 'PUT' )
+    formData.append('product', JSON.stringify({
+      'name': productData.name,
+      'information': productData.information,
+      'description': productData.description,
+      'slug': productData.slug,
+      'summary': productData.summary,
+      'stock': productData.stock,
+      'price': productData.price,
+      'discountedPrice': productData.discounted_price,
+      'brandsId': productData.brandsId,
+      'categoriesId': productData.categoriesId,
+      'colorId': JSON.stringify(productData.colorId),
+      'sizeId': JSON.stringify(productData.sizeId),
+      'status': productData.status,
+    }))
 
     try {
       console.log(formData)
-      const res = await axios.post(`/product/update-product/${id}`, formData,{
+      const res = await axios.put(`/product/update-product/${id}`, formData,{
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -248,24 +316,42 @@ const UpdateProduct = () => {
                 <label htmlFor="nameCate" style={{userSelect: "none"}}>Product discount</label>
                 <input
                   class="input-category col-md-12"
-                  value={productData.discounted_price}
-                  onChange={(e) =>setProductData({...productData, discounted_price: e.target.value})}
+                  value={productData.discountedPrice}
+                  onChange={(e) =>setProductData({...productData, discountedPrice: e.target.value})}
                   name="text"
                   id="nameCate"
                   placeholder="how you like that...."
                   type="text"
                 />
-
+                <div className="d-flex justify-content-around py-2">
+                  {colorName?.map((color, index)=>{
+                    return(
+                      <div key={index} className="d-flex flex-column align-items-center">
+                        <label htmlFor={color.name}>{color.name}</label>
+                        <input 
+                        id={color.name} 
+                        className="checkbox" 
+                        type="checkbox" 
+                        value={color.id}
+                        // onChange={(e) => setProductData({...productData, colorsId: e.target.value})}
+                        onChange={() => handleColorChange(color.id)}
+                        checked={productData.colorId.includes(color.id)}
+                        />
+                      </div>
+                    )
+                  })}
+                  
+                </div>
                 <div className="d-flex justify-content-around">
                   <div className="flex-column col-md-4">
                     <label>Brand</label>
                       <select
                         id="gender"
-                        value={productData.brands_id}
-                        onChange={(e) =>setProductData({...productData, brands_id: e.target.value})}
+                        value={productData.brandsId}
+                        onChange={(e) =>setProductData({...productData, brandsId: e.target.value})}
                         className="form-control"
                       >
-                        {listBrand && listBrand.map((brands)=>(
+                        {listBrand?.map((brands)=>(
                           <option key={brands.id} value={brands.id}>{brands.nameBrand}</option> 
                         ))}
                       </select>
@@ -274,11 +360,11 @@ const UpdateProduct = () => {
                     <label>Category</label>
                       <select
                         id="gender"
-                        value={productData.categories_id}
-                        onChange={(e) =>setProductData({...productData, categories_id: e.target.value})}
+                        value={productData.categoriesId}
+                        onChange={(e) =>setProductData({...productData, categoriesId: e.target.value})}
                         className="form-control"
                       >
-                        {listCategory && listCategory.map((categories) =>(
+                        {listCategory?.map((categories) =>(
                           <option key={categories.id} value={categories.id}>{categories.name}</option>
                         ))}
                       </select>
@@ -295,6 +381,24 @@ const UpdateProduct = () => {
                         <option value="Inactive">Inactive</option>
                       </select>
                   </div>
+                </div>
+                <div className="d-flex justify-content-around py-2">
+                  {sizeName?.map((size, index)=>{
+                    return(
+                    <div key={index} className="d-flex flex-column align-items-center">
+                      <label htmlFor={size.name}>Size {size.name}</label>
+                      <input 
+                      id={size.name} 
+                      className="checkbox" 
+                      type="checkbox" 
+                      value={size.id}
+                      // onChange={(e) => setProductData({...productData, sizeId: e.target.value})}
+                      onChange={() => handleSizeChange(size.id)}
+                      checked={productData.sizeId.includes(size.id)}
+                      />
+                    </div>
+                    )
+                  })}
                 </div>
                 <div className="inputGroup1 py-3 col-md-12 d-flex flex-column">
                     <input 
