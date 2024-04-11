@@ -9,7 +9,8 @@ import { toast } from 'react-toastify';
 import { formatCurrency } from '../../../Validate/Validate';
 
 const ProductDetails = () => {
-  const [listProdct, setListProduct] = useState([])
+  const [listColor, setListColor] = useState()
+  const [listSize, setListSizes] = useState()
   const [activeTab, setActiveTab] = useState("tab-pane-1");
   const [productId, setProductsId] = useState({
     name: "",
@@ -21,7 +22,9 @@ const ProductDetails = () => {
     price: "",
     discounted_price: "",
     image: "",
-    status:""
+    status:"",
+    sizeName: "",
+    colorName: "",
   });
   const [isLoading, setIsLoading] = useState(false)
   const { id } = useParams();
@@ -33,7 +36,9 @@ const ProductDetails = () => {
       if(res.data.status === 'not found'){
         toast.warning(res.data.message);
       }else if(res.data.status === 'success'){
-        setProductsId(res.data.result)
+        setProductsId(res.data.result.product)
+        setListColor(res.data.result.colors)
+        setListSizes(res.data.result.sizes)
       }
     } catch (error) {
       toast.error(error.message)
@@ -56,14 +61,20 @@ const ProductDetails = () => {
     e.preventDefault();
     
     const dataCart = {
-      products_id: productId.id,
+      productId: id,
       quantity: 1,
+      nameSize: productId.sizeName,
+      nameColor: productId.colorName,
+      price: productId.price,
     }
-
+    if(!dataCart.nameColor || !dataCart.nameSize){
+      toast.warning('Please select color and size')
+      return;
+    }
     setIsLoading(true)
     try {
-      const res = await axios.post('/wishlist/add-to-wishlist', dataCart);
-      if(res.data.status === 'not found'){
+      const res = await axios.post('/wish-list/add-to-wish-list', dataCart);
+      if(res.data.status === 'not-found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'Conflict'){
         toast.error(res.data.message)
@@ -127,55 +138,35 @@ const ProductDetails = () => {
                       </div>
                       <small class="pt-1">(99 Reviews)</small>
                   </div>
-                  <h3 class="font-weight-semi-bold mb-4">{formatCurrency(productId.discounted_price)}</h3>
+                  <h3 class="font-weight-semi-bold mb-4">{formatCurrency(productId.discountedPrice)}</h3>
                   <p class="mb-4">
                     {productId.summary}
                     </p>
                   <div class="d-flex mb-3">
                       <strong class="text-dark mr-3">Sizes:</strong>
                       <div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="size-1" name="size"/>
-                              <label class="custom-control-label" for="size-1">XS</label>
+                          {listSize?.map((size, index) =>{
+                            return(
+                              <div key={index} class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" onChange={(e) => setProductsId({...productId, sizeName: e.target.value})} id={size.nameSize} name="size" value={size.nameSize}/>
+                              <label class="custom-control-label" htmlFor={size.nameSize}>{size.nameSize}</label>
                           </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="size-2" name="size"/>
-                              <label class="custom-control-label" for="size-2">S</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="size-3" name="size"/>
-                              <label class="custom-control-label" for="size-3">M</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="size-4" name="size"/>
-                              <label class="custom-control-label" for="size-4">L</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="size-5" name="size"/>
-                              <label class="custom-control-label" for="size-5">XL</label>
-                          </div>
+                            )
+                          })}
                       </div>
                   </div>
                   <div class="d-flex mb-4">
                       <strong class="text-dark mr-3">Colors:</strong>
-                      <form>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="color-1" name="color"/>
-                              <label class="custom-control-label" for="color-1">Black</label>
+                      <div>
+                          {listColor?.map((color, index)=>{
+                            return(
+                              <div key={index} class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" onChange={(e) => setProductsId({...productId, colorName: e.target.value})} id={color.id} name="color" value={color.nameColor}/>
+                              <label class="custom-control-label" htmlFor={color.id}>{color.nameColor}</label>
                           </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="color-2" name="color"/>
-                              <label class="custom-control-label" for="color-2">White</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="color-3" name="color"/>
-                              <label class="custom-control-label" for="color-3">Red</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" class="custom-control-input" id="color-4" name="color"/>
-                              <label class="custom-control-label" for="color-4">Blue</label>
-                          </div>
-                      </form>
+                            )
+                          })}
+                      </div>
                   </div>
                   <div class="d-flex align-items-center mb-4 pt-2">
                       <div class="input-group quantity mr-3" style={{width: "130px"}}>

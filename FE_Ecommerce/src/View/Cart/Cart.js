@@ -117,7 +117,7 @@ const Cart = () => {
                             <tr className='fadeIn'>
                                 <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
                                     <img src={`http://127.0.0.1:8000/${cart.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
-                                    {cart.product_name}
+                                    {cart.nameProduct}
                                 </td>
                                 <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.priceProduct))}</td>
                                 <td class="align-middle">
