@@ -34,7 +34,7 @@ const Home = () => {
         setIsLoading(false);
         }
     }
-
+    
     useEffect(()=>{
         getListCategories()
     },[])
@@ -62,6 +62,9 @@ const Home = () => {
       useEffect(()=>{
         getAllProducts()
       },[])
+
+  //chatbox
+  
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
