@@ -68,13 +68,13 @@ const ProductAdmin = () => {
         toast.error(res.data.message)
       }else if(res.data.status === 'success'){
         toast.success(res.data.message)
+        getAllProducts()
       }
     } catch (error) {
       toast.error(error.message)
     }finally{
       setShowDeleteModal(false)
       setIsLoading(false)
-      getAllProducts()
     }
   }
   // get all products
@@ -180,9 +180,9 @@ const ProductAdmin = () => {
                           </TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.stock}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.price)}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.discounted_price)}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.brandsId}</TableCell>
-                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.categoriesId}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{formatCurrency(listProduct.discountedPrice)}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.brandsName}</TableCell>
+                          <TableCell align="left" style={{verticalAlign: "middle"}}>{listProduct.categoriesName}</TableCell>
                           <TableCell align="left" style={{verticalAlign: "middle"}}>
                             <span className="status" style={makeStyle(listProduct.status)}>{listProduct.status}</span>
                           </TableCell>

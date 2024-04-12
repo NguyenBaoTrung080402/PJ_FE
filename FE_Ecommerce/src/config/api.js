@@ -97,7 +97,7 @@ const f_getAllColor_api = () =>{
 }
 
 const f_order_api = (user_id, product_id, wishListID, quantity) =>{
-  return axios.post("/order/store", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
+  return axios.post("/order/create-order", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
 }
 
 export {
