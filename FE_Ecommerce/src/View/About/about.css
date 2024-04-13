@@ -47,6 +47,8 @@
   .about-subtitle {
     font-size: 24px; /* Font size of the subtitle */
     margin-bottom: 20px; /* Bottom margin for the subtitle */
+    font-weight: bold;
+    justify-content: center;
   }
   
   /* Styling for the text */
@@ -83,4 +85,6 @@
     line-height: 1.6; /* Line height of the service descriptions */
     margin-bottom: 0; /* Bottom margin for the service descriptions */
   }
-  
+  .services-section {
+    margin-top :30px
+  }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import "./admin.css";
 import Sidebar from '../SideBar/SideBar';
-
+// import Dashboard from './Dashboard';
 const Admin = () => {
   const navigate = useNavigate();
 

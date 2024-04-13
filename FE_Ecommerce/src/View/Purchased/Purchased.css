@@ -1,0 +1,41 @@
+.status-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-btn:hover {
+    filter: brightness(95%);
+}
+
+.status-btn-success {
+    color: #0e9308;
+    background-color: #d1f2d1;
+    border: 1px solid #0e9308;
+}
+
+.status-btn-primary {
+    color: #0052cc;
+    background-color: #c7e0f4;
+    border: 1px solid #0052cc;
+}
+
+.status-btn-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border: 1px solid #0c5460;
+}
+
+.status-btn-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #856404;
+}
+.empty-cart-icon {
+    font-size: 48px; 
+}

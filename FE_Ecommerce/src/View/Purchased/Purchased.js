@@ -1,88 +1,122 @@
-import React, { useEffect, useState } from 'react'
-import SideBar from '../SideBar/SideBar'
-import { f_getCartItemPurchased_api } from '../../config/api'
-import { toast } from 'react-toastify'
-import { formatCurrency, formatDateTime } from '../../Validate/Validate'
+import React, { useEffect, useState } from 'react';
+import SideBar from '../SideBar/SideBar';
+import { f_getCartItemPurchased_api } from '../../config/api';
+import { toast } from 'react-toastify';
+import { formatCurrency, formatDateTime } from '../../Validate/Validate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faHourglassHalf, faTruck, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
+import './Purchased.css'; // Import CSS for custom styling
 
 const Purchased = () => {
-    const [listCart, setListCart] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [listCart, setListCart] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const getLitsCart = async() =>{
+    const getLitsCart = async() => {
         setIsLoading(true);
         try {
             const res = await f_getCartItemPurchased_api();
             if(res.data.status === 'not found'){
-                toast.warning(res.data.message)
+                toast.warning(res.data.message);
             }
             if(res.data.status === 'success'){
                 setListCart(res.data.result);
             }
         } catch (error) {
-            toast.error(error.message)
-        }finally{
+            toast.error(error.message);
+        } finally {
             setIsLoading(false);
         }
-    }
-    useEffect(()=>{
-        getLitsCart()
-    },[])
+    };
 
-    const statusFomat = (status) =>{
-        if(status === "Delivered"){
-            return "HOÀN THÀNH"
+    useEffect(() => {
+        getLitsCart();
+    }, []);
+
+    const statusFormat = (status) => {
+        let formattedStatus = status;
+        let buttonClass = "status-btn ";
+        let icon = null;
+
+        switch(status) {
+            case "Delivered":
+                formattedStatus = "HOÀN THÀNH";
+                buttonClass += "status-btn-success";
+                icon = <FontAwesomeIcon icon={faCheckCircle} />;
+                break;
+            case "Confirmed":
+                formattedStatus = "XÁC NHẬN ĐƠN HÀNG";
+                buttonClass += "status-btn-primary";
+                icon = <FontAwesomeIcon icon={faCheckCircle} />;
+                break;
+            case "Shipping":
+                formattedStatus = "ĐANG GIAO HÀNG";
+                buttonClass += "status-btn-info";
+                icon = <FontAwesomeIcon icon={faTruck} />;
+                break;
+            case "Processing":
+                formattedStatus = "ĐANG XỬ LÝ";
+                buttonClass += "status-btn-warning";
+                icon = <FontAwesomeIcon icon={faHourglassHalf} />;
+                break;
+            default:
+                break;
         }
-        return statusFomat
-    }
+
+        return (
+            <button type="button" className={buttonClass}>
+                {icon} {formattedStatus}
+            </button>
+        );
+    };
     
-  return (
-    <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-        <div className='container-fluid'>
-            <div className='row'>
-                <SideBar/>
-                <div className='col-xl-9 col-lg-9 col-md-8'>
-                    <div className='card'>
-                        <div className='container-fluid' style={{minHeight: "60vh"}}>
-                            <div className='col-sm-12 m-auto'>
-                                <div className='col-lg-12 table-responsive mb-5'>
-                                    <table class="table table-light table-borderless table-hover text-center mb-0">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>Products</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Time</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="align-middle">
+    return (
+        <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+            <div className='container-fluid'>
+                <div className='row'>
+                    <SideBar />
+                    <div className='col-xl-9 col-lg-9 col-md-8'>
+                        <div className='card'>
+                            <div className='container-fluid' style={{ minHeight: "60vh" }}>
+                                <div className='col-sm-12 m-auto'>
+                                    <div className='col-lg-12 table-responsive mb-5'>
                                         {isLoading ? (
-                                            <tr className="d-flex justify-content-center">
-                                                <td colSpan="5">
-                                                    <div className="custom-loader"></div>
-                                                </td>
-                                            </tr>
+                                            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "200px" }}>
+                                                <div className="custom-loader"></div>
+                                            </div>
                                         ) : listCart && listCart.length === 0 ? (
-                                            <tr className="d-flex justify-content-center">
-                                                <td colSpan="5">No Data</td>
-                                            </tr>
+                                            <div className="text-center py-5">
+                                                <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" />
+                                                <h3>No Purchased Items</h3>
+                                                <p className="mt-3">You haven't purchased any items yet.</p>
+                                            </div>
                                         ) : (
-                                            listCart && listCart.map((cartUser) => (
-                                                <tr className='fadeIn' key={cartUser.id} style={{verticalAlign: "middle"}}>
-                                                    <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                                        <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
-                                                        {cartUser.product_name}
-                                                    </td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{(cartUser.quantity)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatDateTime(cartUser.created_at)}</td>
-                                                    <td style={{verticalAlign: "middle", color: "#33CC00"}}>{statusFomat(cartUser.status)}</td>
-                                                </tr>
-                                            ))
+                                            <table className="table table-light table-borderless table-hover text-center mb-0">
+                                                <thead className="thead-dark">
+                                                    <tr>
+                                                        <th>Products</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Time</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="align-middle">
+                                                    {listCart.map((cartUser) => (
+                                                        <tr key={cartUser.id} className='fadeIn' style={{verticalAlign: "middle"}}>
+                                                            <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
+                                                                <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
+                                                                {cartUser.product_name}
+                                                            </td>
+                                                            <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
+                                                            <td style={{verticalAlign: "middle"}}>{(cartUser.quantity)}</td>
+                                                            <td style={{verticalAlign: "middle"}}>{formatDateTime(cartUser.created_at)}</td>
+                                                            <td style={{verticalAlign: "middle"}}>{statusFormat(cartUser.status)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
                                         )}
-                                        </tbody>
-                                    </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -90,8 +124,7 @@ const Purchased = () => {
                 </div>
             </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default Purchased
+export default Purchased;
