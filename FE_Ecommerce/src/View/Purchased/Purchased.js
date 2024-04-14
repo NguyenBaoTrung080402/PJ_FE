@@ -3,8 +3,8 @@ import SideBar from '../SideBar/SideBar'
 import { f_getCartItemPurchased_api } from '../../config/api'
 import { toast } from 'react-toastify'
 import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle,  faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCheckCircle,  faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
 import './Purchased.css'; // Import CSS for custom styling
 
 const Purchased = () => {
@@ -40,7 +40,7 @@ const Purchased = () => {
         if (status === "Delivered") {
             formattedStatus = "HOÀN THÀNH";
             buttonClass += "status-btn-success";
-            icon = <FontAwesomeIcon icon={faCheckCircle} />;
+            // icon = <FontAwesomeIcon icon={faCheckCircle} />;
         }
     
         return formattedStatus ? (
@@ -67,7 +67,7 @@ const Purchased = () => {
                                             </div>
                                         ) : listCart && listCart.length === 0 ? (
                                             <div className="text-center py-5">
-                                                <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" />
+                                                {/* <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" /> */}
                                                 <h3>No Purchased Items</h3>
                                                 <p className="mt-3">You haven't purchased any items yet.</p>
                                             </div>

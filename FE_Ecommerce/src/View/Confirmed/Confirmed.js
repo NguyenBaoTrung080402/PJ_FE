@@ -3,8 +3,8 @@ import SideBar from '../SideBar/SideBar';
 import { f_getCartItemPurchased_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import { formatCurrency, formatDateTime } from '../../Validate/Validate';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCheckCircle, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons';
 import './Confirmed.css';
 const Confirmed = () => {
     const [listCart, setListCart] = useState([]);
@@ -39,7 +39,7 @@ const Confirmed = () => {
         if (status === "Confirmed") {
             formattedStatus = "ĐÃ XÁC NHẬN ĐƠN HÀNG";
             buttonClass += "status-btn-primary";
-            icon = <FontAwesomeIcon icon={faCheckCircle} />;
+            // icon = <FontAwesomeIcon icon={faCheckCircle} />;
         }
     
         return formattedStatus ? (
@@ -66,7 +66,7 @@ const Confirmed = () => {
                                             </div>
                                         ) : listCart && listCart.length === 0 ? (
                                             <div className="text-center py-5">
-                                                <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" />
+                                                {/* <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" /> */}
                                                 <h3>No Confirmed Items</h3>
                                                 <p className="mt-3">You haven't confirmed any items yet.</p>
                                             </div>
