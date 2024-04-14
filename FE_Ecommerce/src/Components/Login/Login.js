@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './login.css';
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import wave from '../../assets/IMG/wave.png';
 import bg from '../../assets/IMG/bg.svg';
 import logo from '../../assets/IMG/logo-multi.png';
 import { toast } from 'react-toastify';
 import { f_login_api } from '../../config/api';
 import axios from "../../config/customAxios"
+import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -14,7 +16,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [loadingApi, setLoadingApi] = useState(false);
-  // const history = useHistory();
   const navigate = useNavigate();
 
   const loginContext = (email, token, name, authority, phone, dob, avatar, gender, address) => {
@@ -42,49 +43,68 @@ function Login() {
     setFocusedInput(null);
   };
 
-  const handleLogin = async () =>{
-    if(!username || !password){
+  const handleLogin = async () => {
+    if (!username || !password) {
       toast.warning("Please enter a username and password")
       return;
     }
     setLoadingApi(true)
     try {
       const res = await f_login_api(username, password)
-      if(res.data.status === "error"){
+      if (res.data.status === "error") {
         toast.error(res.data.message)
-      }else if (res.data.status === "success"){
+      } else if (res.data.status === "success") {
         const token = res.data.result.token;
-        // localStorage.setItem('token', token);
-        // localStorage.setItem(
-        //   'current-account',
-        //   JSON.stringify({
-        //     email: res.data.result.email,
-        //     name: res.data.result.name,
-        //   })
-        // );
         axios.defaults.headers['Authorization'] = `Bearer ${token}`;
         loginContext(res.data.result.account.email, token, res.data.result.account.name, res.data.result.account.authority, res.data.result.account.phone, res.data.result.account.dob, res.data.result.account.avatar, res.data.result.account.gender, res.data.result.account.address);
         toast.success(res.data.message)
         navigate('/')
-      }else if(res.data.status === "not found"){
+      } else if (res.data.status === "not found") {
         toast.warning(res.data.message)
       }
-    } catch (error) {  
+    } catch (error) {
       toast.error(error.message)
     }
-    finally{
+    finally {
       setLoadingApi(false);
       setUsername('');
       setPassword('');
     }
   }
 
-  useEffect(()=>{
+  const responseGoogle = (response) => {
+    if (response.profileObj) {
+      const { email, name, imageUrl } = response.profileObj;
+      console.log("Google response:", response);
+      console.log("Email:", email);
+      console.log("Name:", name);
+      console.log("Image URL:", imageUrl);
+      // Thực hiện các hành động cần thiết sau khi đăng nhập thành công với Google
+    } else {
+      console.log("Google login failed");
+    }
+  };
+
+  const responseFacebook = (response) => {
+    if (response.status === 'connected') {
+      const { id, email, name, picture } = response;
+      console.log("Facebook response:", response);
+      console.log("ID:", id);
+      console.log("Email:", email);
+      console.log("Name:", name);
+      console.log("Picture URL:", picture.data.url);
+      // Thực hiện các hành động cần thiết sau khi đăng nhập thành công với Facebook
+    } else {
+      console.log("Facebook login failed");
+    }
+  };
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    if(token){
+    if (token) {
       navigate('/');
     }
-  },[navigate])
+  }, [navigate])
 
   return (
     <div className="container-login">
@@ -157,24 +177,24 @@ function Login() {
             </div>
             <div className='d-flex justify-content-between mt-2 gg-fb '>
               <div>
-                <button type="button" className="btn-login-gg fadeInUp">
-                  {loadingApi ? (
-                    <i className="fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i>
-                  ) : (
-                    <i style={{ fontSize: '18px' }} className="fa-brands fa-google"></i>
-                  )}
-                  &nbsp;Log in with Google
-                </button>
+                <GoogleLogin
+                  clientId="230981102224-gnos7d825h88tctqb9jnjo10h9l3d2ar.apps.googleusercontent.com"
+                  buttonText="Log in with Google"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  redirectUri="http://localhost:3000/auth/google/callback"
+                  cookiePolicy={'single_host_origin'}
+                />
               </div>
               <div>
-                <button type="button" className="btn-login-fb fadeInUp">
-                  {loadingApi ? (
-                    <i className="fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i>
-                  ) : (
-                    <i style={{ fontSize: '18px' }} className="fa-brands fa-facebook"></i>
-                  )}
-                  &nbsp;Log in with FaceBook
-                </button>
+                  <FacebookLogin
+            appId="421226950497392"
+            autoLoad={false}
+            fields="name,email,picture"
+            callback={responseFacebook}
+            cssClass="btn-login-fb fadeInUp"
+            textButton="Log in with Facebook"
+          />
               </div>
             </div>
           </form>
