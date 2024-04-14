@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { f_getAllProductId_api } from '../../../config/api';
 import axios from '../../../config/customAxios'
 import { toast } from 'react-toastify';
-import { formatCurrency } from '../../../Validate/Validate';
+import { convertBase64ToBlob, formatCurrency } from '../../../Validate/Validate';
 
 const ProductDetails = () => {
   const [listColor, setListColor] = useState()
@@ -65,7 +65,7 @@ const ProductDetails = () => {
       quantity: 1,
       nameSize: productId.sizeName,
       nameColor: productId.colorName,
-      price: productId.price,
+      price: productId.discountedPrice,
     }
     if(!dataCart.nameColor || !dataCart.nameSize){
       toast.warning('Please select color and size')
@@ -110,7 +110,7 @@ const ProductDetails = () => {
                   <div class="carousel-inner bg-light">
                       <div class="carousel-item active">
                           <img class="w-100" style={{height: "500px"}} 
-                          src={`http://127.0.0.1:8000/${productId.image}`} 
+                          src={convertBase64ToBlob(productId.image)} 
                           alt="Image"/>
                       </div>
                   </div>

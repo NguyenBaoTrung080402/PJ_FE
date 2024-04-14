@@ -16,11 +16,11 @@ function hasSpecialCharacters(inputString) {
 }
 // format tiền
 const formatCurrency = (amount) => {
-    const formatter = new Intl.NumberFormat('vi-VN', {
+    const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'VND',
+      currency: 'USD',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0, 
+      maximumFractionDigits: 2, 
     });
   
     return formatter.format(amount);
@@ -42,4 +42,24 @@ const formatDateTime = (inputDateTime) => {
     return formattedDateTime;
   };
 
-export {ValidateTel,validateInputText, validateMail, formatCurrency, formatDateTime, hasSpecialCharacters}
+  const isValidBase64String = (base64String) => {
+    const regex = /^data:image\/(jpeg|png);base64,/;
+    return regex.test(base64String);
+  };
+
+  const convertBase64ToBlob = (base64String) => {
+    if (isValidBase64String(base64String)) {
+      const binaryString = window.atob(base64String.split(',')[1]);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], { type: 'image/jpeg' });
+      return URL.createObjectURL(blob);
+    } else {
+      // console.log('Base64 string:', base64String);
+      return null;
+    }
+  };
+
+export {ValidateTel,validateInputText, validateMail, formatCurrency, formatDateTime, hasSpecialCharacters, convertBase64ToBlob}

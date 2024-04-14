@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { f_getAllProduct_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import "./listProduct.css"
 import Pagination from "react-paginate"
-import { formatCurrency } from '../../Validate/Validate';
+import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
 import { useLocation } from 'react-router-dom';
 
 const ListProduct = () => {
@@ -93,6 +93,16 @@ const ListProduct = () => {
             }
             setSearchResults(filteredProducts);
         };
+
+        // const convertBase64ToBlob = (base64String) => {
+        //     const binaryString = window.atob(base64String.split(',')[1]);
+        //     const bytes = new Uint8Array(binaryString.length);
+        //     for (let i = 0; i < binaryString.length; i++) {
+        //       bytes[i] = binaryString.charCodeAt(i);
+        //     }
+        //     const blob = new Blob([bytes], { type: 'image/jpeg' });
+        //     return URL.createObjectURL(blob);
+        // };
   return (
     <>
     <div className="container-fluid">
@@ -241,7 +251,7 @@ const ListProduct = () => {
                                 <div className="col-lg-4 col-md-6 col-sm-6 pb-1">
                                     <div className="product-item bg-light mb-4">
                                         <div className="product-img position-relative overflow-hidden">
-                                            <img className="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
+                                            <img className="img-fluid w-100" style={{height: "300px"}} src={convertBase64ToBlob(listProduct.image)} alt=""/>
                                             <div className="product-action">
                                                 <Link className="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i className="fa fa-search"></i></Link>
                                             </div>

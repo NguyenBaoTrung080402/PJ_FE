@@ -16,9 +16,9 @@ const CheckOut = () => {
         return quantity * price;
     };
 
-  const subtotal = data.reduce((total, item) => total + handleMoney(item.quantityProduct, item.priceProduct), 0);
-  const totalItems = data.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
-  const shippingFee = 20000;
+  const subtotal = data?.reduce((total, item) => total + handleMoney(item.quantityProduct, item.discountedPrice), 0);
+  const totalItems = data?.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
+  const shippingFee = 1;
   const total = subtotal + shippingFee;
 
   const getListCart = async()=>{
@@ -201,8 +201,8 @@ const CheckOut = () => {
                         </div>
                         {data && data.map((dataRes) =>(
                           <div className="d-flex justify-content-between">
-                            <p style={{fontSize:"20px", fontWeight: "bolder", color: "#d98181"}}>{dataRes.product_name}</p>
-                            <p>${formatCurrency(dataRes.product_price)}</p>
+                            <p style={{fontSize:"20px", fontWeight: "bolder", color: "#d98181"}}>{dataRes.nameProduct}</p>
+                            <p>{formatCurrency(dataRes.total)}</p>
                         </div>
                         ))}
                     </div>
@@ -210,17 +210,17 @@ const CheckOut = () => {
                         
                         <div className="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>${formatCurrency(subtotal.toFixed(2))}</h6>
+                            <h6>{formatCurrency(subtotal.toFixed(2))}</h6>
                         </div>
                         <div className="d-flex justify-content-between">
                             <h6 className="font-weight-medium">Shipping</h6>
-                            <h6 className="font-weight-medium">${formatCurrency(shippingFee.toFixed(2))}</h6>
+                            <h6 className="font-weight-medium">{formatCurrency(shippingFee.toFixed(2))}</h6>
                         </div>
                     </div>
                     <div className="pt-2">
                         <div className="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5 className='text-danger'>${formatCurrency(total.toFixed(2))}</h5>
+                            <h5 className='text-danger'>{formatCurrency(total.toFixed(2))}</h5>
                         </div>
                     </div>
                 </div>

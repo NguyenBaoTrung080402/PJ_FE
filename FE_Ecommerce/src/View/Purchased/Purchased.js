@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import SideBar from '../SideBar/SideBar';
-import { f_getCartItemPurchased_api } from '../../config/api';
-import { toast } from 'react-toastify';
-import { formatCurrency, formatDateTime } from '../../Validate/Validate';
+import React, { useEffect, useState } from 'react'
+import SideBar from '../SideBar/SideBar'
+import { f_getCartItemPurchased_api } from '../../config/api'
+import { toast } from 'react-toastify'
+import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle,  faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
 import './Purchased.css'; // Import CSS for custom styling

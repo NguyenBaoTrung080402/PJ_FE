@@ -12,6 +12,7 @@ import "./Category.css"
 import { toast } from "react-toastify";
 import { f_deleteCategory_api, f_getAllCategory_api } from "../../../config/api";
 import axios from '../../../config/customAxios'
+import { convertBase64ToBlob } from "../../../Validate/Validate";
 
 const Category = () => {
   const [listCategories, setCategories] = useState();
@@ -24,9 +25,9 @@ const Category = () => {
   const [nameCategory,setNameCategory] = useState('');
   const [slugCategory, setSlugCategory] = useState('');
   const [dataCategoryUpdate, setDataCategoryUpdate] = useState({
-    name: '',
-    slug: '',
-    avatar: null,
+    nameCategory: '',
+    slugCategory: '',
+    imgCategory: null,
   })
   const [previewImage, setPreviewImage] = useState('');
   
@@ -116,8 +117,8 @@ const Category = () => {
     const categoryToUpdate = listCategories.find((category) => category.id === id);
     console.log(categoryToUpdate);
     setDataCategoryUpdate({
-      name: categoryToUpdate.name,
-      slug: categoryToUpdate.slug,
+      name: categoryToUpdate.nameCategory,
+      slug: categoryToUpdate.slugCategory,
       avatar: categoryToUpdate.imageCategory,
     });
     setShowUpdateModal(true)
@@ -162,7 +163,7 @@ const Category = () => {
       };
       reader.readAsDataURL(selectedImage);
     }
-    setDataCategoryUpdate((prevData) => ({ ...prevData, avatar: selectedImage }));
+    setDataCategoryUpdate((prevData) => ({ ...prevData, imgCategory: selectedImage }));
   };
 
   const handCancelUpdate = () =>{
@@ -243,8 +244,8 @@ const Category = () => {
                         <TableCell component="th" scope="row" style={{verticalAlign: "middle"}}>
                           {index + 1}
                         </TableCell>
-                        <TableCell align="left" style={{verticalAlign: "middle"}}>{categories.name}</TableCell>
-                        <TableCell align="left" style={{verticalAlign: "middle"}}>{categories.slug}</TableCell>
+                        <TableCell align="left" style={{verticalAlign: "middle"}}>{categories.nameCategory}</TableCell>
+                        <TableCell align="left" style={{verticalAlign: "middle"}}>{categories.slugCategory}</TableCell>
                         <TableCell align="left" className="Details d-flex">
                           <div>
                               <button className="btn btn-secondary" onClick={() => handleUpdate(categories.id)}>Update</button>
@@ -349,7 +350,9 @@ const Category = () => {
                     {previewImage ? (
                       <img src={previewImage} alt="Xem trước" style={{ marginTop: '10px', maxWidth: '100%' }} />
                     ):(
-                      <img src={`http://127.0.0.1:8000/${dataCategoryUpdate.avatar}`} alt="" style={{ marginTop: '10px', maxWidth: '100%' }}/>
+                      <img 
+                      src={convertBase64ToBlob(dataCategoryUpdate.avatar)} 
+                      alt="" style={{ marginTop: '10px', maxWidth: '100%' }}/>
                     )}
                   </div>
                   </Modal.Body>
