@@ -1,0 +1,22 @@
+.status-btn-primary {
+    color: #0052cc;
+    background-color: #c7e0f4;
+    border: 1px solid #0052cc;
+}
+.empty-cart-icon {
+    font-size: 48px; 
+}
+.status-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-btn:hover {
+    filter: brightness(95%);
+}

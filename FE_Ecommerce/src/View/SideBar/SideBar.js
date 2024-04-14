@@ -41,13 +41,37 @@ const SideBar = () => {
             <li className="sidebar-item">
               <NavLink
                 className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
+                to="/confirmed"
+                aria-expanded="false"
+              >
+                <span className="mx-3">
+                  <i className="fa-solid fa-check-circle"></i>
+                </span>
+                <span className="hide-menu">Confirmed</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink
+                className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
                 to="/purchased"
                 aria-expanded="false"
               >
                 <span className="mx-3">
-                  <i className="fa-solid fa-chart-line"></i>
+                  <i className="fa-solid fa-shopping-cart"></i>
                 </span>
                 <span className="hide-menu">Purchased</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink
+                className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
+                to="/shipping"
+                aria-expanded="false"
+              >
+                <span className="mx-3">
+                  <i className="fa-solid fa-truck"></i>
+                </span>
+                <span className="hide-menu">Shipping</span>
               </NavLink>
             </li>
             <li className="sidebar-item">
@@ -57,7 +81,7 @@ const SideBar = () => {
                 aria-expanded="false"
               >
                 <span className="mx-3">
-                  <i className="fa-regular fa-comment-dots"></i>
+                  <i className="fa-regular  fa-window-close"></i>
                 </span>
                 <span className="hide-menu">Cancelled</span>
               </NavLink>

@@ -1,82 +1,59 @@
-import React from 'react'
-
+import React from 'react';
+import "./about.css";
 const About = () => {
   return (
-    <>
- 
+    <div className="about-page">
+      <div className="about-header" style={{backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+        <h1 className="about-title">About Us</h1>
+        <nav className="breadcrumbx">
+          <a href="http://localhost:3000/" className="breadcrumbx-item">Home </a>
+          <span className="breadcrumbx-item active">/ About Us</span>
+        </nav>
+      </div>
 
-
- 
-      <div className="all-title-box">
+      <div className="about-content">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12">
-              <h2>ABOUT US</h2>
-              <ul className="breadcrumb">
-                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                <li className="breadcrumb-item active">ABOUT US</li>
-              </ul>
+            <div className="col-lg-6">
+              <h7 className="about-subtitle">Who We Are</h7>
+              <p className="about-text">Welcome to MultiShop! We are more than just an online store; we are a community of passionate individuals dedicated to providing you with the best shopping experience possible.</p>
+              <p className="about-text">Our journey began with a simple vision: to revolutionize the way people shop online. We believe that shopping should be convenient, enjoyable, and hassle-free. That's why we've built MultiShop to offer a wide range of products, from fashion and electronics to home goods and beyond, all in one place.</p>
+              <p className="about-text">At MultiShop, we are committed to quality. We carefully select each product to ensure it meets our high standards of excellence. Whether you're looking for the latest fashion trends, cutting-edge electronics, or stylish home decor, you can trust that you'll find only the best at MultiShop.</p>
+              <p className="about-text">But we're more than just a retailer; we're your partners in shopping. Our dedicated team is here to assist you every step of the way, from helping you find the perfect product to providing expert advice and support after your purchase. Thank you for choosing MultiShop. We're excited to embark on this journey with you and to redefine the way you shop online.</p>
+            </div>
+            <div className="col-lg-6">
+              <img className="about-image img-fluid" src="https://www.khwajallc.com/images/about-img.jpg" alt="About Us" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div className="services-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="service-block">
+                <h3 className="service-title">Trusted</h3>
+                <p className="service-description">We strive to build trust with our customers by delivering reliable products and services.</p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="service-block">
+                <h3 className="service-title">Professional</h3>
+                <p className="service-description">Our team consists of experienced professionals dedicated to providing you with expert guidance and support.</p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="service-block">
+                <h3 className="service-title">Expert</h3>
+                <p className="service-description">We offer expert advice and assistance to help you make informed decisions about your purchases.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="about-box-main">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6">
-              <h2 className="noo-sh-title">We are <span>ThewayShop</span></h2>
-              <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-            <div className="col-lg-6">
-              <div className="banner-frame"> <img className="img-thumbnail img-fluid" src="./" alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="row my-5">
-            <div className="col-sm-6 col-lg-4">
-              <div className="service-block-inner">
-                <h3>We are Trusted</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4">
-              <div className="service-block-inner">
-                <h3>We are Professional</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4">
-              <div className="service-block-inner">
-                <h3>We are Expert</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div>
-            </div>
-            <hr className="my-0" />
-          </div>
-        </div>
-      </div>
-    <a href="#" id="back-to-top" title="Back to top" style={{ display: "none" }}>&uarr;</a>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.superslides.min.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js."></script>
-    <script src="js/images-loded.min.js"></script>
-    <script src="js/isotope.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/baguetteBox.min.js"></script>
-    <script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
-    </>
+    </div>
   );
-}
+};
 
-export default About
+export default About;
