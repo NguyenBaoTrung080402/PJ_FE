@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import SideBar from '../SideBar/SideBar'
-import { f_getCartItemCancel_api } from '../../config/api'
-import { toast } from 'react-toastify'
-import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
-import './Cancelled.css';
+import React, { useEffect, useState } from 'react';
+import SideBar from '../SideBar/SideBar';
+import { f_getCartItemShipping_api } from '../../config/api';
+import { toast } from 'react-toastify';
+import { formatCurrency, formatDateTime } from '../../Validate/Validate';
 
-const Cancelled = () => {
+const Shipping = () => {
     const [listCart, setListCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const getCancelledItems = async () => {
+    const getShippingItems = async () => {
         setIsLoading(true);
         try {
-            const res = await f_getCartItemCancel_api();
+            const res = await f_getCartItemShipping_api();
             if (res.data.status === 'success') {
                 setListCart(res.data.result);
             } else {
@@ -26,11 +25,11 @@ const Cancelled = () => {
     };
 
     useEffect(() => {
-        getCancelledItems();
+        getShippingItems();
     }, []);
 
     const statusFormat = (status) => {
-        return status === 'Canceled' ? 'Đã hủy' : status;
+        return status === 'Shipping' ? 'Đang vận chuyển' : status;
     };
 
     return (
@@ -40,7 +39,7 @@ const Cancelled = () => {
                 <div className="shopee-content">
                     <div className="shopee-card">
                         <div className="shopee-heading">
-                            <h3>Đơn hàng đã hủy</h3>
+                            <h3>Đơn hàng đang vận chuyển</h3>
                         </div>
                         <div className="shopee-table-responsive">
                             <table className="shopee-table">
@@ -74,30 +73,10 @@ const Cancelled = () => {
                                                 <td>{formatDateTime(cartUser.created_at)}</td>
                                                 <td className="shopee-status">{statusFormat(cartUser.status)}</td>
                                             </tr>
-                                        ) : listCart && listCart.length === 0 ? (
-                                            <tr className="d-flex justify-content-center">
-                                                <td colSpan="5">No Data</td>
-                                            </tr>
-                                        ) : (
-                                            listCart && listCart.map((cartUser) => (
-                                                <tr className='fadeIn' key={cartUser.id} style={{verticalAlign: "middle"}}>
-                                                    <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                                        <img 
-                                                        src={convertBase64ToBlob(cartUser.image)} 
-                                                        alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
-                                                        {cartUser.productName}
-                                                    </td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{(cartUser.quantity)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatDateTime(cartUser.created_at)}</td>
-                                                    <td style={{verticalAlign: "middle", color: "#BB0000"}}>{statusFomat(cartUser.status)}</td>
-                                                </tr>
-                                            ))
-                                        )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -106,4 +85,4 @@ const Cancelled = () => {
     );
 };
 
-export default Cancelled;
+export default Shipping;

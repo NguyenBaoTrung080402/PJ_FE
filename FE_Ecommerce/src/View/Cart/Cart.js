@@ -4,7 +4,8 @@ import { f_deleteCartItem_api, f_getCartItem_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import { Button, Modal } from 'react-bootstrap';
 import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingBasket  } from '@fortawesome/free-solid-svg-icons';
 
 const Cart = () => {
     const token = localStorage.getItem('token');
@@ -96,10 +97,15 @@ const Cart = () => {
                 <div className="custom-loader "></div>
             </div>
         ): cartItem && cartItem.length === 0 ?(
-            <div className='col-lg-8'>
-                <h1 className='text-center text-info'>The shopping cart is empty</h1>
-                <h1 className='text-center text-info'>please add items to the shopping cart</h1>
-            </div>
+            // <div className='col-lg-8'>
+            //     <h1 className='text-center text-info'>The shopping cart is empty</h1>
+            //     <h1 className='text-center text-info'>please add items to the shopping cart</h1>
+            // </div>
+            <div className="text-center py-5">
+            <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" />
+            <h3>Empty shopping cart</h3>
+            <p className="mt-3">Please add items to the shopping cart.</p>
+        </div>
         ):(
             <div class="col-lg-8 table-responsive mb-5">
                 <table class="table table-light table-borderless table-hover text-center mb-0">

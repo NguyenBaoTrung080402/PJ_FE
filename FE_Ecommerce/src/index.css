@@ -4540,11 +4540,17 @@ input[type="button"].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
+  text-align: center;
+
   background-color: #e9ecef;
 }
 
 .breadcrumb-item {
+  text-decoration: none;
   display: flex;
+  display: inline-block; /* Display items in a line */
+  margin: 0 5px; /* Add margin between items */
+  
 }
 
 .breadcrumb-item + .breadcrumb-item {

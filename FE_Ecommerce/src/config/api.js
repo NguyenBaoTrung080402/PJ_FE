@@ -29,6 +29,7 @@ const f_changePassword_api = (oldPass, newPass, rePass) =>{
   return axios.post("account/change-password", { oldPass: oldPass, newPass: newPass, rePass: rePass})
 }
 
+
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };
