@@ -28,7 +28,7 @@ const Footer = () => {
                         <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <Link class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Your Information</Link>
-                            <Link class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
+                            <Link class="text-secondary" href="http://localhost:3000/about"><i class="fa fa-angle-right mr-2"></i>Contact Us</Link>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
