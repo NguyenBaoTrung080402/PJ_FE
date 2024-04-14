@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { f_deleteCartItem_api, f_getCartItem_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import { Button, Modal } from 'react-bootstrap';
-import { formatCurrency } from '../../Validate/Validate';
-
+import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 
 const Cart = () => {
     const token = localStorage.getItem('token');
@@ -25,9 +26,9 @@ const Cart = () => {
     };
 
     // const subtotal = cartItem.reduce((total, item) => total + parseFloat(item.product_price), 0);
-    const subtotal = cartItem?.reduce((total, item) => total + handleMoney(item.quantityProduct, item.priceProduct), 0);
+    const subtotal = cartItem?.reduce((total, item) => total + handleMoney(item.quantityProduct, item.discountedPrice), 0);
     const totalItems = cartItem?.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
-    const shippingFee = 20000;
+    const shippingFee = 1;
     const total = subtotal + shippingFee;
     
     const getCartItem = async() =>{
@@ -96,10 +97,15 @@ const Cart = () => {
                 <div className="custom-loader "></div>
             </div>
         ): cartItem && cartItem.length === 0 ?(
-            <div className='col-lg-8'>
-                <h1 className='text-center text-info'>The shopping cart is empty</h1>
-                <h1 className='text-center text-info'>please add items to the shopping cart</h1>
-            </div>
+            // <div className='col-lg-8'>
+            //     <h1 className='text-center text-info'>The shopping cart is empty</h1>
+            //     <h1 className='text-center text-info'>please add items to the shopping cart</h1>
+            // </div>
+            <div className="text-center py-5">
+            {/* <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" /> */}
+            <h3>Empty shopping cart</h3>
+            <p className="mt-3">Please add items to the shopping cart.</p>
+        </div>
         ):(
             <div class="col-lg-8 table-responsive mb-5">
                 <table class="table table-light table-borderless table-hover text-center mb-0">
@@ -107,6 +113,8 @@ const Cart = () => {
                         <tr>
                             <th>Products</th>
                             <th>Price</th>
+                            <th>Size</th>
+                            <th>Color</th>
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Remove</th>
@@ -116,10 +124,14 @@ const Cart = () => {
                         {cartItem?.map((cart) => (
                             <tr className='fadeIn'>
                                 <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                    <img src={`http://127.0.0.1:8000/${cart.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
+                                    <img 
+                                    src={convertBase64ToBlob(cart.image)} 
+                                    alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
                                     {cart.nameProduct}
                                 </td>
-                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.priceProduct))}</td>
+                                <td class="align-middle">{formatCurrency(cart.discountedPrice)}</td>
+                                <td class="align-middle">{cart.size}</td>
+                                <td class="align-middle">{cart.color}</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style={{ width: "100px" }}>
                                         <div class="input-group-btn">
@@ -135,7 +147,7 @@ const Cart = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.priceProduct))}</td>
+                                <td class="align-middle">{formatCurrency(handleMoney(cart.quantityProduct,cart.discountedPrice))}</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger" onClick={() => handleOpen(cart.id)}><i class="fa fa-times"></i></button></td> 
                             </tr>
                         ))}
@@ -179,17 +191,17 @@ const Cart = () => {
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>${formatCurrency(subtotal?.toFixed(2))}</h6>
+                            <h6>{formatCurrency(subtotal?.toFixed(2))}</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">${formatCurrency(shippingFee?.toFixed(2))}</h6>
+                            <h6 class="font-weight-medium">{formatCurrency(shippingFee?.toFixed(2))}</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>${formatCurrency(total?.toFixed(2))}</h5>
+                            <h5>{formatCurrency(total?.toFixed(2))}</h5>
                         </div>
                         <Link class="btn btn-block btn-primary font-weight-bold my-3 py-3" to="/check-out">Proceed To Checkout</Link>
                     </div>

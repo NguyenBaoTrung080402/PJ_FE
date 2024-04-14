@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import SideBar from '../SideBar/SideBar'
-import { f_getCartItemPurchased_api } from '../../config/api'
-import { toast } from 'react-toastify'
-import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
+import React, { useEffect, useState } from 'react';
+import SideBar from '../SideBar/SideBar';
+import { f_getCartItemPurchased_api } from '../../config/api';
+import { toast } from 'react-toastify';
+import { formatCurrency, formatDateTime } from '../../Validate/Validate';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCheckCircle,  faShoppingBasket  } from '@fortawesome/free-solid-svg-icons'; // Import Font Awesome icons
-import './Purchased.css'; // Import CSS for custom styling
-
-const Purchased = () => {
+// import { faCheckCircle, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons';
+import './Confirmed.css';
+const Confirmed = () => {
     const [listCart, setListCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const getLitsCart = async() => {
+    const getConfirmedCart = async() => {
         setIsLoading(true);
         try {
             const res = await f_getCartItemPurchased_api();
@@ -29,7 +28,7 @@ const Purchased = () => {
     };
 
     useEffect(() => {
-        getLitsCart();
+        getConfirmedCart();
     }, []);
 
     const statusFormat = (status) => {
@@ -37,9 +36,9 @@ const Purchased = () => {
         let buttonClass = "status-btn ";
         let icon = null;
     
-        if (status === "Delivered") {
-            formattedStatus = "HOÀN THÀNH";
-            buttonClass += "status-btn-success";
+        if (status === "Confirmed") {
+            formattedStatus = "ĐÃ XÁC NHẬN ĐƠN HÀNG";
+            buttonClass += "status-btn-primary";
             // icon = <FontAwesomeIcon icon={faCheckCircle} />;
         }
     
@@ -68,8 +67,8 @@ const Purchased = () => {
                                         ) : listCart && listCart.length === 0 ? (
                                             <div className="text-center py-5">
                                                 {/* <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" /> */}
-                                                <h3>No Purchased Items</h3>
-                                                <p className="mt-3">You haven't purchased any items yet.</p>
+                                                <h3>No Confirmed Items</h3>
+                                                <p className="mt-3">You haven't confirmed any items yet.</p>
                                             </div>
                                         ) : (
                                             <table className="table table-light table-borderless table-hover text-center mb-0">
@@ -109,4 +108,4 @@ const Purchased = () => {
     );
 };
 
-export default Purchased;
+export default Confirmed;

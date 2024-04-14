@@ -26,7 +26,7 @@ function Login() {
         email: email,
         name: name,
         authority: authority,
-        phone: phone,
+        tel: phone,
         dob: dob,
         avatar: avatar,
         gender: gender,
@@ -56,7 +56,7 @@ function Login() {
       } else if (res.data.status === "success") {
         const token = res.data.result.token;
         axios.defaults.headers['Authorization'] = `Bearer ${token}`;
-        loginContext(res.data.result.account.email, token, res.data.result.account.name, res.data.result.account.authority, res.data.result.account.phone, res.data.result.account.dob, res.data.result.account.avatar, res.data.result.account.gender, res.data.result.account.address);
+        loginContext(res.data.result.account.email, token, res.data.result.account.name, res.data.result.account.authority, res.data.result.account.tel, res.data.result.account.dob, res.data.result.account.avatar, res.data.result.account.gender, res.data.result.account.address);
         toast.success(res.data.message)
         navigate('/')
       } else if (res.data.status === "not found") {

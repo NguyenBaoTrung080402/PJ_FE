@@ -9,7 +9,7 @@ import vendor4 from "../../assets/IMG/defaultIMG/vendor-4.jpg"
 import vendor5 from "../../assets/IMG/defaultIMG/vendor-5.jpg"
 import { f_getAllCategory_api, f_getAllProduct_api } from "../../config/api";
 import { toast } from "react-toastify";
-import { formatCurrency } from "../../Validate/Validate";
+import { convertBase64ToBlob, formatCurrency } from "../../Validate/Validate";
 
 const Home = () => {
     const [index, setIndex] = useState(0);
@@ -192,7 +192,9 @@ const Home = () => {
                     <Link className="text-decoration-none" href="">
                         <div className="cat-item d-flex align-items-center mb-4">
                             <div className="overflow-hidden" style={{width: "100px", height: "100px"}}>
-                                <img className="img-fluid h-100" style={{width: "100%", height: "100%"}} src={`http://127.0.0.1:8000/${category.avatar}`} alt=""/>
+                                <img className="img-fluid h-100" style={{width: "100%", height: "100%"}} 
+                                src={convertBase64ToBlob(category.imgCategory)} 
+                                alt=""/>
                             </div>
                             <div className="flex-fill pl-3">
                                 <h6>{category.name}</h6>
@@ -212,7 +214,9 @@ const Home = () => {
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
+                        <img class="img-fluid w-100" style={{height: "300px"}} 
+                        src={convertBase64ToBlob(listProduct.image)} 
+                        alt=""/>
                         <div class="product-action">
                             <Link class="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i class="fa fa-search"></i></Link>
                         </div>
@@ -220,7 +224,7 @@ const Home = () => {
                     <div class="text-center py-4">
                         <Link class="h6 text-decoration-none text-truncate" to={`/product-detail/${listProduct.id}`}>{listProduct.name}</Link>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>{formatCurrency(listProduct.discounted_price)}</h5><h6 class="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
+                            <h5>{formatCurrency(listProduct.discountedPrice)}</h5><h6 class="text-muted ml-2"><del>{formatCurrency(listProduct.price)}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>

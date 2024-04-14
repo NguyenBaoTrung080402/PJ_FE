@@ -29,6 +29,7 @@ const f_changePassword_api = (oldPass, newPass, rePass) =>{
   return axios.post("account/change-password", { oldPass: oldPass, newPass: newPass, rePass: rePass})
 }
 
+
 const f_getAllCategory_api = () => {
   return axios.get("/categories/get-all-category");
 };
@@ -97,7 +98,7 @@ const f_getAllColor_api = () =>{
 }
 
 const f_order_api = (user_id, product_id, wishListID, quantity) =>{
-  return axios.post("/order/store", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
+  return axios.post("/order/create-order", {user_id: user_id, products_id: product_id, wishlist_id: wishListID, quantity: quantity})
 }
 
 export {
