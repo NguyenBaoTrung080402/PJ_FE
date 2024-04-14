@@ -6,7 +6,6 @@ import "./listProduct.css"
 import Pagination from "react-paginate"
 import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
 import { useLocation } from 'react-router-dom';
-import { f_getAllProductId_api } from '../../config/api';
 
 const ListProduct = (colors, sizes) => {
 
@@ -32,26 +31,28 @@ const ListProduct = (colors, sizes) => {
         colorName: "",
       });
 
-        // get all product        
-        useEffect(() => {
-            const fetchProducts = async () => {
-                setIsLoading(true);
-                try {
-                    const response = await f_getAllProduct_api();
-                    if (response.data.status === 'success') {
-                        setProducts(response.data.result.content);
-                        // Initial display of all products
-                        setSearchResults(response.data.result.content);
-                    } else {
-                        console.error('Lỗi khi lấy dữ liệu sản phẩm:', response.data.message);
-                    }
-                } catch (error) {
-                    console.error('Lỗi khi lấy dữ liệu sản phẩm:', error.message);
-                } finally {
-                    setIsLoading(false);
+        // get all product     
+        const fetchProducts = async (pageNumber = 0, size = 8) => {
+            setIsLoading(true);
+            try {
+                const response = await f_getAllProduct_api(pageNumber, size);
+                if (response.data.status === 'success') {
+                    setProducts(response.data.result.content);
+                    setPage(response.data.result);
+                    // Initial display of all products
+                    setSearchResults(response.data.result.content);
+                } else {
+                    toast.error(response.data.message);
                 }
-            };
-            fetchProducts();
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };   
+
+        useEffect(() => {
+            fetchProducts(0, 8);
         }, []);
     
         useEffect(() => {
@@ -69,14 +70,6 @@ const ListProduct = (colors, sizes) => {
                 setSearchResults(products);
             }
         }, [location.search, products]);    
-
-        const handlePageChange = ({ selected }) => {
-            setPage(selected);
-            const offset = selected * 10;
-            const end = offset + 10;
-            const filteredProducts = searchResults.slice(offset, end);
-            setSearchResults(filteredProducts);
-        };
         
         //checked filter
         const priceRangeOptions = document.getElementById('price-range-options');
@@ -306,13 +299,12 @@ const ListProduct = (colors, sizes) => {
                         ))}
                 </div>
                 <Pagination
-                    pageCount={page}
+                    pageCount={page.totalPages}
                     pageRangeDisplayed={5}
                     marginPagesDisplayed={2}
-                    onPageChange={handlePageChange}
+                    onPageChange={({ selected }) => fetchProducts(selected + 0, 8)}
                     containerClassName={'pagination'}
                     activeClassName={'active'}
-                    // forcePage={currentPage - 1}
                 />
             </div>
         </div>
