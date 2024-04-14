@@ -4,7 +4,7 @@ import { f_getAllProduct_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import "./listProduct.css"
 import Pagination from "react-paginate"
-import { formatCurrency } from '../../Validate/Validate';
+import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
 import { useLocation } from 'react-router-dom';
 import { f_getAllProductId_api } from '../../config/api';
 
@@ -31,30 +31,6 @@ const ListProduct = (colors, sizes) => {
         sizeName: "",
         colorName: "",
       });
-
-        //get product by id
-        const {id} = useParams();
-        const getProductById = async() =>{
-            setIsLoading(true)
-            try {
-              const res = await f_getAllProductId_api(id);
-              if(res.data.status === 'not found'){
-                toast.warning(res.data.message);
-              }else if(res.data.status === 'success'){
-                setProductsId(res.data.result.product)
-                setListColor(res.data.result.colors)
-                setListSizes(res.data.result.sizes)
-              }
-            } catch (error) {
-              toast.error(error.message)
-            }finally{
-              setIsLoading(false)
-            }
-          }
-          
-          useEffect(()=>{
-            getProductById()
-          },[])
 
         // get all product        
         useEffect(() => {
@@ -305,7 +281,7 @@ const ListProduct = (colors, sizes) => {
                                 <div className="col-lg-4 col-md-6 col-sm-6 pb-1">
                                     <div className="product-item bg-light mb-4">
                                         <div className="product-img position-relative overflow-hidden">
-                                            <img className="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
+                                            <img className="img-fluid w-100" style={{height: "300px"}} src={convertBase64ToBlob(listProduct.image)} alt=""/>
                                             <div className="product-action">
                                                 <Link className="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i className="fa fa-search"></i></Link>
                                             </div>

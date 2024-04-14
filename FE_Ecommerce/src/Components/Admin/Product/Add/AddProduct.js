@@ -324,7 +324,7 @@ const AddProduct = () => {
                         className="form-control"
                       >
                         {listCategory && listCategory.map((categories) =>(
-                          <option key={categories.id} value={categories.id}>{categories.name}</option>
+                          <option key={categories.id} value={categories.id}>{categories.nameCategory}</option>
                         ))}
                       </select>
                   </div>

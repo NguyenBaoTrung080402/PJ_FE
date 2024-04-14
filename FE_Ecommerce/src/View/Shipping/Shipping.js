@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar/SideBar';
 import { f_getCartItemShipping_api } from '../../config/api';
 import { toast } from 'react-toastify';
-import { formatCurrency, formatDateTime } from '../../Validate/Validate';
+import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate';
 
 const Shipping = () => {
     const [listCart, setListCart] = useState([]);
@@ -65,8 +65,8 @@ const Shipping = () => {
                                         listCart.map((cartUser) => (
                                             <tr key={cartUser.id}>
                                                 <td className="shopee-product">
-                                                    <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt={cartUser.product_name} />
-                                                    <span>{cartUser.product_name}</span>
+                                                    <img src={convertBase64ToBlob(cartUser.image)} alt={cartUser.product_name} />
+                                                    <span>{cartUser.productName}</span>
                                                 </td>
                                                 <td>{formatCurrency(cartUser.total)}</td>
                                                 <td>{cartUser.quantity}</td>

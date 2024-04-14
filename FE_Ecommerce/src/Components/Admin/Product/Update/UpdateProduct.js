@@ -362,7 +362,7 @@ const UpdateProduct = () => {
                         className="form-control"
                       >
                         {listCategory?.map((categories) =>(
-                          <option key={categories.id} value={categories.id}>{categories.name}</option>
+                          <option key={categories.id} value={categories.id}>{categories.nameCategory}</option>
                         ))}
                       </select>
                   </div>

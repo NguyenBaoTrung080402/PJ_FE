@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar/SideBar';
 import { f_getCartItemPurchased_api } from '../../config/api';
 import { toast } from 'react-toastify';
-import { formatCurrency, formatDateTime } from '../../Validate/Validate';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCheckCircle, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons';
+import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faShoppingBasket  } from '@fortawesome/free-solid-svg-icons';
 import './Confirmed.css';
 const Confirmed = () => {
     const [listCart, setListCart] = useState([]);
@@ -39,7 +39,7 @@ const Confirmed = () => {
         if (status === "Confirmed") {
             formattedStatus = "ĐÃ XÁC NHẬN ĐƠN HÀNG";
             buttonClass += "status-btn-primary";
-            // icon = <FontAwesomeIcon icon={faCheckCircle} />;
+            icon = <FontAwesomeIcon icon={faCheckCircle} />;
         }
     
         return formattedStatus ? (
@@ -66,7 +66,7 @@ const Confirmed = () => {
                                             </div>
                                         ) : listCart && listCart.length === 0 ? (
                                             <div className="text-center py-5">
-                                                {/* <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" /> */}
+                                                <FontAwesomeIcon icon={faShoppingBasket} className="empty-cart-icon" />
                                                 <h3>No Confirmed Items</h3>
                                                 <p className="mt-3">You haven't confirmed any items yet.</p>
                                             </div>
@@ -85,7 +85,7 @@ const Confirmed = () => {
                                                     {listCart.map((cartUser) => (
                                                         <tr key={cartUser.id} className='fadeIn' style={{verticalAlign: "middle"}}>
                                                             <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                                                <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
+                                                                <img src={convertBase64ToBlob(cartUser.image)} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
                                                                 {cartUser.product_name}
                                                             </td>
                                                             <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
