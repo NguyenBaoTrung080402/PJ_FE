@@ -58,19 +58,7 @@ img {
 .text-main {
   color: var(--color-main);
 }
-/*
-Sidebar
-*/
-.sidebar {
-  width: 345px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  padding: 1rem 1.2rem;
-  transition: left 300ms;
-}
+
 .sidebar-container {
   height: 100%;
   width: 100%;
@@ -190,7 +178,6 @@ Sidebar
 }
 /* main */
 .main-content {
-  margin-left: 345px;
   width: calc(100vw - 345px);
   padding: 1rem 2rem 1.2rem 1.2rem;
   transition: margin-left 300ms;

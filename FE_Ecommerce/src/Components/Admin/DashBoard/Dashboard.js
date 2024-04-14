@@ -59,6 +59,9 @@ const Dashboard = () => {
         });
       };
       
+
+    // Call initializeChart on component mount
+    initializeChart();
   }, []);
 
   return (
