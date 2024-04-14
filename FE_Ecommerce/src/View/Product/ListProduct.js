@@ -1,20 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { f_getAllProduct_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import "./listProduct.css"
 import Pagination from "react-paginate"
-import { convertBase64ToBlob, formatCurrency } from '../../Validate/Validate';
+import { formatCurrency } from '../../Validate/Validate';
 import { useLocation } from 'react-router-dom';
+import { f_getAllProductId_api } from '../../config/api';
 
-const ListProduct = () => {
+const ListProduct = (colors, sizes) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [products, setProducts] = useState([])
     const [page, setPage] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
     const location = useLocation();
-    
+    const [listColor, setListColor] = useState();
+    const [listSizes, setListSizes] = useState();
+    const [productId, setProductsId] = useState({
+        name: "",
+        slug: "",
+        description: "",
+        information: '',
+        summary: "",
+        stock:"",
+        price: "",
+        discounted_price: "",
+        image: "",
+        status:"",
+        sizeName: "",
+        colorName: "",
+      });
+
+        //get product by id
+        const {id} = useParams();
+        const getProductById = async() =>{
+            setIsLoading(true)
+            try {
+              const res = await f_getAllProductId_api(id);
+              if(res.data.status === 'not found'){
+                toast.warning(res.data.message);
+              }else if(res.data.status === 'success'){
+                setProductsId(res.data.result.product)
+                setListColor(res.data.result.colors)
+                setListSizes(res.data.result.sizes)
+              }
+            } catch (error) {
+              toast.error(error.message)
+            }finally{
+              setIsLoading(false)
+            }
+          }
+          
+          useEffect(()=>{
+            getProductById()
+          },[])
+
         // get all product        
         useEffect(() => {
             const fetchProducts = async () => {
@@ -94,15 +135,28 @@ const ListProduct = () => {
             setSearchResults(filteredProducts);
         };
 
-        // const convertBase64ToBlob = (base64String) => {
-        //     const binaryString = window.atob(base64String.split(',')[1]);
-        //     const bytes = new Uint8Array(binaryString.length);
-        //     for (let i = 0; i < binaryString.length; i++) {
-        //       bytes[i] = binaryString.charCodeAt(i);
-        //     }
-        //     const blob = new Blob([bytes], { type: 'image/jpeg' });
-        //     return URL.createObjectURL(blob);
-        // };
+        const handleCheckboxChangeByColor = (event) => {
+            const selectedColor = event.target.value;
+            let filteredProducts = [];
+           if (selectedColor === "all"){
+            filteredProducts = products;
+           } else{
+            filteredProducts = products.filter(product => product.nameColor === selectedColor);
+           }
+           setSearchResults(filteredProducts);
+        }
+
+        const handleCheckboxChangeBySize = (event) => {
+            const selectedSize = event.target.value;
+            let filteredProducts = [];
+           if (selectedSize === "all"){
+            filteredProducts = products;
+           } else{
+            filteredProducts = products.filter(product => product.nameSize === selectedSize);
+           }
+           setSearchResults(filteredProducts);
+        }
+        
   return (
     <>
     <div className="container-fluid">
@@ -154,27 +208,27 @@ const ListProduct = () => {
                 <div className="bg-light p-4 mb-30">
                     <form>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" checked id="color-all"/>
+                            <input type="checkbox" className="custom-control-input" checked id="color-all" value="all" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="price-all">All Color</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="color-1"/>
+                            <input type="checkbox" className="custom-control-input" id="color-1" value="1" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="color-1">Black</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="color-2"/>
+                            <input type="checkbox" className="custom-control-input" id="color-2" value="2" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="color-2">White</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="color-3"/>
+                            <input type="checkbox" className="custom-control-input" id="color-3" value="3" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="color-3">Red</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="color-4"/>
+                            <input type="checkbox" className="custom-control-input" id="color-4" value="4" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="color-4">Blue</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" className="custom-control-input" id="color-5"/>
+                            <input type="checkbox" className="custom-control-input" id="color-5" value="5" onChange={handleCheckboxChangeByColor}/>
                             <label className="custom-control-label" htmlFor="color-5">Green</label>
                         </div>
                     </form>
@@ -184,27 +238,27 @@ const ListProduct = () => {
                 <div className="bg-light p-4 mb-30">
                     <form>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" checked id="size-all"/>
+                            <input type="checkbox" className="custom-control-input" checked id="size-all" value="all" onChange={handleCheckboxChangeBySize}/>
                             <label className="custom-control-label" htmlFor="size-all">All Size</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="size-1"/>
+                            <input type="checkbox" className="custom-control-input" id="size-1" value="1" onChange={handleCheckboxChangeBySize}/>
                             <label className="custom-control-label" htmlFor="size-1">XS</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="size-2"/>
+                            <input type="checkbox" className="custom-control-input" id="size-2" value="2" onChange={handleCheckboxChangeBySize}/>
                             <label className="custom-control-label" htmlFor="size-2">S</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="size-3"/>
+                            <input type="checkbox" className="custom-control-input" id="size-3" value="3" onChange={handleCheckboxChangeBySize}/>
                             <label className="custom-control-label" htmlFor="size-3">M</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" className="custom-control-input" id="size-4"/>
+                            <input type="checkbox" className="custom-control-input" id="size-4" value="4" onChange={handleCheckboxChangeBySize} />
                             <label className="custom-control-label" htmlFor="size-4">L</label>
                         </div>
                         <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" className="custom-control-input" id="size-5"/>
+                            <input type="checkbox" className="custom-control-input" id="size-5" value="5" onChange={handleCheckboxChangeBySize}/>
                             <label className="custom-control-label" htmlFor="size-5">XL</label>
                         </div>
                     </form>
@@ -251,7 +305,7 @@ const ListProduct = () => {
                                 <div className="col-lg-4 col-md-6 col-sm-6 pb-1">
                                     <div className="product-item bg-light mb-4">
                                         <div className="product-img position-relative overflow-hidden">
-                                            <img className="img-fluid w-100" style={{height: "300px"}} src={convertBase64ToBlob(listProduct.image)} alt=""/>
+                                            <img className="img-fluid w-100" style={{height: "300px"}} src={`http://127.0.0.1:8000/${listProduct.image}`} alt=""/>
                                             <div className="product-action">
                                                 <Link className="btn btn-outline-dark btn-square" to={`/product-detail/${listProduct.id}`}><i className="fa fa-search"></i></Link>
                                             </div>
