@@ -40,10 +40,10 @@ const Home = () => {
     },[])
 
     // get all product
-    const getAllProducts = async(pageNumber = 1) =>{
+    const getAllProducts = async(pageNumber = 0, size= 8) =>{
         setIsLoading(true)
         try {
-          const res = await f_getAllProduct_api(pageNumber);
+          const res = await f_getAllProduct_api(pageNumber, size);
           if(res.data.status === "not found"){
             toast.warning(res.data.message)
           }else if(res.data.status === "error"){
