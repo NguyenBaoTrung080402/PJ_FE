@@ -25,6 +25,7 @@ import Cancelled from "./View/Cancelled/Cancelled";
 import Purchased from "./View/Purchased/Purchased";
 import Shipping from "./View/Shipping/Shipping";
 import Confirmed from "./View/Confirmed/Confirmed";
+import Processing from "./View/Processing/Processing";
 import React, { createContext, useState, useContext } from 'react';
 
 function App () {
@@ -69,7 +70,7 @@ function App () {
           <Route path="/purchased" element={<Purchased />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/confirmed" element={<Confirmed />} />
-          
+          <Route path="/processing" element={<Processing />} />
         </Routes>
       {showHeaderFooter && (<Footer/>)}
       <ToastContainer

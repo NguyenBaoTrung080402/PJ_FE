@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import { f_getAllCategory_api } from '../../config/api';
 import { toast } from 'react-toastify';
-
+import { f_getCartItem_api } from '../../config/api';
 const Navbar = () => {
     const token = localStorage.getItem('token');
     const [listCategories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate()
+    const [cartItem, setCartItem] = useState()
 
     const handleCartClick = () => {
         if (!token) {
@@ -18,7 +19,25 @@ const Navbar = () => {
             navigate("/cart");
         }
     };
+    const totalItems = cartItem?.reduce((total, item) => total + parseFloat(item.quantityProduct), 0);
+    const getCartItem = async() =>{
+        setIsLoading(true);
+        
+        try {
+            const res = await f_getCartItem_api();
+            if(res.data.status === 'success'){
+                setCartItem(res.data.result);
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }finally{
+            setIsLoading(false);
+        }
+    }
     
+    useEffect(()=>{
+        getCartItem()
+    },[])
   // get all categories
   const getListCategories = async() =>{
     setIsLoading(true);
@@ -104,7 +123,7 @@ const Navbar = () => {
                         <div className="navbar-nav ml-auto py-0 d-none d-lg-block" onClick={handleCartClick}>
                             <Link to="cart" className="btn px-0 ml-3" >
                                 <i className="fas fa-shopping-cart text-primary"></i>
-                                <span className="badge text-secondary border border-secondary rounded-circle" style={{paddingBottom: "2px"}}>0</span>
+                                <span className="badge text-secondary border border-secondary rounded-circle" style={{paddingBottom: "2px"}}>{totalItems}</span>
                             </Link>
                         </div>
                     </div>

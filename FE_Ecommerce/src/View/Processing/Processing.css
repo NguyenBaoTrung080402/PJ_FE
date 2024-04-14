@@ -1,0 +1,62 @@
+.shopee-page-wrapper {
+    display: flex;
+}
+
+.shopee-container {
+    display: flex;
+    flex: 1;
+}
+
+.shopee-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.shopee-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.shopee-heading {
+    margin-bottom: 20px;
+}
+
+.shopee-table-responsive {
+    overflow-x: auto;
+}
+
+.shopee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shopee-table th,
+.shopee-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.shopee-table th:first-child,
+.shopee-table td:first-child {
+    padding-left: 20px;
+}
+
+.shopee-product img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.shopee-status {
+    color: #bb0000; /* Cancelled status color */
+}
+
+/* Loading and Empty State Messages */
+.shopee-loading-row,
+.shopee-empty-row {
+    text-align: center;
+}
