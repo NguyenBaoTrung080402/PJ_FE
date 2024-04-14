@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import SideBar from '../SideBar/SideBar'
-import { f_getCartItemCancel_api } from '../../config/api'
-import { toast } from 'react-toastify'
-import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
+import React, { useEffect, useState } from 'react';
+import SideBar from '../SideBar/SideBar';
+import { f_getCartItemCancel_api } from '../../config/api';
+import { toast } from 'react-toastify';
+import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate';
 import './Cancelled.css';
 
 const Cancelled = () => {
@@ -64,40 +64,25 @@ const Cancelled = () => {
                                         </tr>
                                     ) : (
                                         listCart.map((cartUser) => (
-                                            <tr key={cartUser.id}>
-                                                <td className="shopee-product">
-                                                    <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt={cartUser.product_name} />
-                                                    <span>{cartUser.product_name}</span>
+                                            <tr key={cartUser.id} className='fadeIn' style={{ verticalAlign: "middle" }}>
+                                                <td style={{ verticalAlign: "middle" }} className='d-flex align-items-center'>
+                                                    <img
+                                                        src={convertBase64ToBlob(cartUser.image)}
+                                                        alt=""
+                                                        className='mx-5'
+                                                        style={{ width: "80px", height: "80px" }}
+                                                    />
+                                                    {cartUser.productName}
                                                 </td>
-                                                <td>{formatCurrency(cartUser.total)}</td>
-                                                <td>{cartUser.quantity}</td>
-                                                <td>{formatDateTime(cartUser.created_at)}</td>
-                                                <td className="shopee-status">{statusFormat(cartUser.status)}</td>
+                                                <td style={{ verticalAlign: "middle" }}>{formatCurrency(cartUser.total)}</td>
+                                                <td style={{ verticalAlign: "middle" }}>{(cartUser.quantity)}</td>
+                                                <td style={{ verticalAlign: "middle" }}>{formatDateTime(cartUser.created_at)}</td>
+                                                <td style={{ verticalAlign: "middle", color: "#BB0000" }}>{statusFormat(cartUser.status)}</td>
                                             </tr>
-                                        ) : listCart && listCart.length === 0 ? (
-                                            <tr className="d-flex justify-content-center">
-                                                <td colSpan="5">No Data</td>
-                                            </tr>
-                                        ) : (
-                                            listCart && listCart.map((cartUser) => (
-                                                <tr className='fadeIn' key={cartUser.id} style={{verticalAlign: "middle"}}>
-                                                    <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                                        <img 
-                                                        src={convertBase64ToBlob(cartUser.image)} 
-                                                        alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
-                                                        {cartUser.productName}
-                                                    </td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{(cartUser.quantity)}</td>
-                                                    <td style={{verticalAlign: "middle"}}>{formatDateTime(cartUser.created_at)}</td>
-                                                    <td style={{verticalAlign: "middle", color: "#BB0000"}}>{statusFomat(cartUser.status)}</td>
-                                                </tr>
-                                            ))
-                                        )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
