@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SideBar from '../SideBar/SideBar'
 import { f_getCartItemPurchased_api } from '../../config/api'
 import { toast } from 'react-toastify'
-import { formatCurrency, formatDateTime } from '../../Validate/Validate'
+import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate'
 
 const Purchased = () => {
     const [listCart, setListCart] = useState([])
@@ -71,8 +71,10 @@ const Purchased = () => {
                                             listCart && listCart.map((cartUser) => (
                                                 <tr className='fadeIn' key={cartUser.id} style={{verticalAlign: "middle"}}>
                                                     <td style={{verticalAlign: "middle"}} className='d-flex align-items-center'>
-                                                        <img src={`http://127.0.0.1:8000/${cartUser.product_image}`} alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
-                                                        {cartUser.product_name}
+                                                        <img 
+                                                        src={convertBase64ToBlob(cartUser.image)} 
+                                                        alt="" className='mx-5' style={{ width: "80px", height: "80px" }} />
+                                                        {cartUser.productName}
                                                     </td>
                                                     <td style={{verticalAlign: "middle"}}>{formatCurrency(cartUser.total)}</td>
                                                     <td style={{verticalAlign: "middle"}}>{(cartUser.quantity)}</td>

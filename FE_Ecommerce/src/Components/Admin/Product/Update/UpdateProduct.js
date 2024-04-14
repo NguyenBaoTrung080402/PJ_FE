@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { f_getAllBrands_api, f_getAllCategory_api, f_getAllColor_api, f_getAllProductId_api, f_getAllSize_api } from '../../../../config/api';
 import { toast } from 'react-toastify';
 import axios from '../../../../config/customAxios'
+import { convertBase64ToBlob } from '../../../../Validate/Validate';
 
 const UpdateProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -159,9 +160,6 @@ const UpdateProduct = () => {
     }
     setProductData({...productData, image: selectedImage});
   };
-
-
-  
 
   // update
   const handleUpdateProduct = async () => {
@@ -332,8 +330,7 @@ const UpdateProduct = () => {
                         id={color.name} 
                         className="checkbox" 
                         type="checkbox" 
-                        value={color.id}
-                        // onChange={(e) => setProductData({...productData, colorsId: e.target.value})}
+                        value={color.id}                        
                         onChange={() => handleColorChange(color.id)}
                         checked={productData.colorId.includes(color.id)}
                         />
@@ -394,7 +391,7 @@ const UpdateProduct = () => {
                       value={size.id}
                       // onChange={(e) => setProductData({...productData, sizeId: e.target.value})}
                       onChange={() => handleSizeChange(size.id)}
-                      checked={productData.sizeId.includes(size.id)}
+                      checked={productData?.sizeId.includes(size.id)}
                       />
                     </div>
                     )
@@ -411,7 +408,9 @@ const UpdateProduct = () => {
                     {previewImage ? (
                       <img src={previewImage} alt="Xem trước" style={{ marginTop: '10px', maxWidth: '100%' }} />
                     ):(
-                      <img src={`http://127.0.0.1:8000/${productData.image}`} alt="bug" style={{ marginTop: '10px', maxWidth: '100%' }}/>
+                      <img 
+                      src={convertBase64ToBlob(productData.image)} 
+                      alt="bug" style={{ marginTop: '10px', maxWidth: '100%' }}/>
                     )}
                   </div>
               </div>

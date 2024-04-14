@@ -5,6 +5,8 @@ import "./update.css";
 import SideBar from "../SideBar/SideBar";
 import { toast } from "react-toastify";
 import axios from '../../config/customAxios'
+import { convertBase64ToBlob, formatDateTime } from "../../Validate/Validate";
+import moment from 'moment';
 
 const UpdateUser = () => {
   const token = localStorage.getItem("token");
@@ -14,7 +16,7 @@ const UpdateUser = () => {
   const [loadingApi, setLoadingApi] = useState(false);
   const [nameUpdate, setName] = useState(currentUser.name);
   const [dob, setDob] = useState(currentUser.dob);
-  const [phone, setPhone] = useState(currentUser.phone);
+  const [phone, setPhone] = useState(currentUser.tel);
   const [address, setAddress] = useState(currentUser.address);
   const [selectedGender, setSelectedGender] = useState(currentUser.gender);
   const [avatar, setAvatar] = useState(currentUser.avatar);
@@ -105,7 +107,7 @@ const UpdateUser = () => {
                       <ul>
                         <li>
                           <img
-                            src={`http://127.0.0.1:8000/${currentUser.avatar}`}
+                            src={convertBase64ToBlob(currentUser.avatar)}
                             // src={currentUser.avatar}
                             className="avatar img-circle img-thumbnail"
                             alt="avatar"
@@ -157,7 +159,7 @@ const UpdateUser = () => {
                             name="dob"
                             type="date"
                             className="form-control"
-                            value={dob}
+                            value={moment(dob, 'YYYYMMDD').format('MM/DD/YYYY')}
                             onChange={(e) => setDob(e.target.value)}
                           />
                         </div>

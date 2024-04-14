@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { f_getAllProduct_api } from '../../config/api';
 import ListProduct from '../../View/Product/ListProduct';
+import { convertBase64ToBlob } from '../../Validate/Validate';
 
 
 const TopBar = () => {
@@ -68,9 +69,9 @@ const TopBar = () => {
                                 {currentAccount ? (
                                     <>
                                     <span>Hello, {currentAccount.name}</span>
-                                    {currentAccount.avatar && (
+                                    {currentAccount?.avatar && (
                                         <img
-                                        src={`http://127.0.0.1:8000/${currentAccount.avatar}`}
+                                        // src={convertBase64ToBlob(currentAccount.avatar)}
                                         alt="avatar"
                                         style={{ width: "7%", borderRadius: "50%" }}
                                         className='img-avtar mx-1'

@@ -96,8 +96,14 @@ const AddProduct = () => {
 
 
   const handleCreate = async() =>{
-    if(!nameProduct || !slugProduct || !descriptionProduct || !informationProduct || !summaryProduct || !priceProduct || !discountedPriceProduct || !stockProduct){
+    if(!nameProduct || !slugProduct || !descriptionProduct || !informationProduct 
+      || !summaryProduct || !priceProduct || !discountedPriceProduct || !stockProduct
+      || !selectedColors || !selectedSizes
+    ){
       toast.warning('Input not blank, Please')
+      return
+    }else if(!imgProduct){
+      toast.warning('Please choose image')
       return
     }
 
