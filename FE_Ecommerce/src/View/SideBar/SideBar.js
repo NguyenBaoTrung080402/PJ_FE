@@ -65,6 +65,18 @@ const SideBar = () => {
             <li className="sidebar-item">
               <NavLink
                 className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
+                to="/processing"
+                aria-expanded="false"
+              >
+                <span className="mx-3">
+                  <i className="fa-solid fa-spinner"></i>
+                </span>
+                <span className="hide-menu">Processing</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink
+                className="sidebar-link nav-link nav-item active text-dark mx-3 py-3 sidebar-hover"
                 to="/shipping"
                 aria-expanded="false"
               >
