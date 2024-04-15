@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar/SideBar';
-import { f_getCartItemPurchased_api } from '../../config/api';
+import { f_getCartItemComfirmed_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import { convertBase64ToBlob, formatCurrency, formatDateTime } from '../../Validate/Validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ const Confirmed = () => {
     const getConfirmedCart = async() => {
         setIsLoading(true);
         try {
-            const res = await f_getCartItemPurchased_api();
+            const res = await f_getCartItemComfirmed_api();
             if(res.data.status === 'not found'){
                 toast.warning(res.data.message);
             }

@@ -17,7 +17,9 @@ const Home = () => {
     const [listCategories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [products, setProducts] = useState([])
-    
+    const userEmail = localStorage.getItem('user_email');
+  const userName = localStorage.getItem('user_name');
+  const userImageUrl = localStorage.getItem('user_image_url');
     // get all categories
     const getListCategories = async() =>{
         setIsLoading(true);

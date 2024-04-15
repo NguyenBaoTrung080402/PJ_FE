@@ -12,6 +12,7 @@ const ProductDetails = () => {
   const [listColor, setListColor] = useState()
   const [listSize, setListSizes] = useState()
   const [activeTab, setActiveTab] = useState("tab-pane-1");
+  
   const [productId, setProductsId] = useState({
     name: "",
     slug: "",
@@ -25,6 +26,7 @@ const ProductDetails = () => {
     status:"",
     sizeName: "",
     colorName: "",
+    quantity:"",
   });
   const [isLoading, setIsLoading] = useState(false)
   const { id } = useParams();
@@ -79,7 +81,8 @@ const ProductDetails = () => {
       }else if(res.data.status === 'Conflict'){
         toast.error(res.data.message)
       }else if(res.data.status === 'success'){
-        toast.success(res.data.message)
+        window.history.go(0);
+        toast.success(res.data.message);
       }
     } catch (error) {
       toast.error(error.message)
@@ -89,6 +92,17 @@ const ProductDetails = () => {
   }
   const getProduct = () =>{}
   
+  //tăng giảm product 
+  const handleQuantityIncrement = () => {
+    while (productId.quantity <100){    
+      setProductsId({ ...productId, quantity: productId.quantity + 1 });
+  }};
+  
+  const handleQuantityDecrement = () => {
+    if (productId.quantity > 1) {
+      setProductsId({ ...productId, quantity: productId.quantity - 1 });
+    }
+  };
   return (
     <>
     <div class="container-fluid">
@@ -169,22 +183,21 @@ const ProductDetails = () => {
                       </div>
                   </div>
                   <div class="d-flex align-items-center mb-4 pt-2">
-                      <div class="input-group quantity mr-3" style={{width: "130px"}}>
-                          <div class="input-group-btn">
-                              <button class="btn btn-primary btn-minus">
-                                  <i class="fa fa-minus"></i>
-                              </button>
-                          </div>
-                          <input type="text" class="form-control bg-secondary border-0 text-center" value="1"/>
-                          <div class="input-group-btn">
-                              <button class="btn btn-primary btn-plus">
-                                  <i class="fa fa-plus"></i>
-                              </button>
-                          </div>
-                      </div>
-                      <button class="btn btn-primary px-3" onClick={handleAddToCart}><i class="fa fa-shopping-cart mr-1"></i> Add To
-                          Cart</button>
-                  </div>
+                <div class="input-group quantity mr-3" style={{width: "130px"}}>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-minus" onClick={handleQuantityDecrement}>
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control bg-secondary border-0 text-center" value={productId.quantity} onChange={(e) => setProductsId({ ...productId, quantity: parseInt(e.target.value) || 1 })}/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-plus" onClick={handleQuantityIncrement}>
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary px-3" onClick={handleAddToCart}><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+            </div>
                   <div class="d-flex pt-2">
                       <strong class="text-dark mr-2">Share on:</strong>
                       <div class="d-inline-flex">

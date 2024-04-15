@@ -87,8 +87,14 @@ const f_getCartItemCancel_api = () =>{
 const f_getCartItemShipping_api = () =>{
   return axios.get("/order/get-order-shipping")
 }
-const f_getAllOrder_api = (page, size) =>{
-  return axios.get(`/order/get-all-order?page=${page}&size=${size}`)
+const f_getCartItemComfirmed_api = () =>{
+  return axios.get("/order/get-order-confirmed")
+}
+const f_getCartItempProcessing_api = () =>{
+  return axios.get("/order/get-order-processing")
+}
+const f_getAllOrder_api = () =>{
+  return axios.get(`/order/get-all-order`)
 }
 const f_getAllSize_api = () =>{
   return axios.get(`/sizes/get-all-size`)
@@ -127,5 +133,7 @@ export {
   f_getCartItemCancel_api,
   f_getCartItemShipping_api,
   f_getAllSize_api,
-  f_getAllColor_api
+  f_getAllColor_api,
+  f_getCartItemComfirmed_api,
+  f_getCartItempProcessing_api
 };
