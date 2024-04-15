@@ -112,9 +112,9 @@ const TopBar = () => {
             </div>
             <div className="col-lg-4 col-6 text-left">
                 <form action="">
-                    <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Search for products" onChange={(e) => setQuery(e.target.value)} />
-                        <button onClick={handleSearch}>Search</button>
+                    <div className="search">
+                        <input type="text" className="form-control search-input" placeholder="Search for products" onChange={(e) => setQuery(e.target.value)} />
+                        <button className="btn-search" onClick={handleSearch}>Go</button>
                     </div>
                 </form>
             </div>

@@ -133,7 +133,7 @@ const Cart = () => {
                                 <td class="align-middle">{cart.size}</td>
                                 <td class="align-middle">{cart.color}</td>
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto" style={{ width: "100px" }}>
+                                    <div class="input-group quantity mx-auto d-flex flex-row w-50">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-primary btn-minus">
                                                 <i class="fa fa-minus"></i>
@@ -174,14 +174,14 @@ const Cart = () => {
             </div>
             )}
             <div class="col-lg-4">
-                <form class="mb-30" action="">
+                <div class="mb-30" action="">
                     <div class="input-group">
                         <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code"/>
                         <div class="input-group-append">
                             <button class="btn btn-primary">Apply Coupon</button>
                         </div>
                     </div>
-                </form>
+                </div>
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
                 <div class="bg-light p-30 mb-5 bounceIn">
                     <div class="border-bottom pb-2">

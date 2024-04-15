@@ -11,7 +11,42 @@
 .logout-btn:active{
     transform: scale(0.9);
 }
-
+.search {
+    border-radius: 20px;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .search .search-input {
+    width: 400px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search .btn-search {
+    background-color: #4e99e9;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 7px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .9s ease;
+  }
+  .btn-search:focus{
+    outline: none;
+  }
+  .search .btn-search:hover {
+    transform: scale(1.1);
+    color: rgb(255, 255, 255);
+    background-color: blue;
+  }
+  
 @media screen and (max-width: 768px) {
     .img-avtar{
         display: none;

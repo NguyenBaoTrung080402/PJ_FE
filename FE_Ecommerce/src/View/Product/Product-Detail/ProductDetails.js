@@ -26,7 +26,7 @@ const ProductDetails = () => {
     status:"",
     sizeName: "",
     colorName: "",
-    quantity:"",
+    quantity: 1,
   });
   const [isLoading, setIsLoading] = useState(false)
   const { id } = useParams();
