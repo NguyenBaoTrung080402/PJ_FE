@@ -94,9 +94,9 @@ const ProductDetails = () => {
   
   //tăng giảm product 
   const handleQuantityIncrement = () => {
-    
-    setProductsId({ ...productId, quantity: productId.quantity + 1 });
-  };
+    while (productId.quantity <100){    
+      setProductsId({ ...productId, quantity: productId.quantity + 1 });
+  }};
   
   const handleQuantityDecrement = () => {
     if (productId.quantity > 1) {

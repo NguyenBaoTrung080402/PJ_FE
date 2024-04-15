@@ -160,6 +160,7 @@ header h2 {
   align-items: center;
   visibility: hidden;
   font-size: 1.35rem;
+  margin-right: 50px;
 }
 .chat-input textarea:valid ~ span {
   visibility: visible;
@@ -188,6 +189,50 @@ header h2 {
     display: block;
   }
 }
+.social-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 2;
+      margin-left:20px;
+    }
+
+    .social-buttons a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background-color: #3b5998; /* Màu của Facebook */
+      transition: background-color 0.3s ease;
+    }
+
+    .social-buttons a.instagram {
+      background-color: #e4405f; /* Màu của Instagram */
+    }
+
+    .social-buttons a i {
+      font-size: 20px;
+      color: #fff; /* Màu của biểu tượng */
+    }
+
+    .social-buttons a:hover {
+      background-color: #29487d; /* Màu hover của Facebook */
+    }
+
+    .social-buttons a.instagram:hover {
+      background-color: #e1306c; /* Màu hover của Instagram */
+    }
+
+    @media (max-width: 768px) {
+      .social-buttons {
+        right: 10px;
+      }
+    }
   </style>
   
   <head>
@@ -195,6 +240,7 @@ header h2 {
     <link rel="icon" href="%PUBLIC_URL%/logo-multi.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <meta
@@ -250,7 +296,16 @@ header h2 {
         <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
         <span id="send-btn" class="material-symbols-rounded">send</span>
       </div>
-    </div>
+      <div class="social-buttons">
+        <!-- Nút Facebook -->
+        <a href="https://www.facebook.com/" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <!-- Nút Instagram -->
+        <a class="instagram" href="https://www.instagram.com/" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
   </body>
   <script>
     const chatbotToggler = document.querySelector(".chatbot-toggler");
@@ -270,16 +325,24 @@ const createChatLi = (message, className) => {
 }
 
 const handleChat = () => {
-    userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+    userMessage = chatInput.value.trim(); // Lấy tin nhắn từ người dùng và loại bỏ khoảng trắng thừa
     if (!userMessage) return;
 
-    // Clear the input textarea
+    // Xóa nội dung trong ô nhập tin nhắn
     chatInput.value = "";
 
-    // Append the user's message to the chatbox
+    // Thêm tin nhắn của người dùng vào chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
+
+    // Phản hồi lại với tin nhắn mặc định
+    const defaultReply = "Currently, the caregiver is busy, you can contact directly via Facebook or Instagram for faster support. Thank you";
+    setTimeout(() => {
+        chatbox.appendChild(createChatLi(defaultReply, "incoming"));
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }, 1000); // Sau 1 giây
 }
+
 
 const handleAdminReply = (adminMessage) => {
     // Append the admin's message to the chatbox

@@ -9,6 +9,8 @@ import { f_login_api } from '../../config/api';
 import axios from "../../config/customAxios"
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import { gapi } from 'gapi-script';
+
 function Login() {
   const [focusedInput, setFocusedInput] = useState(null);
   const [username, setUsername] = useState('');
@@ -74,14 +76,24 @@ function Login() {
   const responseGoogle = (response) => {
     if (response.profileObj) {
       const { email, name, imageUrl } = response.profileObj;
+      toast.success(response.data.message);
       console.log("Google response:", response);
       console.log("Email:", email);
       console.log("Name:", name);
       console.log("Image URL:", imageUrl);
+  
+      // Lưu thông tin người dùng vào localStorage
+      localStorage.setItem('user_email', email);
+      localStorage.setItem('user_name', name);
+      localStorage.setItem('user_image_url', imageUrl);
+      
+      // Chuyển hướng đến trang chính
+      navigate('/');
     } else {
       console.log("Google login failed");
     }
   };
+  
 
   const responseFacebook = (response) => {
     if (response.status === 'connected') {
@@ -101,9 +113,31 @@ function Login() {
     if (token) {
       navigate('/');
     }
-  }, [navigate])
+  }, [navigate]);
   
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: ""
+      }).then(() => {
+        const auth2 = gapi.auth2.getAuthInstance();
+        if (auth2.isSignedIn.get()) {
+          const profile = auth2.currentUser.get().getBasicProfile();
+          const email = profile.getEmail();
+          const name = profile.getName();
+
+          // Thực hiện các hành động sau khi đăng nhập thành công, ví dụ: lưu thông tin người dùng vào localStorage
+          // Sau đó chuyển hướng đến trang chính
+          navigate('/');
+        }
+      }).catch((error) => {
+        console.error('Error initializing Google Auth:', error);
+      });
+    }
   
+    gapi.load('client:auth2', start);
+  }, [navigate]);
 
   return (
     <div className="container-login">

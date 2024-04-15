@@ -23,11 +23,11 @@ const User = () => {
   const [listUser, setListUser] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const getListUser = async (pageNumber = 1) =>{
+  const getListUser = async (pageNumber = 0, size = 10) =>{
     setIsLoading(true)
     try {
       // const res = await axios.get(`/account/get-all-user/${pageNumber}`);
-      const res = await f_getAllUser_api(pageNumber);
+      const res = await f_getAllUser_api(pageNumber, size);
       if(res.data.status === 'not found'){
         toast.warning(res.data.message)
       }else if(res.data.status === 'success'){
@@ -42,7 +42,7 @@ const User = () => {
   }
 
   React.useEffect(()=>{
-    getListUser()
+    getListUser(0, 10)
   }, [])
 
   const makeStyle=(role)=>{
@@ -225,10 +225,10 @@ const User = () => {
             )}
             </Table>
             <Pagination
-                pageCount={page.last_page}
+                pageCount={page.totalPages}
                 pageRangeDisplayed={5}
                 marginPagesDisplayed={2}
-                onPageChange={({ selected }) => getListUser(selected + 1)}
+                onPageChange={({ selected }) => getListUser(selected + 0, 10)}
                 containerClassName={'pagination'}
                 activeClassName={'active'}
             />

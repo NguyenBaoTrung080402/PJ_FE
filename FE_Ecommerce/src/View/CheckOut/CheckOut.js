@@ -3,6 +3,7 @@ import { f_getCartItemByUser_api, f_order_api } from '../../config/api';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from "../../Validate/Validate";
+
 const CheckOut = () => {
   const currentAccount = JSON.parse(localStorage.getItem('current-account'));
   const [data, setData] = useState([])
@@ -40,22 +41,23 @@ const CheckOut = () => {
     getListCart()
   },[])
 
-  const handleOrder =  async() =>{
-    setIsLoading(true)
+  const handleOrder = async () => {
+    setIsLoading(true);
     try {
-        const res = await f_order_api(data.user_id, data.products_id, data.id, data.quantity)
-        if(res.data.status === 'error'){
-            toast.error(res.data.message)
-        }else if(res.data.status === 'success'){
-            toast.success(res.data.result)
-            getListCart()
+        const res = await f_order_api(data.user_id, data.products_id, data.id, data.quantity);
+        if (res.data.status === 'error') {
+            toast.error(res.data.message);
+        } else if (res.data.status === 'success') {
+            toast.success('Order Success!');
+            getListCart();
+            window.location.href = '/';
         }
     } catch (error) {
-        toast.error(error.message)
-    }finally{
-        setIsLoading(false)
+        toast.error(error.message);
+    } finally {
+        setIsLoading(false);
     }
-  }
+};
   return (
     <>
       <div className="container-fluid">
@@ -77,27 +79,27 @@ const CheckOut = () => {
                     <div className="row">
                         <div className="col-md-6 form-group">
                             <label>First Name</label>
-                            <input className="form-control" type="text" placeholder="John"/>
+                            <input className="form-control" type="text" placeholder="John" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input className="form-control" type="text" placeholder="Doe"/>
+                            <input className="form-control" type="text" placeholder="Doe" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input className="form-control" type="text" placeholder="example@email.com"/>
+                            <input className="form-control" type="text" placeholder="example@email.com" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input className="form-control" type="text" placeholder="+123 456 789"/>
+                            <input className="form-control" type="text" placeholder="+123 456 789" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Address Line 1</label>
-                            <input className="form-control" type="text" placeholder="123 Street"/>
+                            <input className="form-control" type="text" placeholder="123 Street" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Address Line 2</label>
-                            <input className="form-control" type="text" placeholder="123 Street"/>
+                            <input className="form-control" type="text" placeholder="123 Street" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>Country</label>
@@ -110,15 +112,15 @@ const CheckOut = () => {
                         </div>
                         <div className="col-md-6 form-group">
                             <label>City</label>
-                            <input className="form-control" type="text" placeholder="New York"/>
+                            <input className="form-control" type="text" placeholder="New York" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>State</label>
-                            <input className="form-control" type="text" placeholder="New York"/>
+                            <input className="form-control" type="text" placeholder="Los Angeles" required/>
                         </div>
                         <div className="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input className="form-control" type="text" placeholder="123"/>
+                            <input className="form-control" type="text" placeholder="123" required/>
                         </div>
                         <div className="col-md-12 form-group">
                             <div className="custom-control custom-checkbox">

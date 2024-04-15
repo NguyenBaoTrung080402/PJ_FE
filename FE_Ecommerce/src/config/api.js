@@ -12,8 +12,8 @@ const f_login_api = (email, password) => {
   return axios.post("account/login", { email: email, password: password });
 };
 
-const f_getAllUser_api = () => {
-  return axios.get("/account/get-all-user");
+const f_getAllUser_api = (page, size) => {
+  return axios.get(`/account/get-all-user?page=${page}&size=${size}`);
 };
 
 const f_deleteUser_api = (id) => {
@@ -53,8 +53,8 @@ const f_updateBrand_api = (id, nameBrand, slugBrand, status) =>{
   return axios.put(`/brands/update-brands/${id}`, {nameBrand: nameBrand, slugBrand: slugBrand, status: status})
 }
 
-const f_getAllProduct_api = (page=1) => {
-  return axios.get(`/product/get-all-product?size=8*page=` +(page-1))
+const f_getAllProduct_api = (page, size) => {
+  return axios.get(`/product/get-all-product?page=${page}&size=${size}`)
 }
 const f_getAllProductId_api = (id) => {
   return axios.get(`/product/get-product-id/${id}`)

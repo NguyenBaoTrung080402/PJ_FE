@@ -17,10 +17,10 @@ const AcceptOrder = () => {
         status: '',
     });
 
-    const getAllCart = async(pageNumber = 1) =>{
+    const getAllCart = async(pageNumber = 0, size = 8) =>{
         setIsLoading(true);
         try {
-            const res = await f_getAllOrder_api(pageNumber);
+            const res = await f_getAllOrder_api(pageNumber, size);
             if(res.data.status === 'not found'){
                 toast.warning(res.data.message)
             }else if (res.data.status === 'success'){
@@ -36,7 +36,7 @@ const AcceptOrder = () => {
         }
     }
     useEffect(()=>{
-        getAllCart()
+        getAllCart(0, 8)
     },[])
     // 
     const handleOpen = (id) =>{
@@ -197,10 +197,10 @@ const AcceptOrder = () => {
             )}
           </Table>
           <Pagination
-              pageCount={page.last_page}
+              pageCount={page.totalPages}
               pageRangeDisplayed={5}
               marginPagesDisplayed={2}
-              onPageChange={({ selected }) => getAllCart(selected + 1)}
+              onPageChange={({ selected }) => getAllCart(selected + 0, 8)}
               containerClassName={'pagination'}
               activeClassName={'active'}
             />

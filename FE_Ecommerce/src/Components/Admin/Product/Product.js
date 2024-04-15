@@ -78,10 +78,10 @@ const ProductAdmin = () => {
     }
   }
   // get all products
-  const getAllProducts = async(pageNumber = 1) =>{
+  const getAllProducts = async(pageNumber = 0, pageSize = 8) =>{
     setIsLoading(true)
     try {
-      const res = await f_getAllProduct_api(pageNumber);
+      const res = await f_getAllProduct_api(pageNumber, pageSize);
       if(res.data.status === "not found"){
         toast.warning(res.data.message)
       }else if(res.data.status === "error"){
@@ -100,7 +100,7 @@ const ProductAdmin = () => {
   
   
   useEffect(()=>{
-    getAllProducts()
+    getAllProducts(0, 8)
   },[])
 
   return (
@@ -221,7 +221,7 @@ const ProductAdmin = () => {
               pageCount={page.totalPages}
               pageRangeDisplayed={5}
               marginPagesDisplayed={2}
-              onPageChange={({ selected }) => getAllProducts(selected + 1)}
+              onPageChange={({ selected }) => getAllProducts(selected + 0, 8)}
               containerClassName={'pagination'}
               activeClassName={'active'}
             />
