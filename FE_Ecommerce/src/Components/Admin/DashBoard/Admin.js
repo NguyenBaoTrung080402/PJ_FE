@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import "./admin.css";
 import Sidebar from '../SideBar/SideBar';
-// import Dashboard from './Dashboard';
+import Dashboard from './Dashboard';
 const Admin = () => {
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const Admin = () => {
       <div className='admin'>
         <div className='adminGlass' style={{minHeight: "100vh"}}>
           <Sidebar/>
+          <Dashboard />
         </div>
       </div>
   );
